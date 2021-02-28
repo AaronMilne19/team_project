@@ -1,0 +1,64 @@
+/* Font for nav-title *MustVisit.com* */
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@1,900&display=swap");
+
+/* Content needs to start below navbar */
+body {
+  padding-top: 60px;
+}
+
+#navbar {
+  background-color: lightskyblue;
+  padding-bottom: 4px;
+}
+
+/* MustVisit.com title in navbar */
+
+#nav-title {
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.1em;
+  font-size: 180%;
+  color: black;
+}
+
+/* User picture in navbar */
+
+#nav-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -5px;
+}
+
+.nav-item {
+  margin-left: 1.5rem;
+  margin-right: 3rem;
+}
+
+/* Dropdown in navbar */
+
+.dropdown-item,
+.dropdown-menu {
+  text-align: center;
+  background-color: lightskyblue;
+}
+
+.dropdown-menu {
+  border-radius: 8%;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(204, 232, 250);
+}
+
+/* The loop - search button */
+
+#nav-search-button {
+  background-color: rgb(0, 170, 0);
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+#nav-search-button:hover {
+  background-color: rgb(0, 150, 0);
+}
