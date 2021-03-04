@@ -11,8 +11,6 @@ def populate():
     superuser = User.objects.get_or_create(username='admin', is_active=True, is_superuser=True, is_staff=True)[0]
     superuser.set_password('1491625')
     superuser.save()
-        
-        
 
     cities = [
     {
@@ -105,14 +103,12 @@ def populate():
         for city in City.objects.all():
             rating = CityRatings.objects.get_or_create(CityRated=city, UserRating=mvuser, Rating=random.randint(1,5))[0] 
             rating.save()
-            
-    
-            
-    
+
     
 def add_city(name, description):
     c = City.objects.get_or_create(Name=name)[0]
     c.Description = description
+    c.Views = random.randint(500,3000)
     c.save()
     return c
     
