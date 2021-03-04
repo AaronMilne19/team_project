@@ -25,8 +25,8 @@ class Attraction(models.Model):
     
     Name = models.CharField(max_length=150, unique=True)
     NameSlug = models.SlugField(unique=True)
-    CoordinateNorth = models.DecimalField(max_digits=9, decimal_places=7)
-    CoordinateEast = models.DecimalField(max_digits=9, decimal_places=7)
+    CoordinateNorth = models.DecimalField(max_digits=20, decimal_places=18, null=True)
+    CoordinateEast = models.DecimalField(max_digits=20, decimal_places=18, null=True)
     Description = models.TextField()
     HeaderPicture = models.ImageField(blank=True, upload_to='attraction_pictures')
     Views = models.IntegerField(default=0)
@@ -45,11 +45,13 @@ class MVUser(models.Model):
     SavedAttractions = models.ManyToManyField(Attraction, related_name='saves')
     ReviewedAttractions = models.ManyToManyField(Attraction, through='AttractionReviews', through_fields=('UserReviewing', 'AttractionReviewed'), related_name='reviews')
     
-    Name = models.CharField(max_length=50)
-    Surname = models.CharField(max_length=50)
-    DateOfBirth = models.DateField()
-    Email = models.EmailField()
-    Avatar = models.ImageField(blank=True, upload_to='profile_pictures')
+    Name = models.CharField(max_length=50, blank=True, null=True)
+    Surname = models.CharField(max_length=50, blank=True, null=True)
+    DateOfBirth = models.DateField(blank=True, null=True)
+    Avatar = models.ImageField(blank=True, upload_to='profile_pictures', null=True)
+    
+    class Meta(): 
+        verbose_name_plural = 'MustVisit Users' 
     
     def __str__(self):
         return self.DjangoUser.username 
@@ -59,6 +61,12 @@ class CityRatings(models.Model):
     UserRating = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep ratings from deleted users, i.e. on_delete=models.SET_NULL
     
     Rating = models.PositiveSmallIntegerField()
+    
+    class Meta(): 
+        verbose_name_plural = 'City Ratings' 
+    
+    def __str__(self):
+        return '%s rates %s %i/5' % (str(self.UserRating), str(self.CityRated), self.Rating)
     
 class AttractionReviews(models.Model):
     Likes = models.ManyToManyField(MVUser, through='ReviewLikes', related_name='likers')
@@ -75,11 +83,28 @@ class AttractionReviews(models.Model):
     Picture = models.ImageField(blank=True)
     DateAdded = models.DateTimeField(auto_now_add=True)
     
+    class Meta(): 
+        verbose_name_plural = 'Attraction Reviews'
+    
+    def __str__(self): 
+        return '%s\'s review of %s (%i/5)' % (str(self.UserReviewing), str(self.AttractionReviewed), self.Rating)
+        
+        
+    
 class ReviewLikes(models.Model):
     ReviewLiked = models.ForeignKey(AttractionReviews, on_delete=models.CASCADE)
     UserLiking = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep likes from deleted users as above
     
     Like = models.BooleanField()
+    
+    class Meta(): 
+        verbose_name_plural = 'Review Likes'
+    
+    def __str__(self):
+        if self.Like:
+            return '%s liked %s' % (str(self.UserLiking), str(self.ReviewLiked))
+        else:
+            return '%s disliked %s' % (str(self.UserLiking), str(self.ReviewLiked))  
     
     
         
