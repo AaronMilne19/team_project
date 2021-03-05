@@ -92,13 +92,14 @@ def populate():
         ],
     }
     
-    users = ['George', 'Alice', 'Peter', 'Lena', 'John', 'Julie', 'Frank', 'Christina', 'David', 'Ashley', 'Richard', 'Emily']
+    users = ['George Smith', 'Alice Brown', 'Peter Wilson', 'Lena Thomson', 'John Robertson', 'Julie Campbell', 'Frank Stewart', 'Christina Anderson', 'David Macdonald', 'Ashley Scott', 'Richard Reid', 'Emily Murray']
+    
     reviews = [
         {'Title':'Not worth the visit!', 'Comment': 'This place is incredibly overrated. Not nearly as picturesque, crowds everywhere, and weird smells all around.'},
-        {'Title':'Nothing interesting to see there', 'Comment': ''},
-        {'Title':'Quite average', 'Comment': ''},
-        {'Title':'Very nice', 'Comment': ''},
-        {'Title':'Loved it!', 'Comment': ''}
+        {'Title':'Nothing interesting to see there', 'Comment': 'I have to say that I\'ve imagined it to be much more interesting.'},
+        {'Title':'Quite average', 'Comment': 'Just as I pictured it. The local amenities could however be a bit more up to scratch.'},
+        {'Title':'Very nice', 'Comment': 'Quite beautiful. Would definitely recommend visiting.'},
+        {'Title':'Loved it!', 'Comment': 'Absolutely breathtaking. Photos don\'t do this place justice. An experience of a lifetime.'}
     ]
     
     for city in cities:
@@ -118,9 +119,9 @@ def populate():
 
   
 # Thx to https://www.kite.com/python/answers/how-to-generate-a-random-date-between-two-dates-in-python for making my life a bit easier        
-def random_date():
-    start_date = date.fromisoformat('2000-01-01')
-    time_between_dates = date.fromisoformat('2019-03-01') - start_date
+def random_date(start, end):
+    start_date = date.fromisoformat(start)
+    time_between_dates = date.fromisoformat(end) - start_date
     days_between_dates = time_between_dates.days
     random_number_of_days = random.randrange(days_between_dates)
     random_date = start_date + timedelta(days=random_number_of_days) 
@@ -141,13 +142,18 @@ def add_attraction(name, n, e, description, city):
     return a
     
 def add_user(user):
-    username = user.lower()
+    username = slugify(user)
     
     django_user = User.objects.get_or_create(username=username, email='%s@%s' % (username, 'mustvisit.com'))[0]
     django_user.set_password('11235813')
     django_user.save()
     
-    mvuser = MVUser.objects.get_or_create(DjangoUser=django_user, Name=user)[0]
+    mvuser = MVUser.objects.get_or_create(DjangoUser=django_user)[0]
+    mvuser.Name = user.split(' ')[0]
+    mvuser.Surname = user.split(' ')[1]
+    mvuser.DateOfBirth = random_date('1950-01-01', '2003-01-01')
+    if bool(random.getrandbits(1)):
+        mvuser.Avatar = "profile_pictures/" + username + ".jpg"
     mvuser.save()
     
     return mvuser
@@ -167,11 +173,11 @@ def add_save_review(attraction, user, reviews):
       Rating = how_good+1
     )[0]
     
-    review.DateVisited = random_date()
+    review.DateVisited = random_date('2000-01-01', '2019-03-01')
     review.TimeTaken = timedelta(hours=random.randint(0,5), minutes=random.randint(0,3)*15)
     review.save()
     
-    if (random.random() > 0.8):
+    if (how_good >= 3):
         user.SavedAttractions.add(attraction)
         user.save() 
             
