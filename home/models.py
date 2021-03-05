@@ -2,8 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-from datetime import datetime, timedelta
-
 class City(models.Model):
     Name = models.CharField(max_length=100, unique=True)
     NameSlug = models.SlugField(unique=True)

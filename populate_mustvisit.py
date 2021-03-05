@@ -7,6 +7,8 @@ django.setup()
 from home.models import City, Attraction, MVUser, CityRatings, AttractionReviews, ReviewLikes
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.conf import settings
+from django.template.defaultfilters import slugify
 
 from datetime import datetime, date, timedelta
 
@@ -50,7 +52,7 @@ def populate():
     # this is the dictionary template: {'Name':'', 'N':, 'E':, 'Description': ""},
     attractions = {
         'Glasgow': [
-            {'Name':'University of Glasgow', 'N':55.87364650680187, 'E':-4.284779892254786, 'Description': "The University of Glasgow is a public research university in Glasgow, Scotland. Founded by papal bull in 1451, it is the fourth-oldest university in the English-speaking world and one of Scotland's four ancient universities. Along with the universities of Edinburgh, Aberdeen, and St Andrews, the university was part of the Scottish Enlightenment during the 18th century."},
+            {'Name':'The University of Glasgow', 'N':55.87364650680187, 'E':-4.284779892254786, 'Description': "The University of Glasgow is a public research university in Glasgow, Scotland. Founded by papal bull in 1451, it is the fourth-oldest university in the English-speaking world and one of Scotland's four ancient universities. Along with the universities of Edinburgh, Aberdeen, and St Andrews, the university was part of the Scottish Enlightenment during the 18th century."},
             {'Name':'Glasgow City Chambers', 'N':55.86124917973871, 'E':-4.248861476014532, 'Description': "The City Chambers or Municipal Buildings in Glasgow, Scotland, has functioned as the headquarters of Glasgow City Council since 1996, and of preceding forms of municipal government in the city since 1889. It is located on the eastern side of the city's George Square. It is a Category A listed building."},
             {'Name':'John H. Williamson Building', 'N':55.873720376930635, 'E':-4.2926111155866495, 'Description': 'The most beautiful building on the University of Glasgow campus, bearing the name of a prominent local lecturer who has a particularly handsome cat.'},
         ],
@@ -102,39 +104,18 @@ def populate():
     for city in cities:
         c = add_city(city['Name'], city['Description'])
         for a in attractions[city['Name']]:
-            add_attraction(a['Name'], a['N'], a['E'], a['Description'], c)
-    
-    for user in users:
-        username = user.lower()
-        django_user = User.objects.get_or_create(username=username, email='%s@%s' % (username, 'mustvisit.com'))[0]
-        django_user.set_password('11235813')
-        django_user.save()
-        mvuser = MVUser.objects.get_or_create(DjangoUser=django_user, Name=user)[0]
-        mvuser.save()
+            add_attraction(a['Name'], a['N'], a['E'], a['Description'], c)  
         
+    for user in users: 
+        current_user = add_user(user)
         for city in City.objects.all():
-            rating = CityRatings.objects.get_or_create(CityRated=city, UserRating=mvuser, Rating=random.randint(1,5))[0] 
-            rating.save()
-            
+            add_rating(city, current_user)
         for attraction in Attraction.objects.all():
-            review = AttractionReviews.objects.get_or_create(AttractionReviewed=attraction, UserReviewing=mvuser)[0]
-            how_good = random.randint(0,4)
-            review.Title = reviews[how_good]['Title']
-            review.Comment = reviews[how_good]['Comment']
-            review.Rating = how_good+1
-            review.DateVisited = random_date()
-            review.TimeTaken = timedelta(hours=random.randint(0,5), minutes=random.randint(0,3)*15)
-            review.save()
-            
-            if (random.random() > 0.8):
-                mvuser.SavedAttractions.add(attraction)
-                attraction.save()
-            
+            add_save_review(attraction, current_user, reviews)           
         for review in AttractionReviews.objects.all():
             if (random.random() > 0.75):
-                like = ReviewLikes.objects.get_or_create(ReviewLiked=review, UserLiking=mvuser)[0]
-                like.Like = bool(random.getrandbits(1))
-                like.save()
+                add_like(review, current_user)
+
   
 # Thx to https://www.kite.com/python/answers/how-to-generate-a-random-date-between-two-dates-in-python for making my life a bit easier        
 def random_date():
@@ -146,22 +127,57 @@ def random_date():
     return random_date  
     
 def add_city(name, description):
-    c = City.objects.get_or_create(Name=name)[0]
-    c.Description = description
+    c = City.objects.get_or_create(Name=name, Description=description)[0]
     c.Views = random.randint(500,3000)
+    c.HeaderPicture = "city_pictures/" + slugify(name) + ".jpg"
     c.save()
     return c
     
 def add_attraction(name, n, e, description, city):
-    a = Attraction.objects.get_or_create(City=city, Name=name)[0]
-    a.CoordinateNorth = n
-    a.CoordinateEast = e
-    a.Description = description
+    a = Attraction.objects.get_or_create(City=city, Name=name, CoordinateNorth = n, CoordinateEast = e, Description = description)[0]
     a.Views = random.randint(100,1000)
+    a.HeaderPicture = "attraction_pictures/" + slugify(name) + ".jpg"
     a.save()
     return a
     
-
+def add_user(user):
+    username = user.lower()
+    
+    django_user = User.objects.get_or_create(username=username, email='%s@%s' % (username, 'mustvisit.com'))[0]
+    django_user.set_password('11235813')
+    django_user.save()
+    
+    mvuser = MVUser.objects.get_or_create(DjangoUser=django_user, Name=user)[0]
+    mvuser.save()
+    
+    return mvuser
+    
+def add_rating(city, user):
+    rating = CityRatings.objects.get_or_create(CityRated=city, UserRating=user, Rating=random.randint(1,5))[0] 
+    rating.save()
+    
+def add_save_review(attraction, user, reviews):
+    how_good = random.randint(0,4)
+    
+    review = AttractionReviews.objects.get_or_create(
+      AttractionReviewed=attraction, 
+      UserReviewing=user,
+      Title = reviews[how_good]['Title'],
+      Comment = reviews[how_good]['Comment'],
+      Rating = how_good+1
+    )[0]
+    
+    review.DateVisited = random_date()
+    review.TimeTaken = timedelta(hours=random.randint(0,5), minutes=random.randint(0,3)*15)
+    review.save()
+    
+    if (random.random() > 0.8):
+        user.SavedAttractions.add(attraction)
+        user.save() 
+            
+def add_like(review, user):
+    like = ReviewLikes.objects.get_or_create(ReviewLiked=review, UserLiking=user, Like=bool(random.getrandbits(1)))[0]
+    like.save()   
     
 if __name__ == '__main__':
     print('Starting the MustVisit population script...')
