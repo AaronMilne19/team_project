@@ -6,7 +6,11 @@ import django
 django.setup()
 from home.models import City, Attraction, MVUser, CityRatings, AttractionReviews, ReviewLikes
 from django.contrib.auth.models import User
+from django.db import transaction
 
+from datetime import datetime, date, timedelta
+
+@transaction.atomic
 def populate():
     superuser = User.objects.get_or_create(username='admin', is_active=True, is_superuser=True, is_staff=True)[0]
     superuser.set_password('1491625')
@@ -87,6 +91,13 @@ def populate():
     }
     
     users = ['George', 'Alice', 'Peter', 'Lena', 'John', 'Julie', 'Frank', 'Christina', 'David', 'Ashley', 'Richard', 'Emily']
+    reviews = [
+        {'Title':'Not worth the visit!', 'Comment': 'This place is incredibly overrated. Not nearly as picturesque, crowds everywhere, and weird smells all around.'},
+        {'Title':'Nothing interesting to see there', 'Comment': ''},
+        {'Title':'Quite average', 'Comment': ''},
+        {'Title':'Very nice', 'Comment': ''},
+        {'Title':'Loved it!', 'Comment': ''}
+    ]
     
     for city in cities:
         c = add_city(city['Name'], city['Description'])
@@ -94,16 +105,45 @@ def populate():
             add_attraction(a['Name'], a['N'], a['E'], a['Description'], c)
     
     for user in users:
-        username = '%s-%i' % (user.lower(), random.randint(1,100))
+        username = user.lower()
         django_user = User.objects.get_or_create(username=username, email='%s@%s' % (username, 'mustvisit.com'))[0]
         django_user.set_password('11235813')
         django_user.save()
         mvuser = MVUser.objects.get_or_create(DjangoUser=django_user, Name=user)[0]
         mvuser.save()
+        
         for city in City.objects.all():
             rating = CityRatings.objects.get_or_create(CityRated=city, UserRating=mvuser, Rating=random.randint(1,5))[0] 
             rating.save()
-
+            
+        for attraction in Attraction.objects.all():
+            review = AttractionReviews.objects.get_or_create(AttractionReviewed=attraction, UserReviewing=mvuser)[0]
+            how_good = random.randint(0,4)
+            review.Title = reviews[how_good]['Title']
+            review.Comment = reviews[how_good]['Comment']
+            review.Rating = how_good+1
+            review.DateVisited = random_date()
+            review.TimeTaken = timedelta(hours=random.randint(0,5), minutes=random.randint(0,3)*15)
+            review.save()
+            
+            if (random.random() > 0.8):
+                mvuser.SavedAttractions.add(attraction)
+                attraction.save()
+            
+        for review in AttractionReviews.objects.all():
+            if (random.random() > 0.75):
+                like = ReviewLikes.objects.get_or_create(ReviewLiked=review, UserLiking=mvuser)[0]
+                like.Like = bool(random.getrandbits(1))
+                like.save()
+  
+# Thx to https://www.kite.com/python/answers/how-to-generate-a-random-date-between-two-dates-in-python for making my life a bit easier        
+def random_date():
+    start_date = date.fromisoformat('2000-01-01')
+    time_between_dates = date.fromisoformat('2019-03-01') - start_date
+    days_between_dates = time_between_dates.days
+    random_number_of_days = random.randrange(days_between_dates)
+    random_date = start_date + timedelta(days=random_number_of_days) 
+    return random_date  
     
 def add_city(name, description):
     c = City.objects.get_or_create(Name=name)[0]
@@ -120,6 +160,8 @@ def add_attraction(name, n, e, description, city):
     a.Views = random.randint(100,1000)
     a.save()
     return a
+    
+
     
 if __name__ == '__main__':
     print('Starting the MustVisit population script...')

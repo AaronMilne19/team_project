@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+from datetime import datetime, timedelta
+
 class City(models.Model):
     Name = models.CharField(max_length=100, unique=True)
     NameSlug = models.SlugField(unique=True)
@@ -28,7 +30,7 @@ class Attraction(models.Model):
     CoordinateNorth = models.DecimalField(max_digits=20, decimal_places=18, null=True)
     CoordinateEast = models.DecimalField(max_digits=20, decimal_places=18, null=True)
     Description = models.TextField()
-    HeaderPicture = models.ImageField(blank=True, upload_to='attraction_pictures')
+    HeaderPicture = models.ImageField(upload_to='attraction_pictures', null=True)
     Views = models.IntegerField(default=0)
     
     def save(self, *args, **kwargs):
@@ -45,9 +47,9 @@ class MVUser(models.Model):
     SavedAttractions = models.ManyToManyField(Attraction, related_name='saves')
     ReviewedAttractions = models.ManyToManyField(Attraction, through='AttractionReviews', through_fields=('UserReviewing', 'AttractionReviewed'), related_name='reviews')
     
-    Name = models.CharField(max_length=50, blank=True, null=True)
-    Surname = models.CharField(max_length=50, blank=True, null=True)
-    DateOfBirth = models.DateField(blank=True, null=True)
+    Name = models.CharField(max_length=50, null=True)
+    Surname = models.CharField(max_length=50, null=True)
+    DateOfBirth = models.DateField(null=True)
     Avatar = models.ImageField(blank=True, upload_to='profile_pictures', null=True)
     
     class Meta(): 
@@ -75,12 +77,12 @@ class AttractionReviews(models.Model):
     UserReviewing = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep reviews from deleted users as above
     
     
-    Title = models.CharField(max_length=100)
-    DateVisited = models.DateField()
-    TimeTaken = models.DurationField()
-    Comment = models.TextField()
-    Rating = models.PositiveSmallIntegerField()
-    Picture = models.ImageField(blank=True)
+    Title = models.CharField(max_length=100, null=True)
+    DateVisited = models.DateField(null=True)
+    TimeTaken = models.DurationField(null=True)
+    Comment = models.TextField(null=True)
+    Rating = models.PositiveSmallIntegerField(null=True)
+    Picture = models.ImageField(null=True)
     DateAdded = models.DateTimeField(auto_now_add=True)
     
     class Meta(): 
@@ -95,7 +97,7 @@ class ReviewLikes(models.Model):
     ReviewLiked = models.ForeignKey(AttractionReviews, on_delete=models.CASCADE)
     UserLiking = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep likes from deleted users as above
     
-    Like = models.BooleanField()
+    Like = models.BooleanField(null=True)
     
     class Meta(): 
         verbose_name_plural = 'Review Likes'
