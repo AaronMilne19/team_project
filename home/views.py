@@ -1,10 +1,12 @@
 from django.shortcuts import render
-
 from home.models import City, Attraction
 
 # Create your views here.
 def homepage(request):
-    return render(request, 'homepage.html', context={})
+    ctx = {}
+    ctx['cities'] = City.objects.order_by('-Views')
+    ctx['attractions'] = City.objects.order_by('-Views')
+    return render(request, 'homepage.html', context=ctx)
 
 def citypage(request, NameSlug):
     ctx = {}

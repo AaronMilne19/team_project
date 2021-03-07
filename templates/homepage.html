@@ -1,12 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
 {% block title_block %}
-Homepage
+Home
+{% endblock %}
+
+{% block styles_block %}
+<link rel="stylesheet", type="text/css", href="{% static 'styles/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block body_block %}
 <section>
-    <h1>Hello, world!</h1>
+	<div class="row">
+		<!-- city section -->
+		<div class="col-8">
+			<div id="top_cities_container">
+				<h1><u>Top Rated Cities</u></h1>
+				
+				{% for city in cities %}
+				<div class="card">
+					<a href="cities/{{city.NameSlug}}", class="link"}>
+						<div class="row">
+							<div class="col-4" id="image">
+								<img src="{% static 'images/rankine.jpg' %}" style="max-width:150%">
+							</div>
+						
+							<div class="col-8" id="info">
+								<h3 class="name">{{ city }}</h3>
+								
+								<div class="city_description">
+									<ul>
+										<li class="information">{{city.Description}}</li>
+										<li class="rating_section information">
+											<h6 class="attraction-label"><strong>Average User Rating:</strong></h6>
+											<span class="fa fa-star fa-lg checked ms-3"></span>
+											<span class="fa fa-star fa-lg checked ms-1"></span>
+											<span class="fa fa-star fa-lg checked ms-1"></span>
+											<span class="fa fa-star fa-lg ms-1"></span>
+											<span class="fa fa-star fa-lg ms-1"></span>
+										</li>
+									</ul>
+								</div>		
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	
+		<!-- sidebar -->
+		<div class = "col-4 position-fixed mr-5" id="sidebar">
+			<div id="random_loc_button">
+				<a href="">
+					<button type="button" class="btn btn-primary btn-lg">Send Me Somewhere Random!</button>
+				</a>
+			</div>
+			
+			<h2><u>Top Attractions</u></h2>
+			
+			<div id="top_attractions">
+				<ol id="top_attractions">
+					{% for attraction in attractions %}
+					<a href = "cities/{{attraction.City}}/{{attraction.Name}}">
+						<li>{{attraction.Name}}</li>
+					</a>
+					{% endfor %}
+				</ol>
+			</div>
+		</div>
+	</div>
 </section>
 {% endblock %}
-
-<p>Test</p>
