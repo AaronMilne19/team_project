@@ -59,16 +59,20 @@ Home
 				</a>
 			</div>
 			
-			<h2><u>Top Attractions</u></h2>
+			<h2><u>Top Ten Attractions</u></h2>
 			
 			<div id="top_attractions">
 				<ol id="top_attractions">
 					{% for attraction in attractions %}
-					<a href = "cities/{{attraction.City}}/{{attraction.Name}}">
-						<li>{{attraction.Name}}</li>
+					<a href = "cities/{{attraction.City}}/{{attraction.NameSlug}}" class="link">
+						<li id="top_attractions">{{attraction.Name}} - {{attraction.City}}</li>
 					</a>
 					{% endfor %}
 				</ol>
+			</div>
+			
+			<div id="maps">
+				<!--This is where the google maps API will go-->
 			</div>
 		</div>
 	</div>

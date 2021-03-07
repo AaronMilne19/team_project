@@ -4,8 +4,8 @@ from home.models import City, Attraction
 # Create your views here.
 def homepage(request):
     ctx = {}
-    ctx['cities'] = City.objects.order_by('-Views')
-    ctx['attractions'] = City.objects.order_by('-Views')
+    ctx['cities'] = City.objects.order_by('-Views')[:10]
+    ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
     return render(request, 'homepage.html', context=ctx)
 
 def citypage(request, NameSlug):

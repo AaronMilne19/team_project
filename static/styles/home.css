@@ -38,6 +38,7 @@ h2 {
 
 .link {
 	text-decoration:none;
+	color:black;
 }
 
 .name {
@@ -94,6 +95,8 @@ h2 {
 }
 
 #top_attractions {
-	font-size: 15pt;
+	font-size: 13pt;
 	font-family:Verdana;
+	padding-top: 4pt;
+	font-weight:bold;
 ]
