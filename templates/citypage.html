@@ -15,7 +15,11 @@
 <section class="city-section">
     <h1> {{city.Name}} City</h1>
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-lg-5 order-lg-2">
+            <div id="citymap">Hello</div>
+        </div>
+
+        <div class="col-lg-7 order-lg-1">
             <div id="attractions-container">
                 <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -68,9 +72,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-5">
-            <div id="citymap"></div>
-        </div>
+
     </div>
 
 </section>
