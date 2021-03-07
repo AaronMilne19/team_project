@@ -80,16 +80,26 @@ h1 {
   color: #eed202;
 }
 
+.rating-section:hover > span:before {
+  color: #cfb700;
+}
+
+.rating-section > span:hover ~ span:before {
+  color: #e0e0e0;
+}
+
 .attraction-img {
   max-height: 100%;
   max-width: 100%;
   opacity: 0.85;
   transition: ease-in-out 0.2s;
+  margin-bottom: 10px;
 }
 .attraction-img:hover {
   opacity: 1;
 }
 
 .btn-xs {
-  margin-left: 30px;
+  margin: 0 auto;
+  display: block;
 }
