@@ -8,7 +8,8 @@
 {% block styles_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/city.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <script src="{% static 'js/rateAttraction.css' %}"></script> -->
+<script src="{% static 'scripts/rateAttraction.js' %}"></script>
+<script src="{% static 'scripts/viewOnMap.js' %}"></script>
 {% endblock %}
 
 
@@ -16,27 +17,31 @@
 <section class="city-section">
     <h1> {{city.Name}} City</h1>
     <div class="row">
-        <div class="col-md-5 order-md-2">
+        <div class="col-lg-5 col-md-4 order-md-2">
             <div id="citymap">Hello</div>
         </div>
 
-        <div class="col-md-7 order-md-1">
+        <div class="col-lg-7 col-md-8 order-md-1">
             <div id="attractions-container">
                 <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link
+                        {{dropdown_msg}}
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="#">Newest First</a></li>
-                        <li><a class="dropdown-item" href="#">Top Rated</a></li>
+                        <li><a class="dropdown-item" href="{% url 'home:citypage' city.NameSlug 'views' %}">Most
+                                Popular</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'home:citypage' city.NameSlug 'date' %}">Newest
+                                First</a></li>
+                        <li><a class=" dropdown-item" href="{% url 'home:citypage' city.NameSlug 'popular' %}">Top
+                                Rated</a></li>
                     </ul>
                 </div>
 
                 {% for attraction in attractions %}
-                <div class="card">
+                <div class=" card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-7">
@@ -51,14 +56,29 @@
                                             {{attraction.Views}}</li>
                                         <li class="rating-section">
                                             <h6 class="attraction-label">Rating:</h6>
-                                            <span class="fa fa-star fa-lg checked ms-3"
-                                                onclick="rateAttraction()"></span>
+
+                                            {% for i in '12345'|make_list %}
+                                            {% if forloop.counter == 1 %}
+                                            <span class="fa fa-star fa-lg checked ms-5"
+                                                value="{{ forloop.counter }}"></span>
+                                            {% else %}
                                             <span class="fa fa-star fa-lg checked ms-1"
+                                                value="{{ forloop.counter }}"></span>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </li>
+                                        <li class="rating-section my-rating">
+                                            <h6 class="attraction-label">My Rating:</h6>
+
+                                            {% for i in '12345'|make_list %}
+                                            {% if forloop.counter == 1 %}
+                                            <span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
+                                                value="{{ forloop.counter }}" onclick="rateAttraction()"></span>
+                                            {% else %}
+                                            <span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
                                                 onclick="rateAttraction()"></span>
-                                            <span class="fa fa-star fa-lg checked ms-1"
-                                                onclick="rateAttraction()"></span>
-                                            <span class="fa fa-star fa-lg ms-1" onclick="rateAttraction()"></span>
-                                            <span class="fa fa-star fa-lg ms-1" onclick="rateAttraction()"></span>
+                                            {% endif %}
+                                            {% endfor %}
                                         </li>
                                     </ul>
                                 </div>
@@ -67,7 +87,9 @@
                             <div class="col-5">
                                 <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}"
                                     alt="{{attraction.Name}} picture">
-                                <button type="button" class="btn btn-primary btn-sm btn-xs">View on
+                                <button type="button" class="btn btn-primary btn-sm btn-xs" value="{{attraction.pk}}"
+                                    onclick="viewOnMap()">View
+                                    on
                                     Map</button>
                             </div>
                         </div>
