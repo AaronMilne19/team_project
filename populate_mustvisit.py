@@ -188,3 +188,4 @@ def add_like(review, user):
 if __name__ == '__main__':
     print('Starting the MustVisit population script...')
     populate()
+        

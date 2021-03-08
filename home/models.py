@@ -30,6 +30,7 @@ class Attraction(models.Model):
     Description = models.TextField()
     HeaderPicture = models.ImageField(upload_to='attraction_pictures', null=True)
     Views = models.IntegerField(default=0)
+    Added = models.DateTimeField(auto_now_add=True)
     
     def save(self, *args, **kwargs):
         self.NameSlug = slugify(self.Name)
@@ -48,7 +49,12 @@ class MVUser(models.Model):
     Name = models.CharField(max_length=50, null=True)
     Surname = models.CharField(max_length=50, null=True)
     DateOfBirth = models.DateField(null=True)
-    Avatar = models.ImageField(upload_to='profile_pictures', null=True)
+    Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        if (self.Avatar == '' or self.Avatar == None): 
+            self.Avatar = 'profile_pictures/default.png'
+        super(MVUser, self).save(*args, **kwargs)
     
     class Meta(): 
         verbose_name_plural = 'MustVisit Users' 
@@ -104,13 +110,31 @@ class ReviewLikes(models.Model):
         if self.Like:
             return '%s liked %s' % (str(self.UserLiking), str(self.ReviewLiked))
         else:
-            return '%s disliked %s' % (str(self.UserLiking), str(self.ReviewLiked))  
-    
-    
-        
+            return '%s disliked %s' % (str(self.UserLiking), str(self.ReviewLiked))
+            
+#returns float Rating__avg            
+def AverageCityRating(city):
+    return CityRatings.objects.filter(CityRated=city).aggregate(models.Avg('Rating'))['Rating__avg']
 
+#returns float Rating__avg    
+def AverageAttractionRating(attraction):
+    return AttractionReviews.objects.filter(AttractionReviewed=attraction).aggregate(models.Avg('Rating'))['Rating__avg']
 
+# returns tuple (home.models.Attraction, avg_rating)    
+def TopCities(howMany):
+    top = CityRatings.objects.values('CityRated').annotate(avg_rating=models.Avg('Rating')).order_by('-avg_rating')[:howMany]
+    
+    return_top = []
+    for city in top:
+        return_top += [(City.objects.get(id=city['CityRated']), city['avg_rating'])]
+    return return_top 
     
 
+# returns tuple (home.models.Attraction, avg_rating)
+def TopAttractions(howMany):
+    top = AttractionReviews.objects.values('AttractionReviewed').annotate(avg_rating=models.Avg('Rating')).order_by('-avg_rating')[:howMany]
     
-
+    return_top = []
+    for attr in top:
+        return_top += [(Attraction.objects.get(id=attr['AttractionReviewed']), attr['avg_rating'])]
+    return return_top 
