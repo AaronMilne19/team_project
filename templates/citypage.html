@@ -7,7 +7,7 @@
 
 {% block styles_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/city.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <script src="{% static 'scripts/rateAttraction.js' %}"></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 {% endblock %}
@@ -88,9 +88,7 @@
                                 <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}"
                                     alt="{{attraction.Name}} picture">
                                 <button type="button" class="btn btn-primary btn-sm btn-xs" value="{{attraction.pk}}"
-                                    onclick="viewOnMap()">View
-                                    on
-                                    Map</button>
+                                    onclick="viewOnMap()">View on Map</button>
                             </div>
                         </div>
 

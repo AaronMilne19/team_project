@@ -8,8 +8,12 @@ def homepage(request):
 
 def citypage(request, NameSlug, sortBy):
     ctx = {}
-
     city = City.objects.get(NameSlug=NameSlug)
+
+    # increase city view count
+    city.Views = city.Views + 1
+    city.save()
+
     ctx['city'] = city
     if sortBy.lower() == "views":
         ctx['attractions'] = Attraction.objects.order_by('-Views')
@@ -19,10 +23,15 @@ def citypage(request, NameSlug, sortBy):
     #     ctx['dropdown_msg'] = 'Top Rated'
     # elif sortBy.lower() == "date":
     #     ctx['attractions'] = Attraction.objects.order_by('-Views') # sort by date
-    #     ctx['dropdown_msg'] = 'Newest first'
+    #     ctx['dropdown_msg'] = 'Newest First'
     else:
         ctx['attractions'] = Attraction.objects.all()
+        ctx['dropdown_msg'] = 'Sorted By:'
     
+
+
+    # don't look at comments below
+
     # if(request.user):
     #     my_rating =  AttractionReviews.objects.filter(UserReviewing=request.user).first()
 
