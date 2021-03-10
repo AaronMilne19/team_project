@@ -34,16 +34,15 @@ h2 {
 	padding-bottom:5px;
 	color: white;
 	height: auto;
+	display:Flex;
 }
 
 .link {
 	text-decoration:none;
-	color:black;
 }
 
 .name {
 	margin-bottom: 10px;
-	color: black;
 	text-decoration: underline;
 	text-align: center;
 	font-family: "Verdana", sans-serif;
@@ -76,7 +75,6 @@ h2 {
   font-size: 16px;
   font-family: "Verdana";
   letter-spacing: 0.05rem;
-  color: black;
 }
 
 .information {
@@ -87,6 +85,18 @@ h2 {
 .rating_section {
 	display: flex;
 	padding-top: 30pt;
+}
+
+.rating_section .checked {
+	color:#eed202
+}
+
+.my_rating:hover > span:before {
+	color: #cfb700;
+}
+
+.my_rating > span:hover ~ span:before {
+	color: #e0e0e0;
 }
 
 #random_loc_button {

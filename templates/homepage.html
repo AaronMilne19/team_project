@@ -9,6 +9,8 @@ Home
 {% block styles_block %}
 <link rel="stylesheet", type="text/css", href="{% static 'styles/home.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<script src="{% static 'scripts/rateAttraction.js' %}"></script>
+<script src="{% static 'scripts/viewOnMap.js' %}"></script>-->
 {% endblock %}
 
 {% block body_block %}
@@ -21,31 +23,48 @@ Home
 				
 				{% for city in cities %}
 				<div class="card">
-					<a href="cities/{{city.NameSlug}}", class="link"}>
-						<div class="row">
-							<div class="col-4" id="image">
-								<img src="{% static 'images/rankine.jpg' %}" style="max-width:150%">
-							</div>
-						
-							<div class="col-8" id="info">
-								<h3 class="name">{{ city }}</h3>
-								
-								<div class="city_description">
-									<ul>
-										<li class="information">{{city.Description}}</li>
-										<li class="rating_section information">
-											<h6 class="attraction-label"><strong>Average User Rating:</strong></h6>
-											<span class="fa fa-star fa-lg checked ms-3"></span>
-											<span class="fa fa-star fa-lg checked ms-1"></span>
-											<span class="fa fa-star fa-lg checked ms-1"></span>
-											<span class="fa fa-star fa-lg ms-1"></span>
-											<span class="fa fa-star fa-lg ms-1"></span>
-										</li>
-									</ul>
-								</div>		
-							</div>
+					<div class="row">
+						<div class="col-4" id="image">
+							<img src="{% static 'images/rankine.jpg' %}" style="max-width:100%">
 						</div>
-					</a>
+					
+						<div class="col-8" id="info">
+							<a href="cities/{{city.NameSlug}}", class="link"}>
+								<h3 class="name">{{ city }}</h3>
+							</a>
+							<div class="city_description">
+								<ul>
+									<li class="information">{{city.Description}}</li>
+									<li class="rating_section information">
+										<h6 class="attraction_label"><strong>Average User Rating:</strong></h6>
+
+										{% for i in '12345'|make_list %}
+										{% if forloop.counter == 1 %}
+										<span class="fa fa-star fa-lg checked ms-5"
+											value="{{ forloop.counter }}"></span>
+										{% else %}
+										<span class="fa fa-star fa-lg checked ms-1"
+											value="{{ forloop.counter }}"></span>
+										{% endif %}
+										{% endfor %}
+									</li>
+									<li class="rating_section my_rating information">
+										<h6 class="attraction_label"><strong>My Rating:</strong></h6>
+
+										{% for i in '12345'|make_list %}
+										{% if forloop.counter == 1 %}
+										<span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
+											value="{{ forloop.counter }}" onclick="rateAttraction()"></span>
+										{% else %}
+										<span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
+											onclick="rateAttraction()"></span>
+										{% endif %}
+										{% endfor %}
+									</li>
+								</ul>
+							</div>		
+						</div>
+					</div>
 				</div>
 				{% endfor %}
 			</div>
@@ -64,7 +83,7 @@ Home
 			<div id="top_attractions">
 				<ol id="top_attractions">
 					{% for attraction in attractions %}
-					<a href = "cities/{{attraction.City}}/{{attraction.NameSlug}}" class="link">
+					<a href = "cities/{{attraction.City.NameSlug}}/{{attraction.NameSlug}}" class="link">
 						<li id="top_attractions">{{attraction.Name}} - {{attraction.City}}</li>
 					</a>
 					{% endfor %}
