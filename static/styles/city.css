@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@1,900&display=swap");
+
+h1 {
+  color: black;
+  margin-top: 20px;
+  letter-spacing: 0.05em;
+  font-size: 3rem;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+#attractions-container {
+  background-color: white;
+  margin: 15px 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#attractions-container .dropdown {
+  float: right;
+  margin-bottom: 8px;
+}
+
+#attractions-container .dropdown .dropdown-menu,
+#attractions-container .dropdown .dropdown-menu .dropdown-item {
+  background-color: white;
+}
+#attractions-container .dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: lightskyblue;
+}
+.card {
+  width: 100%;
+  margin: 10px 0px;
+  border: 2px solid black;
+}
+
+.attraction-name {
+  margin-bottom: 10px;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.5rem;
+  transition: ease-out 0.2s;
+}
+
+.attraction-name:hover {
+  color: rgb(85, 137, 252);
+}
+.card .card-body .attraction-description ul {
+  list-style-type: none;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.attraction-description .attraction-label {
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+.attraction-description .views {
+  padding-right: 18px;
+}
+
+.attraction-description .rating {
+  padding-right: 10px;
+}
+
+.card .card-body .attraction-description ul .views-count {
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+
+.card .card-body .rating-section {
+  display: flex;
+}
+
+.rating-section .checked {
+  color: #eed202;
+}
+
+.attraction-img {
+  max-height: 100%;
+  max-width: 100%;
+  opacity: 0.85;
+  transition: ease-in-out 0.2s;
+}
+.attraction-img:hover {
+  opacity: 1;
+}
+
+.btn-xs {
+  margin-left: 30px;
+}

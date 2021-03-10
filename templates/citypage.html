@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title_block %}
+{{city.Name}}
+{% endblock %}
+
+{% block styles_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/city.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+{% block body_block %}
+<section class="city-section">
+    <h1> {{city.Name}} City</h1>
+    <div class="row">
+        <div class="col-lg-5 order-lg-2">
+            <div id="citymap">Hello</div>
+        </div>
+
+        <div class="col-lg-7 order-lg-1">
+            <div id="attractions-container">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown link
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Most Popular</a></li>
+                        <li><a class="dropdown-item" href="#">Newest First</a></li>
+                        <li><a class="dropdown-item" href="#">Top Rated</a></li>
+                    </ul>
+                </div>
+
+                {% for attraction in attractions %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <a href="" class="attraction-name">
+                                    <h3 class="attraction-name">{{attraction.Name}}</h3>
+                                </a>
+
+                                <div class="attraction-description">
+                                    <ul>
+                                        <li>{{attraction.Description}}</li>
+                                        <li class="views-count"><b class="attraction-label views">Views:</b>
+                                            {{attraction.Views}}</li>
+                                        <li class="rating-section">
+                                            <h6 class="attraction-label">Rating:</h6>
+                                            <span class="fa fa-star fa-lg checked ms-3"></span>
+                                            <span class="fa fa-star fa-lg checked ms-1"></span>
+                                            <span class="fa fa-star fa-lg checked ms-1"></span>
+                                            <span class="fa fa-star fa-lg ms-1"></span>
+                                            <span class="fa fa-star fa-lg ms-1"></span>
+                                            <button type="button" class="btn btn-primary btn-sm btn-xs">View on
+                                                Map</button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-5">
+                                <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}" alt=" ">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
