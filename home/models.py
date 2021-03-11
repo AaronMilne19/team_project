@@ -47,13 +47,16 @@ class Attraction(models.Model):
         
 class MVUser(models.Model):
     DjangoUser = models.OneToOneField(User, on_delete=models.CASCADE)
+    
     CityRatings = models.ManyToManyField(City, through='CityRatings')
     SavedAttractions = models.ManyToManyField(Attraction, related_name='saves')
     ReviewedAttractions = models.ManyToManyField(Attraction, through='AttractionReviews', through_fields=('UserReviewing', 'AttractionReviewed'), related_name='reviews')
+    
     Name = models.CharField(max_length=50, null=True)
     Surname = models.CharField(max_length=50, null=True)
     DateOfBirth = models.DateField(null=True)
     Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
+    
     def save(self, *args, **kwargs):
         if (self.Avatar == '' or self.Avatar == None): 
             self.Avatar = 'profile_pictures/default.png'
@@ -68,6 +71,7 @@ class MVUser(models.Model):
 class CityRatings(models.Model):
     CityRated = models.ForeignKey(City, on_delete=models.CASCADE)
     UserRating = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep ratings from deleted users, i.e. on_delete=models.SET_NULL
+    
     Rating = models.PositiveSmallIntegerField()
     
     class Meta(): 
@@ -137,8 +141,4 @@ def TopAttractions(howMany):
     return_top = []
     for attr in top:
         return_top += [(Attraction.objects.get(id=attr['AttractionReviewed']), attr['avg_rating'])]
-    return return_top
-
-
-
-
+    return return_top 
