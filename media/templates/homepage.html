@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+{% include 'header.html' %}
+
+{% endblock %}
+{% block js %}
+    <script>
+        layui.use(['laydate', 'form', 'jquery','element'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var element=layui.element;
+
+        })
+    </script>
+{% endblock %}
