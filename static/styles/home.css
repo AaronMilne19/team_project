@@ -112,4 +112,8 @@ h2 {
 	padding-top: 4pt;
 	font-weight: bold;
 	color: black;
-]
+}
+
+#top_attractions:hover {
+	color: rgb(85, 137, 252);
+}
