@@ -9,8 +9,7 @@ Home
 {% block styles_block %}
 <link rel="stylesheet", type="text/css", href="{% static 'styles/home.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--<script src="{% static 'scripts/rateAttraction.js' %}"></script>
-<script src="{% static 'scripts/viewOnMap.js' %}"></script>-->
+<script src="{% static 'scripts/rateAttraction.js' %}"></script>
 {% endblock %}
 
 {% block body_block %}
@@ -54,10 +53,21 @@ Home
 										{% for i in '12345'|make_list %}
 										{% if forloop.counter == 1 %}
 										<span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
-											value="{{ forloop.counter }}" onclick="rateAttraction()"></span>
+											value="{{ forloop.counter }}" 
+											onclick="{% if user.is_authenticated %}
+														rateAttraction()
+													{% else %}
+														showNotLoggedInAlert()
+													{% endif %}">
+										</span>
 										{% else %}
 										<span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
-											onclick="rateAttraction()"></span>
+											onclick="{% if user.is_authenticated %}
+														rateAttraction()
+													{% else %}
+														showNotLoggedInAlert()
+													{% endif %}">
+										</span>
 										{% endif %}
 										{% endfor %}
 									</li>
