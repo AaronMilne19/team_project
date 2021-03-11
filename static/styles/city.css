@@ -60,7 +60,10 @@ h1 {
 }
 
 .attraction-description .views {
+
   padding-right: 48px;
+/*   padding-right: 18px; */
+
 }
 
 .attraction-description .rating {
@@ -80,6 +83,7 @@ h1 {
   color: #eed202;
 }
 
+
 .my-rating:hover > span:before {
   color: #cfb700;
 }
@@ -88,19 +92,25 @@ h1 {
   color: #e0e0e0;
 }
 
+
+
 .attraction-img {
   max-height: 100%;
   max-width: 100%;
   opacity: 0.85;
   transition: ease-in-out 0.2s;
+
   margin-bottom: 10px;
   margin-top: 20px;
+
 }
 .attraction-img:hover {
   opacity: 1;
 }
 
 .btn-xs {
+
   margin: 0 auto;
   display: block;
+
 }

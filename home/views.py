@@ -1,10 +1,15 @@
 from django.shortcuts import render
+from home.models import City, Attraction
 
 from home.models import City, Attraction, AttractionReviews
 
 # Create your views here.
 def homepage(request):
-    return render(request, 'homepage.html', context={})
+    ctx = {}
+    ctx['cities'] = City.objects.order_by('-Views')[:10]
+    ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
+    return render(request, 'homepage.html', context=ctx)
+
 
 def citypage(request, NameSlug, sortBy):
     ctx = {}
@@ -48,3 +53,4 @@ def citypage(request, NameSlug, sortBy):
 
 
     return render(request, 'citypage.html', context=ctx)
+

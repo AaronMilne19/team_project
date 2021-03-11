@@ -13,6 +13,9 @@ class City(models.Model):
     def save(self, *args, **kwargs):
         self.NameSlug = slugify(self.Name)
         super(City, self).save(*args, **kwargs)
+        
+    def getAverageRating(self):
+        return CityRatings.objects.filter(CityRated=self).aggregate(models.Avg('Rating'))['Rating__avg'] 
     
     class Meta(): 
         verbose_name_plural = 'Cities'    
@@ -35,6 +38,9 @@ class Attraction(models.Model):
     def save(self, *args, **kwargs):
         self.NameSlug = slugify(self.Name)
         super(Attraction, self).save(*args, **kwargs)
+        
+    def getAverageRating(self):
+        return AttractionReviews.objects.filter(AttractionReviewed=self).aggregate(models.Avg('Rating'))['Rating__avg']
     
     def __str__(self):
         return self.Name 
@@ -113,12 +119,10 @@ class ReviewLikes(models.Model):
             return '%s disliked %s' % (str(self.UserLiking), str(self.ReviewLiked))
             
 #returns float Rating__avg            
-def AverageCityRating(city):
-    return CityRatings.objects.filter(CityRated=city).aggregate(models.Avg('Rating'))['Rating__avg']
+
 
 #returns float Rating__avg    
-def AverageAttractionRating(attraction):
-    return AttractionReviews.objects.filter(AttractionReviewed=attraction).aggregate(models.Avg('Rating'))['Rating__avg']
+
 
 # returns tuple (home.models.Attraction, avg_rating)    
 def TopCities(howMany):
