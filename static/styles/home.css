@@ -1,5 +1,5 @@
 h1 {
-	color: black;
+	color: white;
 	font-family: "Freestyle Script";
 	text-align: center;
 	font-size: 40pt;
@@ -76,7 +76,6 @@ h2 {
   font-size: 16px;
   font-family: "Verdana";
   letter-spacing: 0.05rem;
-  color: black;
 }
 
 .information {
