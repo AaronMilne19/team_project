@@ -18,19 +18,20 @@ def citypage(request, NameSlug, sortBy):
     # increase city view count
     city.Views = city.Views + 1
     city.save()
-
     ctx['city'] = city
+
+    attractions = Attraction.objects.filter(City=city)
     if sortBy.lower() == "views":
-        ctx['attractions'] = Attraction.objects.order_by('-Views')
+        ctx['attractions'] = attractions.order_by('-Views')
         ctx['dropdown_msg'] = 'Most Popular'
     # elif sortBy.lower() == "rating":
-    #     ctx['attractions'] = Attraction.objects.order_by('-Views') # sort by average rating
+    #     ctx['attractions'] = attractions.order_by('-Views') # sort by average rating
     #     ctx['dropdown_msg'] = 'Top Rated'
     # elif sortBy.lower() == "date":
-    #     ctx['attractions'] = Attraction.objects.order_by('-Views') # sort by date
+    #     ctx['attractions'] = attractions.order_by('-Views') # sort by date
     #     ctx['dropdown_msg'] = 'Newest First'
     else:
-        ctx['attractions'] = Attraction.objects.all()
+        ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
     
 
