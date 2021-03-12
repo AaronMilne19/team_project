@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Avg
 from home.models import City, Attraction
 
 from home.models import City, Attraction, AttractionReviews
@@ -33,6 +34,9 @@ def citypage(request, NameSlug, sortBy):
     else:
         ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
+        
+    ctx['attraction_map'] = attractions
+    ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] }
     
 
 

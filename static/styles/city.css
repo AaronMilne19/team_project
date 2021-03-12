@@ -114,3 +114,8 @@ h1 {
   display: block;
 
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}

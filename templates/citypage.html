@@ -10,6 +10,7 @@
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <script src="{% static 'scripts/rateAttraction.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 
 {% endblock %}
@@ -110,6 +111,16 @@
         </div>
 
     </div>
+    
+    <div id="map"></div>
+    <script language="javascript">
+        map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
+        {% for attraction in attraction_map %}
+            addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}');
+        {% endfor %}
+            
+    </script>
 
 </section>
+
 {% endblock %}
