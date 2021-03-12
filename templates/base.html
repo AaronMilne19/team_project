@@ -55,8 +55,8 @@
                     </div>
                 </li>
 
-                <!-- When user logged in -->
-                <!-- <li class="logo-image">
+                {% if user.is_authenticated %}
+                <li class="logo-image">
                     <img id="nav-picture" src="{% static 'images/user.png' %}" class="img-fluid">
                 </li>
                 <li class="dropdown me-3">
@@ -71,15 +71,16 @@
                         <li><a class="dropdown-item" href="#">Contact Us</a></li>
                         <li><a class="dropdown-item" href="#">Sign Out</a></li>
                     </ul>
-                </li> -->
-
+                </li>
+				{% else %}
                 <!-- When user not logged in -->
 
                 <li class="nav-item">
                     <button type="button" class="btn btn-primary me-2" href="#">Sign Up</button>
                     <button type="button" class="btn btn-primary" href="#">Log In</button>
                 </li>
-
+				{% endif %}
+				
             </ul>
 
 
