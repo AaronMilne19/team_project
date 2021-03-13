@@ -2,18 +2,17 @@
 {% load static %}
 {% load staticfiles %}
 
-{% block title_block %}
+{% block title %}
 Home
 {% endblock %}
 
-{% block styles_block %}
-<link rel="stylesheet" , type="text/css" , href="{% static 'styles/home.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--<script src="{% static 'scripts/rateAttraction.js' %}"></script>
-<script src="{% static 'scripts/viewOnMap.js' %}"></script>-->
+{% block css %}
+<link rel="stylesheet" , type="text/css" href="{% static 'styles/home.css' %}">
+<link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% endblock %}
 
-{% block body_block %}
+{% block content %}
 <section>
 	<div class="row">
 		<!-- city section -->
