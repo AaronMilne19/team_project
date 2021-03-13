@@ -1,0 +1,47 @@
+<nav id="navbar" class="navbar navbar-expand navbar-light fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-nav me-auto">
+            <div class="nav-item">
+                <a id="nav-title" class="navbar-brand nav-item" href="{% url 'home:homepage' %}">MustVisit.com</a>
+            </div>
+
+            </li>
+        </div>
+        <ul class="navbar-nav nav-item">
+            <li class="nav-item">
+                <div class="container-fluid">
+                    <form class="d-flex">
+                        <input id="nav-input" class="form-control me-1" type="search" placeholder="Search..."
+                               size="25" aria-label="Search">
+                        <button id="nav-search-button" class="btn" type="submit"><i
+                                class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </li>
+
+            {% if request.user.username == "" %}
+
+                <li class="nav-item">
+                    <a type="button" class="btn btn-primary me-2" href="{% url 'Account:sign-up' %}">Sign Up</a>
+                    <a type="button" class="btn btn-primary" href="{% url 'Account:login' %}">Log In</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="fly-nav-avatar" href="javascript:;">
+                        <cite class="layui-hide-xs"
+                              style="color: #000000">hi&nbsp;&nbsp;{{ request.user.username }}</cite>
+                        {% if userinfo is None %}
+                            <img src="/static/profile_pictures/default.png">
+                        {% else %}
+                            <img src="{{ userinfo.Avatar }}">
+                        {% endif %}
+                    </a>
+
+                </li>
+            {% endif %}
+
+
+        </ul>
+
+    </div>
+</nav>

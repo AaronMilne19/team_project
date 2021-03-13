@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}
+    login
+{% endblock %}
+{% block css %}
+    <style>
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 315px;
+            margin-right: 10px;
+        }
+        .layui-form-pane .layui-form-label {
+            width: 153px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="layui-container fly-marginTop">
+        <div class="fly-panel fly-panel-user" pad20>
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">Login</li>
+                </ul>
+                <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form layui-form-pane">
+                            <form method="post">
+                                <div class="layui-form-item">
+                                    <label for="L_email" class="layui-form-label">Username</label>
+                                    <div class="layui-input-inline">
+                                        {{ loginForm.username }}
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label for="L_username" class="layui-form-label">Surname</label>
+                                    <div class="layui-input-inline">
+                                        {{ loginForm.surname }}
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label for="L_pass" class="layui-form-label">Frist Name</label>
+                                    <div class="layui-input-inline">
+                                        {{ loginForm.fristname }}
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label for="L_pass" class="layui-form-label">Password</label>
+                                    <div class="layui-input-inline">
+                                        {{ loginForm.password }}
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <button class="layui-btn" lay-filter="*" lay-submit>Login </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="layui-btn" style="float: right;"><img src="/static/sign-up/22.png" alt="" style="width:30px;height: 30px;">Contact Us </button>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        layui.use(['laydate', 'form', 'jquery','element'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var element=layui.element;
+            form.on('submit(*)', function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'Account:login' %}",
+                    data: data.field,
+                    success: function (res) {
+                        if (res["status"] || res["status"] == undefined) {
+                            layer.confirm(res["msg"], {
+                                title:'Information',
+                                btn: ['confirm'] //按钮
+                            }, function () {
+                                if(res["msg"]=="Login Successful!"){
+                                    window.location.href = "{% url 'Account:account' %}"
+                                }
+                                else{
+                                    window.location.reload()
+                                }
+                            })
+                        } else {
+                            res = JSON.parse(res["res"]);
+                            var msg_count = Object.keys(res)
+                            layer.msg(res[msg_count[0]][0].message, {
+                                icon: 5,
+                                shift: 6
+                            });
+                            $(".layui-input[name='" + msg_count[0] + "']").focus();
+                            $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+                        }
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
+{% endblock %}
