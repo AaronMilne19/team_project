@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from home.models import City, Attraction
-
+from django.http import Http404
+from random import randint
 from home.models import City, Attraction, AttractionReviews
 
 # Create your views here.
@@ -9,6 +10,19 @@ def homepage(request):
     ctx['cities'] = City.objects.order_by('-Views')[:10]
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
     return render(request, 'homepage.html', context=ctx)
+
+
+def send_somewhere_random(request):
+    rand_attractions = Attraction.objects.all()
+    count = rand_attractions.count()
+
+    if count == 0:
+        raise Http404
+
+    rand_num = randint(0, count-1)
+    rand_attraction = rand_attractions[rand_num]
+
+    return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/' + rand_attraction.NameSlug + '/')
 
 
 def citypage(request, NameSlug, sortBy):
