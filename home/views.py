@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from home.models import City, Attraction
-from django.http import Http404
-from random import randint
 from home.models import City, Attraction, AttractionReviews
+from django.http import Http404, JsonResponse
+from random import randint
 
 # Create your views here.
 def homepage(request):
@@ -12,7 +11,19 @@ def homepage(request):
     return render(request, 'homepage.html', context=ctx)
 
 
+def rating(request):
+    if request.method == 'POST':
+        el_id = request.POST.get('el_id')
+        val = request.POST.get('val')
+        obj = Rating.objects.get(id=el_id)
+        obj.score = val
+        obj.save()
+        return JsonResponse({'success':'true', 'score':val}, safe=False)
+    return JsonResponse({'success':'false'})
+
+
 def send_somewhere_random(request):
+    #get array of all attractions and then choose a random one from that and redirect user to it.
     rand_attractions = Attraction.objects.all()
     count = rand_attractions.count()
 
