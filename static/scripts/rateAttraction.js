@@ -65,12 +65,18 @@ function showNotLoggedInAlert() {
 
 
 function rateAttraction() {
-	
+
 	a.forEach(item=> item.addEventListener('click', (event)=>{
 		var val = event.target.id
 
+		var isSubmit = false
+
 		form.addEventListener('submit', e=>{
 			e.preventDefault()
+			if (isSubmit) {
+				return
+			}
+			isSubmit = true
 			var id = e.target.id
 			var score = getNumericValue(val)
 
