@@ -1,6 +1,6 @@
-
 (() => {
     // https://dashboard.emailjs.com/admin/integration
+    emailjs.init('user_AsFKI2VSAXzKBbR4gYrkW');
     emailjs.init('user_KawIFAZeIVDQAGA5WIFg4');
 })();
 
@@ -12,11 +12,13 @@ window.onload = function () {
         // these IDs from the previous steps
         emailjs.sendForm("service_h29703b","template_bs0x3fa", this)
             .then(function () {
+                var successMsg = document.getElementById('alert-suc')
+                successMsg.classList.remove('hide-alert');
                 console.log('SUCCESS!');
-                alert("Thank you for the messege! We will review your submission shortly.")
             }, function (error) {
+                var errorMsg = document.getElementById('alert-err');
+                errorMsg.classList.remove('hide-alert');
                 console.log('FAILED...', error);
-                alert("Ooops... Something went wrong. Please try again later.")
             });
     });
 }
