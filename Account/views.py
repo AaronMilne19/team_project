@@ -43,14 +43,12 @@ def login(request):
         if loginForm.is_valid():
             username = loginForm.cleaned_data["username"]
             password = loginForm.cleaned_data["password"]
-            first_name=loginForm.cleaned_data["fristname"]
-            surname=loginForm.cleaned_data["surname"]
-            user = authenticate(username=username, password=password,first_name=first_name)
+
+            user = authenticate(username=username, password=password)
             status = True
             if user is not None:
                 auth_login(request, user)
-                if not MVUser.objects.filter(DjangoUser=user,Surname=surname).exists():
-                    return JsonResponse({"status": status, "msg": "surname is error!"})
+
 
                 return JsonResponse({"status": status, "msg": "Login Successful!"})
             else:

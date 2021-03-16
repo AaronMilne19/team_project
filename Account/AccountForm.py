@@ -9,15 +9,15 @@ class LoginForm(forms.Form):
         required=True,
         widget=forms.PasswordInput(attrs={"class": "layui-input"})
     )
-    fristname=forms.CharField(
-        required=True,
-
-        widget=forms.TextInput(attrs={"class": "layui-input"})
-    )
-    surname=forms.CharField(
-        required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
-    )
+    # fristname=forms.CharField(
+    #     required=True,
+    #
+    #     widget=forms.TextInput(attrs={"class": "layui-input"})
+    # )
+    # surname=forms.CharField(
+    #     required=True,
+    #     widget=forms.TextInput(attrs={"class": "layui-input"})
+    # )
 
 class RegisterForm(forms.Form):
     username=forms.CharField(
