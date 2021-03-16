@@ -1,10 +1,17 @@
+
 from django.shortcuts import render, redirect
 from home.models import City, Attraction
 from django.http import Http404
 from random import randint
+
 from home.models import City, Attraction, AttractionReviews
 
 # Create your views here.
+
+def contactus(request):
+    ctx = {}
+    return render(request, 'contact.html', context=ctx)
+
 def homepage(request):
     ctx = {}
     ctx['cities'] = City.objects.order_by('-Views')[:10]
@@ -68,4 +75,5 @@ def citypage(request, NameSlug, sortBy):
 
 
     return render(request, 'citypage.html', context=ctx)
+
 
