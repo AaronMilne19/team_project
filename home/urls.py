@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.homepage, name="homepage"),
     path('contact/', views.contactus, name="contact"),
     path('cities/<slug:NameSlug>/<str:sortBy>/', views.citypage, name="citypage"),
+    path('random/', views.send_somewhere_random, name="random"),
 
 ]

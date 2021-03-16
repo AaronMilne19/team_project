@@ -81,10 +81,20 @@
                                             {% for i in '12345'|make_list %}
                                             {% if forloop.counter == 1 %}
                                             <span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
-                                                value="{{ forloop.counter }}" onclick="rateAttraction()"></span>
+                                                value="{{ forloop.counter }}" 
+												onclick="{% if user.is_authenticated %}
+															rateAttraction()
+														{% else %}
+															showNotLoggedInAlert()
+														{% endif %}"></span>
                                             {% else %}
                                             <span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
-                                                onclick="rateAttraction()"></span>
+                                                onclick="{% if user.is_authenticated %}
+															rateAttraction()
+														{% else %}
+															showNotLoggedInAlert()
+														{% endif %}">
+											</span>
                                             {% endif %}
                                             {% endfor %}
 
