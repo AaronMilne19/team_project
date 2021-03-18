@@ -1,0 +1,95 @@
+/* Code inspired from https://www.w3schools.com/howto/howto_css_contact_section.asp */
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.02rem;
+}
+
+h2 {
+  margin: 10px 0 20px 0;
+}
+
+p {
+  font-size: 110%;
+  margin-bottom: 10px;
+}
+
+/* Style inputs */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgb(85, 137, 252);
+  margin-top: 6px;
+  margin-bottom: 14px;
+  resize: vertical;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+select:hover,
+textarea:hover {
+  border: 2px solid rgb(21, 95, 255);
+  padding: 7px;
+}
+
+input[type="submit"] {
+  background-color: rgb(62, 123, 255);
+  color: rgb(252, 240, 240);
+  padding: 8px 18px;
+  float: right;
+  border: none;
+  cursor: pointer;
+  transition: ease-in 0.2s;
+}
+
+input[type="submit"]:hover {
+  background-color: rgb(44, 111, 255);
+  color: white;
+}
+
+/* Style the container/contact section */
+.container {
+  border-radius: 5px;
+  width: 55%;
+  background-color: rgb(161, 191, 255);
+  padding: 0 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+  float: left;
+  width: 90%;
+  margin-top: 6px;
+  padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.hide-alert{
+  display: none !important;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  h2 {
+    margin: 8px 0 15px 0;
+  }
+
+  .column,
+  input[type="submit"] {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .container {
+    width: 80%;
+  }
+}
