@@ -50,12 +50,12 @@ Home
 									<li class="rating_section my_rating">
 										<h6 class="attraction_label"><strong>My Rating:</strong></h6>
 
-										<form class="rate_form" action="" method="POST" id="{{object.id}}">
+										<form class="rate_form" action="" method="POST" id="{{city.NameSlug}}">
 											{% csrf_token %}
 											{% for i in '12345'|make_list %}
 											{% if forloop.counter == 1 %}
 											<button type="submit" class="fa fa-star fa-lg my_btn" style="margin-left: 1.2rem;"
-												id="{{ forloop.counter }}"
+												name="{{ forloop.counter }}" value="{{city.NameSlug}}"
 												onclick="{% if user.is_authenticated %}
 															rateAttraction()
 														{% else %}
@@ -63,12 +63,13 @@ Home
 														{% endif %}">
 											</button>
 											{% else %}
-											<button type="submit" class="fa fa-star fa-lg ms-1 my_btn" id="{{ forloop.counter }}"
-												  onclick="{% if user.is_authenticated %}
-															rateAttraction()
-														{% else %}
-															showNotLoggedInAlert()
-														{% endif %}">
+											<button type="submit" class="fa fa-star fa-lg ms-1 my_btn" 
+													name="{{ forloop.counter }}" value="{{ city.NameSlug }}"
+													onclick="{% if user.is_authenticated %}
+																rateAttraction()
+															{% else %}
+																showNotLoggedInAlert()
+															{% endif %}">
 											</button>
 											{% endif %}
 											{% endfor %}
