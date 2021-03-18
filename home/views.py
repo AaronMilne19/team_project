@@ -64,5 +64,16 @@ def myattractions(request):
     attractions = user.SavedAttractions.order_by("City")
     ctx={}
     ctx["attractions"] = attractions.all()
+
+    cities = []
+    for attraction in ctx["attractions"]:
+        city = attraction.City
+        if city not in cities:
+            cities.append(city)
+
+
+    
+    ctx["cities"] = cities
+    
     return render(request, 'myattractions.html', context=ctx)
 

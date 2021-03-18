@@ -11,44 +11,42 @@
             <li class="nav-item">
                 <div class="container-fluid">
                     <form class="d-flex">
-                        <input id="nav-input" class="form-control me-1" type="search" placeholder="Search..."
-                               size="25" aria-label="Search">
-                        <button id="nav-search-button" class="btn" type="submit"><i
-                                class="fa fa-search"></i></button>
+                        <input id="nav-input" class="form-control me-1" type="search" placeholder="Search..." size="25"
+                            aria-label="Search">
+                        <button id="nav-search-button" class="btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </li>
 
             {% if request.user.username == "" %}
-                <li class="nav-item">
-                    <a type="button" class="btn btn-primary me-2" href="{% url 'Account:sign-up' %}">Sign Up</a>
-                    <a type="button" class="btn btn-primary" href="{% url 'Account:login' %}">Log In</a>
-                </li>
+            <li class="nav-item">
+                <a type="button" class="btn btn-primary me-2" href="{% url 'Account:sign-up' %}">Sign Up</a>
+                <a type="button" class="btn btn-primary" href="{% url 'Account:login' %}">Log In</a>
+            </li>
             {% else %}
-                <li class="nav-item">
+            <li class="nav-item">
 
-                <li class="dropdown">
+            <li class="dropdown">
 
-                    <a class="fly-nav-avatar" href="javascript:;">
-                        <cite class="layui-hide-xs"
-                              style="color: #000000">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
-                        {% if userinfo is None %}
-                            <img src="/static/profile_pictures/default.png">
-                        {% else %}
-                            <img src="{{ userinfo.Avatar }}">
-                        {% endif %}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'Account:account' %}">My Account</a></li>
-                        <li><a href="#">Saved Attractions</a></li>
-                        <li><a href="#">My Reviews</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                <a class="fly-nav-avatar" href="javascript:;">
+                    <cite class="layui-hide-xs" style="color: #000000">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
+                    {% if userinfo is None %}
+                    <img src="/static/profile_pictures/default.png">
+                    {% else %}
+                    <img src="{{ userinfo.Avatar }}">
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'Account:account' %}">My Account</a></li>
+                    <li><a href="{% url 'home:myattractions' %}">Saved Attractions</a></li>
+                    <li><a href="#">My Reviews</a></li>
+                    <li><a href="#">Contact Us</a></li>
 
-                        <li ><a href="{% url 'Account:loginout' %}">Sign out</a></li>
-                    </ul>
-                </li>
+                    <li><a href="{% url 'Account:loginout' %}">Sign out</a></li>
+                </ul>
+            </li>
 
-                </li>
+            </li>
 
             {% endif %}
 
