@@ -1,8 +1,9 @@
 
 from django.shortcuts import render, redirect
-from home.models import City, Attraction, AttractionReviews
+from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser
 from django.http import Http404, JsonResponse
 from random import randint
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -17,12 +18,14 @@ def homepage(request):
     return render(request, 'homepage.html', context=ctx)
 
 
+@login_required
 def rating(request):
     if request.method == 'POST':
-        el_id = request.POST.get('el_id')
-        val = request.POST.get('val')
-        obj = Rating.objects.get(id=el_id)
-        obj.score = val
+        name = request.POST.get('name')
+        val = request.POST.get('score')
+        obj = CityRatings.objects.get(CityRated=name)
+        obj.UserRating = request.user
+        obj.Rating = val
         obj.save()
         return JsonResponse({'success':'true', 'score':val}, safe=False)
     return JsonResponse({'success':'false'})

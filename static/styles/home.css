@@ -92,6 +92,10 @@ h2 {
 	color:#eed202;
 }
 
+.rated {
+	color: #bea700;
+}
+
 .my_btn {
 	background-color: inherit !important;
 	border: 0 !important;

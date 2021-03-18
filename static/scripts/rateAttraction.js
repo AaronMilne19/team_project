@@ -9,6 +9,28 @@ var form = document.getElementsByClassName('rate_form')
 var csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 
+function rated(value) {
+	for (const cityForm of form) {
+		if (cityForm.id === city) {
+			const children = cityForm.children;
+
+			//remove the previous rating.
+			for (const child of children) {
+				child.classList.remove('rated')
+			}
+
+			for (let i = 0; i < children.length; i++) {
+				if (i <= size) {
+					children[i].classList.add('rated');
+				} else {
+					children[i].classList.remove('rated');
+				}
+			}
+		}
+	}
+}
+
+
 function handleStarSelect(size, city) {
 	for (const cityForm of form) {
 		if (cityForm.id === city) {
@@ -49,40 +71,26 @@ function showNotLoggedInAlert() {
 
 
 function rateAttraction() {
-	const a = [one, two, three, four, five]
-
-	a.forEach(item=> item.addEventListener('click', (event)=>{
-		var val = event.target.id
-
-		var isSubmit = false
-
-		form.addEventListener('submit', e=>{
-			e.preventDefault()
-			if (isSubmit) {
-				return
-			}
-			isSubmit = true
-			var id = e.target.id
-			var score = getNumericValue(val)
-
-			$.ajax({
-				type: 'POST',
-				url: '/rating/',
-				data: {
-					'csrfmiddlewaretoken': csrf[0].value,
-					'el_id': id,
-					'val': score,
-				},
-				success: function(response){
-					console.log(response)
-					alert("Successfully rated")
-				},
-				error: function(error){
-					console.log(error)
-					alert("oops, something went wrong")
-				}
-			})
-		})
-	}))
+	leaveRating(event.target.name, event.target.value);
 }
 
+
+function leaveRating(rating, name) {
+	$.ajax({
+		type: 'POST',
+		url: 'rating/',
+		data: {
+			'csrfmiddlewaretoken': csrf[0].value,
+			'name': name,
+			'score': rating,
+		},
+		success: function(response) {
+			rated(rating)
+			alert("Successfully rated")
+		},
+		error: function(error){
+			console.log(error)
+			alert("oops, something went wrong")
+		}
+	})
+}
