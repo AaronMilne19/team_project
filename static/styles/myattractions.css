@@ -44,3 +44,12 @@ section {
 .attraction-button {
   margin-top: 12px;
 }
+
+.empty-msg {
+  color: black;
+  margin: 20px 0 15px 0;
+  letter-spacing: 0.05em;
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+}

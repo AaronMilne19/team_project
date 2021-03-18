@@ -19,6 +19,7 @@ Contact Us
 
     <div class="accordion" id="accordion">
 
+
         {% for city in cities %}
 
         <div class="accordion-item">
@@ -68,7 +69,8 @@ Contact Us
                 </div>
             </div>
         </div>
-
+        {% empty %}
+        <h2 class="empty-msg">You have no attractions saved.</h2>
         {% endfor %}
 
     </div>
