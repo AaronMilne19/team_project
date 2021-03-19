@@ -14,7 +14,7 @@ def contactus(request):
 
 def homepage(request):
     ctx = {}
-    ctx['cities'] = City.objects.order_by('-Views')[:10]
+    ctx['cities'] = City.objects.order_by('-Views')
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
     return render(request, 'homepage.html', context=ctx)
 
@@ -44,9 +44,9 @@ def citypage(request, NameSlug, sortBy):
     if sortBy.lower() == "views":
         ctx['attractions'] = attractions.order_by('-Views')
         ctx['dropdown_msg'] = 'Most Popular'
-    # elif sortBy.lower() == "rating":
-    #     ctx['attractions'] = attractions.order_by('-Views') # sort by average rating
-    #     ctx['dropdown_msg'] = 'Top Rated'
+    elif sortBy.lower() == "popular":
+        ctx['attractions'] = sorted(attractions.all(), key=lambda a: -a.getAverageRating()) # sort by average rating
+        ctx['dropdown_msg'] = 'Top Rated'
     elif sortBy.lower() == "date":
         ctx['attractions'] = attractions.order_by('-Added') # sort by date
         ctx['dropdown_msg'] = 'Newest First'
@@ -57,7 +57,7 @@ def citypage(request, NameSlug, sortBy):
 
     return render(request, 'citypage.html', context=ctx)
 
-#@login_required(login_url="/login")
+@login_required
 def myattractions(request):
     print(request.user)
     user = MVUser.objects.get(DjangoUser=request.user)
@@ -70,10 +70,9 @@ def myattractions(request):
         city = attraction.City
         if city not in cities:
             cities.append(city)
-
-
     
     ctx["cities"] = cities
+
     
     return render(request, 'myattractions.html', context=ctx)
 

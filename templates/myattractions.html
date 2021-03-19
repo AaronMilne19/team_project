@@ -2,7 +2,7 @@
 {% load static %}
 {% load staticfiles %}
 {% block title %}
-Contact Us
+My Attractions
 {% endblock %}
 
 {% block css %}
@@ -40,11 +40,11 @@ Contact Us
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-11 col-10">
+                                <div class="col-md-11 col-sx-10 col-9">
                                     <div class="card-title">
                                         <span class="attraction-name">{{attraction}}</span>
                                         {% for i in '12345'|make_list %}
-                                        {% if attraction.getAverageRating > forloop.counter %}
+                                        {% if attraction.getAverageRating > forloop.counter0 %}
                                         <span class="fa fa-star fa-lg checked ms-1 checked"
                                             value="{{ forloop.counter }}"></span>
                                         {% else %}
@@ -55,9 +55,9 @@ Contact Us
                                     <h6 class="card-subtitle mb-2 text-muted">
                                         {{attraction.Description|truncatewords:40}}</h6>
                                 </div>
-                                <div class="col-lg-1 col-2">
-                                    <button type="button" class="btn btn-outline-primary attraction-button"
-                                        href="#">View</button>
+                                <div class="col-md-1 col-sx-2 col-3">
+                                    <button type="button" class="btn btn-outline-primary attraction-button"><a
+                                            href="#">View</a></button>
                                 </div>
 
                             </div>
