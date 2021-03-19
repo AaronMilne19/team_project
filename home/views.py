@@ -13,7 +13,7 @@ def contactus(request):
 
 def homepage(request):
     ctx = {}
-    ctx['cities'] = City.objects.order_by('-Views')[:10]
+    ctx['cities'] = City.objects.order_by('-Views')
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
     return render(request, 'homepage.html', context=ctx)
 
@@ -23,9 +23,9 @@ def rating(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         val = request.POST.get('score')
-        obj = CityRatings.objects.get(CityRated=name)
-        obj.UserRating = request.user
-        obj.Rating = val
+        obj = CityRatings.objects.get_or_create(CityRated=name,
+        UserRating = request.user,
+        Rating = val)
         obj.save()
         return JsonResponse({'success':'true', 'score':val}, safe=False)
     return JsonResponse({'success':'false'})
