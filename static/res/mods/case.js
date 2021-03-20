@@ -1,8 +1,4 @@
-/**
 
- @Name: 案例
-
- */
  
 layui.define(['laypage', 'fly'], function(exports){
 

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
 {% block title %}
     register
 {% endblock %}
@@ -77,7 +79,7 @@
                 </div>
             </div>
         </div>
-      <button class="layui-btn" style="float: right;"><img src="/static/sign-up/22.png" alt="" style="width:30px;height: 30px;">Contact Us </button>
+      <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="{% static 'sign-up/22.png' %}" alt="" style="width:30px;height: 30px;">Contact Us </a>
 
     </div>
 {% endblock %}
@@ -104,7 +106,7 @@
                             layer.confirm(res["msg"], {
                                 btn: ['confirm'] //按钮
                             }, function () {
-                                window.location.href = "{% url 'Account:login' %}"
+                                window.location.href = "{% url 'home:homepage' %}"
                             })
                         } else {
                             res = JSON.parse(res["res"]);
