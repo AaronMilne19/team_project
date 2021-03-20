@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
 {% block title %}
 login
 {% endblock %}
@@ -59,6 +61,9 @@ login
                 </div>
             </div>
         </div>
+
+        <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="{% static 'sign-up/22.png' %}" alt="" style="width:30px;height: 30px;">Contact Us </a>
+
     </div>
     <button class="layui-btn" style="float: right;"><img src="/static/sign-up/22.png" alt=""
             style="width:30px;height: 30px;"><a href="{% url 'home:contact' %}">Contact Us</a> </button>

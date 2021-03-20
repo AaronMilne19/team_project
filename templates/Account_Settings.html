@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
 {% block title %}
 Account
 {% endblock %}
@@ -15,15 +17,20 @@ Account
     }
 
 
-    .logo {
-        height: 100px;
-        width: 100px;
-        margin: 0 auto;
-        display: block;
-        border-radius: 100%;
-        cursor: pointer;
+        .logo {
+            height: 100px;
+            width: 100px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+    .layui-input-inline {
+        line-height: 38px;
+        padding-left: 15px;
     }
-</style>
+    </style>
+
 {% endblock %}
 {% block content %}
 {% include 'header.html' %}
@@ -72,46 +79,49 @@ Account
     <div class="site-mobile-shade"></div>
 
 
-    <div class="fly-panel fly-panel-user" pad20>
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
-            <ul class="layui-tab-title" id="LAY_mine">
-                <li class="layui-this" lay-id="info">User Infomation</li>
-                {# <li lay-id="avatar">头像</li>#}
-                {# <li lay-id="pass">密码</li>#}
-                {# <li lay-id="bind">帐号绑定</li>#}
-            </ul>
-            <div class="layui-tab-content" style="padding: 20px 0;">
-                <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                    <div class="layui-form layui-form-pane">
-                        <form method="post">
-                            <div class="layui-form-item">
-                                <label for="L_email" class="layui-form-label">Username</label>
-                                <div class="layui-input-inline">
-                                    {{ userInfomationForm.username }}
+
+        <div class="fly-panel fly-panel-user" pad20>
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <ul class="layui-tab-title" id="LAY_mine">
+                    <li class="layui-this" lay-id="info">User Infomation</li>
+                    {#                    <li lay-id="avatar">头像</li>#}
+                    {#                    <li lay-id="pass">密码</li>#}
+                    {#                    <li lay-id="bind">帐号绑定</li>#}
+                </ul>
+                <div class="layui-tab-content" style="padding: 20px 0;">
+                    <div class="layui-form layui-form-pane layui-tab-item layui-show">
+                        <div class="layui-form layui-form-pane">
+                            <form method="post">
+                                <div class="layui-form-item">
+                                    <label for="L_email" class="layui-form-label">Username</label>
+                                    <div class="layui-input-inline">
+                                        <p>{{ user.username }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="L_username" class="layui-form-label">Surname</label>
-                                <div class="layui-input-inline">
-                                    {{ userInfomationForm.surname }}
+                                <div class="layui-form-item">
+                                    <label for="L_username" class="layui-form-label">Surname</label>
+                                    <div class="layui-input-inline">
+                                       <p>{{ userprofile.Surname }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="L_pass" class="layui-form-label">Frist Name</label>
-                                <div class="layui-input-inline">
-                                    {{ userInfomationForm.fristname }}
+                                <div class="layui-form-item">
+                                    <label for="L_pass" class="layui-form-label">Frist Name</label>
+                                    <div class="layui-input-inline">
+                                        <p>{{ user.first_name }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="L_pass" class="layui-form-label">Date of Brith</label>
-                                <div class="layui-input-inline">
-                                    {{ userInfomationForm.brith }}
+                                <div class="layui-form-item">
+                                    <label for="L_pass" class="layui-form-label">Date of Brith</label>
+                                    <div class="layui-input-inline">
+                                        <p>{{ userprofile.DateOfBirth }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="L_pass" class="layui-form-label">Email</label>
-                                <div class="layui-input-inline">
-                                    {{ userInfomationForm.email }}
+                                <div class="layui-form-item">
+                                    <label for="L_pass" class="layui-form-label">Email</label>
+                                    <div class="layui-input-inline">
+                                        <p>{{ user.email }}</p>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -126,6 +136,10 @@ Account
             </div>
 
         </div>
+
+      <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="{% static 'sign-up/22.png' %}" alt="" style="width:30px;height: 30px;">Contact Us </a>
+    </div>
+
     </div>
     <button class="layui-btn" style="float: right;"><img src="/static/sign-up/22.png" alt=""
             style="width:30px;height: 30px;">Contact Us </button>
@@ -144,36 +158,40 @@ Account
             lang: 'en'
         })
 
-        $(".logo").click(function () {
-            window.location.href = "{% url 'Account:setting' %}"
-        })
-        form.on('submit(*)', function (data) {
-            $.ajax({
-                type: "POST",
-                url: "{% url 'Account:setting' %}",
-                data: data.field,
-                success: function (res) {
-                    if (res["status"] || res["status"] == undefined) {
-                        layer.confirm(res["msg"], {
-                            title: 'Information',
-                            btn: ['confirm'] //按钮
-                        }, function () {
-                            if (res["msg"] == "Login Successful!") {
-                                window.location.href = "{% url 'home:homepage' %}"
-                            }
-                            else {
-                                window.location.reload()
-                            }
-                        })
-                    } else {
-                        res = JSON.parse(res["res"]);
-                        var msg_count = Object.keys(res)
-                        layer.msg(res[msg_count[0]][0].message, {
-                            icon: 5,
-                            shift: 6
-                        });
-                        $(".layui-input[name='" + msg_count[0] + "']").focus();
-                        $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+
+            $(".logo").click(function () {
+                window.location.href="{% url 'Account:setting' %}"
+            })
+
+            form.on('submit(*)', function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'Account:setting' %}",
+                    data: data.field,
+                    success: function (res) {
+                        if (res["status"] || res["status"] == undefined) {
+                            layer.confirm(res["msg"], {
+                                title:'Information',
+                                btn: ['confirm'] //按钮
+                            }, function () {
+                                if (res["msg"] == "Login Successful!") {
+                                    window.location.href = "{% url 'home:homepage' %}"
+                                }
+                                else {
+                                    window.location.reload()
+                                }
+                            })
+                        } else {
+                            res = JSON.parse(res["res"]);
+                            var msg_count = Object.keys(res)
+                            layer.msg(res[msg_count[0]][0].message, {
+                                icon: 5,
+                                shift: 6
+                            });
+                            $(".layui-input[name='" + msg_count[0] + "']").focus();
+                            $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+                        }
+
                     }
                 }
             });

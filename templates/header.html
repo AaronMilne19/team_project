@@ -1,3 +1,21 @@
+<style>
+    .dropdown-menu {
+
+        border: 3px solid #000;
+
+    }
+
+    .dropdown-menu li {
+        border-bottom: 2px solid #000;
+
+        line-height: 22px;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+
+    padding-left: 10px;
+        padding-right: 10px;
+}
+</style>
 <nav id="navbar" class="navbar navbar-expand navbar-light fixed-top">
     <div class="container-fluid">
         <div class="navbar-nav me-auto">
@@ -17,36 +35,35 @@
                     </form>
                 </div>
             </li>
-
             {% if request.user.username == "" %}
             <li class="nav-item">
                 <a type="button" class="btn btn-primary me-2" href="{% url 'Account:sign-up' %}">Sign Up</a>
                 <a type="button" class="btn btn-primary" href="{% url 'Account:login' %}">Log In</a>
             </li>
             {% else %}
-            <li class="nav-item">
 
-            <li class="dropdown">
+                <li class="nav-item">
+                <li class="dropdown nav-item">
+                    <a class="fly-nav-avatar" href="javascript:;">
+                        {% if userinfo is None %}
+                            <img src="/static/profile_pictures/default.png">
+                        {% else %}
+                            <img src="{{ userinfo.Avatar }}">
+                        {% endif %}
+                        <cite class="layui-hide-xs"
+                              style="color: #000000">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'Account:account' %}">My Account</a></li>
+                        <li><a href="{% url 'home:myattractions' %}">Saved Attractions</a></li>
+                        <li><a href="#">My Reviews</a></li>
+                        <li><a href="{% url 'home:contact' %}">Contact Us</a></li>
+                        <li style="border: 0px;"><a href="{% url 'Account:loginout' %}" style="color: red">Sign out</a></li>
+                    </ul>
+                </li>
 
-                <a class="fly-nav-avatar" href="javascript:;">
-                    <cite class="layui-hide-xs" style="color: #000000">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
-                    {% if userinfo is None %}
-                    <img src="/static/profile_pictures/default.png">
-                    {% else %}
-                    <img src="{{ userinfo.Avatar }}">
-                    {% endif %}
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url 'Account:account' %}">My Account</a></li>
-                    <li><a href="{% url 'home:myattractions' %}">Saved Attractions</a></li>
-                    <li><a href="#">My Reviews</a></li>
-                    <li><a href="{% url 'home:contact' %}">Contact Us</a></li>
+                </li>
 
-                    <li><a href="{% url 'Account:loginout' %}">Sign out</a></li>
-                </ul>
-            </li>
-
-            </li>
 
             {% endif %}
 

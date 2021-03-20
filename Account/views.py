@@ -29,6 +29,7 @@ def register(request):
             Nvuser = MVUser(DjangoUser=user, DateOfBirth=registerForm.cleaned_data["brith"],Surname=registerForm.cleaned_data["surname"])
             Nvuser.save()
             status = True
+            auth_login(request, user)
             return JsonResponse({"status": status, "msg": "register sucess!"})
         else:
             return JsonResponse({"status": status, "res": registerForm.errors.as_json()})
@@ -61,14 +62,14 @@ def account(request):
     if request.method=="GET":
         user=request.user
         userprofile=MVUser.objects.get(DjangoUser=user)
-        userInfomationForm=UserInfomationForm({
-            "username":user.username,
-            "email":user.email,
-            "surname":userprofile.Surname,
-            "fristname":user.first_name,
-            "brith":userprofile.DateOfBirth
-        })
-        return render(request,'Account_Settings.html',{"userInfomationForm":userInfomationForm})
+        # userInfomationForm=UserInfomationForm({
+        #     "username":user.username,
+        #     "email":user.email,
+        #     "surname":userprofile.Surname,
+        #     "fristname":user.first_name,
+        #     "brith":userprofile.DateOfBirth
+        # })
+        return render(request,'Account_Settings.html',{"userprofile":userprofile,"user":user})
     else:
         userInfomationForm = UserInfomationForm(request.POST)
         status=False

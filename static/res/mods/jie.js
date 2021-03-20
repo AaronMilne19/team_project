@@ -1,8 +1,4 @@
-/**
 
- @Name: 求解板块
-
- */
  
 layui.define('fly', function(exports){
 

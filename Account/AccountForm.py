@@ -58,23 +58,23 @@ class RegisterForm(forms.Form):
 class UserInfomationForm(forms.Form):
     username=forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
+        widget=forms.TextInput(attrs={"class": "layui-input layui-disabled"})
     )
     surname=forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
+        widget=forms.TextInput(attrs={"class": "layui-input layui-disabled"})
     )
 
     fristname=forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
+        widget=forms.TextInput(attrs={"class": "layui-input layui-disabled"})
     )
     brith=forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
+        widget=forms.TextInput(attrs={"class": "layui-input layui-disabled"})
     )
     email=forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "layui-input"})
+        widget=forms.TextInput(attrs={"class": "layui-input layui-disabled"})
     )
 

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
 {% block title %}
 register
 {% endblock %}
@@ -85,38 +87,40 @@ register
 {% endblock %}
 
 {% block js %}
-<script>
-    layui.use(['laydate', 'form', 'jquery', 'element'], function () {
-        var $ = layui.jquery;
-        var laydate = layui.laydate;
-        var form = layui.form;
-        var element = layui.element
-        laydate.render({
-            elem: '#id_brith',
-            lang: 'en'
-            , trigger: 'click'
-        })
-        form.on('submit(*)', function (data) {
-            $.ajax({
-                type: "POST",
-                url: "{% url 'Account:sign-up' %}",
-                data: data.field,
-                success: function (res) {
-                    if (res["status"] || res["status"] == undefined) {
-                        layer.confirm(res["msg"], {
-                            btn: ['confirm'] //按钮
-                        }, function () {
-                            window.location.href = "{% url 'Account:login' %}"
-                        })
-                    } else {
-                        res = JSON.parse(res["res"]);
-                        var msg_count = Object.keys(res)
-                        layer.msg(res[msg_count[0]][0].message, {
-                            icon: 5,
-                            shift: 6
-                        });
-                        $(".layui-input[name='" + msg_count[0] + "']").focus();
-                        $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+
+    <script>
+        layui.use(['laydate', 'form', 'jquery','element'], function () {
+            var $ = layui.jquery;
+            var laydate = layui.laydate;
+            var form = layui.form;
+            var element=layui.element
+            laydate.render({
+                elem: '#id_brith',
+                lang:'en'
+                ,trigger:'click'
+            })
+            form.on('submit(*)', function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'Account:sign-up' %}",
+                    data: data.field,
+                    success: function (res) {
+                        if (res["status"] || res["status"] == undefined) {
+                            layer.confirm(res["msg"], {
+                                btn: ['confirm'] //按钮
+                            }, function () {
+                                window.location.href = "{% url 'home:homepage' %}"
+                            })
+                        } else {
+                            res = JSON.parse(res["res"]);
+                            var msg_count = Object.keys(res)
+                            layer.msg(res[msg_count[0]][0].message, {
+                                icon: 5,
+                                shift: 6
+                            });
+                            $(".layui-input[name='" + msg_count[0] + "']").focus();
+                            $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+                        }
                     }
                 }
             });
