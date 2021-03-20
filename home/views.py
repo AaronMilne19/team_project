@@ -33,7 +33,7 @@ def rating(request):
         try:
             obj = CityRatings.objects.get(UserRating=user, CityRated=city)
 
-            #If user clicks same stat button again then delete the rating and refresh the page
+            #If user clicks same star button again then delete the rating and refresh the page
             if obj.Rating == int(val):
                 obj.delete()
                 return JsonResponse({'success':'true', 'score':0}, safe=False)
