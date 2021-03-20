@@ -32,8 +32,14 @@ def rating(request):
 
         try:
             obj = CityRatings.objects.get(UserRating=user, CityRated=city)
-            obj.Rating = val
-            obj.save()
+
+            #If user clicks same stat button again then delete the rating
+            if obj.Rating == int(val):
+                obj.delete()
+            else:
+                obj.Rating = val
+                obj.save()
+
         except CityRatings.DoesNotExist:
             obj = CityRatings(UserRating=user, CityRated=city, Rating=val)
             obj.save()
