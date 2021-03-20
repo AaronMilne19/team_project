@@ -92,7 +92,7 @@ function leaveRating(rating, name) {
 		},
 		dataType: 'json',
 		success: function(response) {
-			rated(rating, name);
+			rated(response.score, name);
 		},
 		error: function(error){
 			console.log(error)
