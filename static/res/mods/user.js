@@ -1,8 +1,4 @@
-/**
 
- @Name: 用户模块
-
- */
  
 layui.define(['laypage', 'fly', 'element', 'flow'], function(exports){
 

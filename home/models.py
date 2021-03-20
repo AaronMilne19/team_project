@@ -55,7 +55,7 @@ class MVUser(models.Model):
     Name = models.CharField(max_length=50, null=True)
     Surname = models.CharField(max_length=50, null=True)
     DateOfBirth = models.DateField(null=True)
-    Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
+    Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True,default="/static/profile_pictures/default.png")
     
     def save(self, *args, **kwargs):
         if (self.Avatar == '' or self.Avatar == None): 
