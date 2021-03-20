@@ -1,17 +1,21 @@
 /* Code inspired from https://www.w3schools.com/howto/howto_css_contact_section.asp */
 
-* {
+h2 {
   font-family: "Nunito Sans", sans-serif;
   letter-spacing: 0.02rem;
-}
-
-h2 {
   margin: 10px 0 20px 0;
 }
 
 p {
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.02rem;
   font-size: 110%;
   margin-bottom: 10px;
+}
+
+label {
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.02rem;
 }
 
 /* Style inputs */
@@ -36,6 +40,8 @@ textarea:hover {
 }
 
 input[type="submit"] {
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.02rem;
   background-color: rgb(62, 123, 255);
   color: rgb(252, 240, 240);
   padding: 8px 18px;
@@ -73,7 +79,7 @@ input[type="submit"]:hover {
   clear: both;
 }
 
-.hide-alert{
+.hide-alert {
   display: none !important;
 }
 

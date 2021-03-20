@@ -1,0 +1,55 @@
+section {
+  background-color: rgb(15, 152, 255);
+}
+
+#saved-attractions-page h1 {
+  color: black;
+  margin: 25px 0 20px 0;
+  letter-spacing: 0.05em;
+  font-size: 2rem;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+#accordion {
+  max-width: 80%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.accordion-item .accordion-header .accordion-button {
+  font-size: 1.3rem;
+  padding-left: 2%;
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.card {
+  margin-bottom: 8px;
+}
+
+.card .card-body .card-title {
+  font-size: 1rem;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.checked {
+  color: #eed202;
+}
+
+.attraction-name {
+  margin-right: 20px;
+}
+
+.attraction-button {
+  margin-top: 12px;
+}
+
+.empty-msg {
+  color: black;
+  margin: 20px 0 15px 0;
+  letter-spacing: 0.05em;
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+}
