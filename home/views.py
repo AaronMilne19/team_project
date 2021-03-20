@@ -1,6 +1,5 @@
 
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
 from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
 from django.http import Http404, JsonResponse
 from random import randint
@@ -15,27 +14,34 @@ def contactus(request):
 
 def homepage(request):
     ctx = {}
-    ctx['cities'] = City.objects.order_by('-Views')
+    cities = City.objects.all()
+
+    ctx['cities'] = sorted(cities.all(), key=lambda a: -a.getAverageRating())
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
     return render(request, 'homepage.html', context=ctx)
 
-<<<<<<< HEAD
 
 @login_required
 def rating(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
+        city_name = request.POST.get('name')
         val = request.POST.get('score')
-        obj = CityRatings.objects.get_or_create(CityRated=name,
-        UserRating = request.user,
-        Rating = val)
-        obj.save()
+
+        city = City.objects.get(NameSlug=city_name)
+        user = MVUser.objects.get(DjangoUser=request.user)
+
+        try:
+            obj = CityRatings.objects.get(UserRating=user, CityRated=city)
+            obj.Rating = val
+            obj.save()
+        except CityRatings.DoesNotExist:
+            obj = CityRatings(UserRating=user, CityRated=city, Rating=val)
+            obj.save()
+
         return JsonResponse({'success':'true', 'score':val}, safe=False)
     return JsonResponse({'success':'false'})
 
 
-=======
->>>>>>> c791f21d5da14266bdb60ce9d81e7f2f4e3c1fc6
 def send_somewhere_random(request):
     #get array of all attractions and then choose a random one from that and redirect user to it.
     rand_attractions = Attraction.objects.all()

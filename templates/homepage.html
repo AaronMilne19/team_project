@@ -54,7 +54,7 @@ Home
 											{% csrf_token %}
 											{% for i in '12345'|make_list %}
 											{% if forloop.counter == 1 %}
-											<button type="submit" class="fa fa-star fa-lg my_btn" style="margin-left: 1.2rem;"
+											<button type="button" class="fa fa-star fa-lg my_btn" style="margin-left: 1.2rem;"
 												name="{{ forloop.counter }}" value="{{city.NameSlug}}"
 												onclick="{% if user.is_authenticated %}
 															rateAttraction()
@@ -63,13 +63,13 @@ Home
 														{% endif %}">
 											</button>
 											{% else %}
-											<button type="submit" class="fa fa-star fa-lg ms-1 my_btn" 
+											<button type="button" class="fa fa-star fa-lg ms-1 my_btn"
 													name="{{ forloop.counter }}" value="{{ city.NameSlug }}"
 													onclick="{% if user.is_authenticated %}
 																rateAttraction()
 															{% else %}
 																showNotLoggedInAlert()
-															{% endif %}">
+															{% endif %}"
 											</button>
 											{% endif %}
 											{% endfor %}

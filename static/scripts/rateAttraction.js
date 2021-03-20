@@ -9,21 +9,27 @@ var form = document.getElementsByClassName('rate_form')
 var csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 
-function rated(value) {
+function rated(value, city) {
 	for (const cityForm of form) {
 		if (cityForm.id === city) {
 			const children = cityForm.children;
 
-			//remove the previous rating.
-			for (const child of children) {
-				child.classList.remove('rated')
-			}
+			//if user clicks same button twice remove rating else change rating
+			if (value !== 0) {
+				for (const child of children) {
+					child.classList.remove('rated')
+				}
 
-			for (let i = 0; i < children.length; i++) {
-				if (i <= size) {
-					children[i].classList.add('rated');
-				} else {
-					children[i].classList.remove('rated');
+				for (let i = 0; i < children.length; i++) {
+					if (i <= value) {
+						children[i].classList.add('rated');
+					} else {
+						children[i].classList.remove('rated');
+					}
+				}
+			} else {
+				for (const child of children) {
+					child.classList.remove('rated')
 				}
 			}
 		}
@@ -58,8 +64,7 @@ if (one) {
 	for (let j=1; j<=5; j++) {
 		for (const star of a) {
 			star[j-1].addEventListener('mouseover', function(){handleStarSelect(event.target.name, event.target.value)});
-
-			star[j-1].addEventListener('mouseleave', function(){handleStarSelect(0, event.target.value)})
+			star[j-1].addEventListener('mouseleave', function(){handleStarSelect(0, event.target.value)});
 		}
 	}
 }
@@ -76,6 +81,7 @@ function rateAttraction() {
 
 
 function leaveRating(rating, name) {
+
 	$.ajax({
 		type: 'POST',
 		url: 'rating/',
@@ -84,9 +90,9 @@ function leaveRating(rating, name) {
 			'name': name,
 			'score': rating,
 		},
+		dataType: 'json',
 		success: function(response) {
-			rated(rating)
-			alert("Successfully rated")
+			rated(rating, name);
 		},
 		error: function(error){
 			console.log(error)
