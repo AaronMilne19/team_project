@@ -35,7 +35,6 @@ def citypage(request, NameSlug, sortBy):
         ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
         
-    ctx['attraction_map'] = attractions
     ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] }
     
 

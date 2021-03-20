@@ -10,8 +10,19 @@
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <script src="{% static 'scripts/rateAttraction.js' %}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYT8pxTvGXkKlAf0mhS7Ly0AoAxA0UMg0"></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
+<script language="javascript">
+    function apiLoaded(){
+      map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
+      markers = [];
+      {% for attraction in attractions %}
+          markers.push(addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}', {{attraction.pk}}));
+      {% endfor %}   
+      for (marker of markers){
+        console.log(marker.title + " " + marker.position);
+      }
+    } 
+</script>
 
 {% endblock %}
 
@@ -22,7 +33,7 @@
     <div class="row">
 
         <div class="col-lg-5 col-md-4 order-md-2">
-            <div id="citymap">Hello</div>
+            <div id="citymap"></div>
         </div>
 
         <div class="col-lg-7 col-md-8 order-md-1">
@@ -99,7 +110,7 @@
                                 <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}"
                                     alt="{{attraction.Name}} picture">
                                 <button type="button" class="btn btn-primary btn-sm btn-xs" value="{{attraction.pk}}"
-                                    onclick="viewOnMap()">View on Map</button>
+                                    onclick="viewOnMap({{attraction.pk}})">View on Map</button>
 
                             </div>
                         </div>
@@ -113,13 +124,7 @@
     </div>
     
     <div id="map"></div>
-    
-    <script language="javascript">
-        map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
-        {% for attraction in attraction_map %}
-            addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}');
-        {% endfor %} 
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ-YDV7_elC2d72MYHlHn_IiIcwpzcKvg&callback=apiLoaded&language=en"></script>
 
 </section>
 
