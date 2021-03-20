@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load staticfiles %}
 {% block title %}
-Account
+    Account
 {% endblock %}
 {% block css %}
-<style>
-    .layui-form-item .layui-input-inline {
-        float: left;
-        width: 315px;
-        margin-right: 10px;
-    }
+    <style>
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 315px;
+            margin-right: 10px;
+        }
 
-    .layui-form-pane .layui-form-label {
-        width: 153px;
-    }
+        .layui-form-pane .layui-form-label {
+            width: 153px;
+        }
 
 
         .logo {
@@ -30,54 +28,52 @@ Account
         padding-left: 15px;
     }
     </style>
-
 {% endblock %}
 {% block content %}
-{% include 'header.html' %}
-<div class="layui-container fly-marginTop fly-user-main">
-    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+    {% include 'header.html' %}
+    <div class="layui-container fly-marginTop fly-user-main">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
 
-        {% if userinfo is None %}
-        <img src="/static/profile_pictures/default.png" class="logo">
-        {% else %}
-        <img src="{{ userinfo.Avatar }}" class="logo">
-        {% endif %}
-        <li class="layui-nav-item">
-            <a href="{% url 'Account:setting' %}">
-                <i class="layui-icon ">&#xe681;</i>
-                Upload Avatar
-            </a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="index.html">
-                <i class="layui-icon">&#xe63a;</i>
-                My Reviews
-            </a>
-        </li>
-        <li class="layui-nav-item ">
-            <a href="{% url 'home:myattractions' %}">
-                <i class="layui-icon">&#xe660;</i>
-                Saved Attractions
-            </a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="{% url 'Account:loginout' %}">
-                <i class="layui-icon icon-daima"></i>
-                Sign Out
-            </a>
-        </li>
-    </ul>
+            {% if userinfo is None %}
+                <img src="/static/profile_pictures/default.png" class="logo">
+            {% else %}
+                <img src="{{ userinfo.Avatar }}" class="logo">
+            {% endif %}
+            <li class="layui-nav-item">
+                <a href="{% url 'Account:setting' %}">
+                    <i class="layui-icon ">&#xe681;</i>
+                    Upload Avatar
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="index.html">
+                    <i class="layui-icon">&#xe63a;</i>
+                    My Reviews
+                </a>
+            </li>
+            <li class="layui-nav-item ">
+                <a href="">
+                    <i class="layui-icon">&#xe660;</i>
+                    Saved Attractions
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="{% url 'Account:loginout' %}">
+                    <i class="layui-icon icon-daima"></i>
+                    Sign Out
+                </a>
+            </li>
+        </ul>
 
-    <div class="site-tree-mobile layui-hide">
-        <i class="layui-icon">&#xe602;</i>
-    </div>
-    <div class="site-mobile-shade"></div>
+        <div class="site-tree-mobile layui-hide">
+            <i class="layui-icon">&#xe602;</i>
+        </div>
+        <div class="site-mobile-shade"></div>
 
-    <div class="site-tree-mobile layui-hide">
-        <i class="layui-icon">&#xe602;</i>
-    </div>
-    <div class="site-mobile-shade"></div>
-
+        <div class="site-tree-mobile layui-hide">
+            <i class="layui-icon">&#xe602;</i>
+        </div>
+        <div class="site-mobile-shade"></div>
 
 
         <div class="fly-panel fly-panel-user" pad20>
@@ -121,43 +117,35 @@ Account
                                     <div class="layui-input-inline">
                                         <p>{{ user.email }}</p>
                                     </div>
-
                                 </div>
-                            </div>
 
-                            {# <div class="layui-form-item">#}
-                                {# <button class="layui-btn" lay-filter="*" lay-submit>Save</button>#}
-                                {# </div>#}
-                        </form>
+{#                                <div class="layui-form-item">#}
+{#                                    <button class="layui-btn" lay-filter="*" lay-submit>Save</button>#}
+{#                                </div>#}
+                            </form>
+                        </div>
                     </div>
+
+
                 </div>
 
-
             </div>
-
         </div>
-
-      <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="{% static 'sign-up/22.png' %}" alt="" style="width:30px;height: 30px;">Contact Us </a>
+      <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="/static/sign-up/22.png" alt="" style="width:30px;height: 30px;">Contact Us </a>
     </div>
-
     </div>
-    <button class="layui-btn" style="float: right;"><img src="/static/sign-up/22.png" alt=""
-            style="width:30px;height: 30px;">Contact Us </button>
-</div>
-</div>
 {% endblock %}
 
 {% block js %}
-<script>
-    layui.use(['laydate', 'form', 'jquery', 'element', 'laydate'], function () {
-        var $ = layui.jquery;
-        var form = layui.form;
-        var element = layui.element;
-        layui.laydate.render({
-            elem: '#id_brith',
-            lang: 'en'
-        })
-
+    <script>
+        layui.use(['laydate', 'form', 'jquery', 'element', 'laydate'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var element = layui.element;
+            layui.laydate.render({
+                elem: '#id_brith',
+                 lang:'en'
+            })
 
             $(".logo").click(function () {
                 window.location.href="{% url 'Account:setting' %}"
@@ -191,12 +179,10 @@ Account
                             $(".layui-input[name='" + msg_count[0] + "']").focus();
                             $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
                         }
-
                     }
-                }
+                });
+                return false;
             });
-            return false;
-        });
-    })
-</script>
+        })
+    </script>
 {% endblock %}
