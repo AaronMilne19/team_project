@@ -18,6 +18,12 @@ def homepage(request):
 
     ctx['cities'] = sorted(cities.all(), key=lambda a: -a.getAverageRating())
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        ctx['city_ratings'] = CityRatings.objects.filter(UserRating=user)
+
+    print(ctx['city_ratings'])
     return render(request, 'homepage.html', context=ctx)
 
 
