@@ -101,6 +101,10 @@ h2 {
 	border: 0 !important;
 }
 
+.attraction_label {
+	margin-right: 1.2rem;
+}
+
 #random_loc_button {
 	padding: 10pt;
 	text-align: center;

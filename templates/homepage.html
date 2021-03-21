@@ -8,7 +8,6 @@ Home
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
 
 <script>
@@ -53,14 +52,14 @@ Home
 										<h6 class="attraction_label"><strong>Average User Rating:</strong></h6>
 
 										{% for i in '12345'|make_list %}
-										{% if forloop.counter == 1 %}
-										<span class="fa fa-star fa-lg checked ms-5"
-											value="{{ forloop.counter }}"></span>
+										{% if city.getAverageRating > forloop.counter0 %}
+										<span class="fa fa-star fa-lg checked me-1 checked"
+											  value="{{ forloop.counter }}"></span>
 										{% else %}
-										<span class="fa fa-star fa-lg checked ms-1"
-											value="{{ forloop.counter }}"></span>
+										<span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
 										{% endif %}
 										{% endfor %}
+
 									</li>
 									<li class="rating_section my_rating">
 										<h6 class="attraction_label"><strong>My Rating:</strong></h6>
@@ -68,16 +67,6 @@ Home
 										<form class="rate_form" action="" method="POST" id="{{city.NameSlug}}">
 											{% csrf_token %}
 											{% for i in '12345'|make_list %}
-											{% if forloop.counter == 1 %}
-											<button type="button" class="fa fa-star fa-lg my_btn" style="margin-left: 1.2rem;"
-												name="{{ forloop.counter }}" value="{{city.NameSlug}}"
-												onclick="{% if user.is_authenticated %}
-															rateAttraction()
-														{% else %}
-															showNotLoggedInAlert()
-														{% endif %}">
-											</button>
-											{% else %}
 											<button type="button" class="fa fa-star fa-lg ms-1 my_btn"
 													name="{{ forloop.counter }}" value="{{ city.NameSlug }}"
 													onclick="{% if user.is_authenticated %}
@@ -86,7 +75,6 @@ Home
 																showNotLoggedInAlert()
 															{% endif %}">
 											</button>
-											{% endif %}
 											{% endfor %}
 										</form>
 									</li>
