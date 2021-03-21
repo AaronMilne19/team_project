@@ -23,7 +23,6 @@ def homepage(request):
         user = MVUser.objects.get(DjangoUser=request.user)
         ctx['city_ratings'] = CityRatings.objects.filter(UserRating=user)
 
-    print(ctx['city_ratings'])
     return render(request, 'homepage.html', context=ctx)
 
 
