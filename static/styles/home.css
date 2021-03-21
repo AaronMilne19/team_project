@@ -101,16 +101,6 @@ h2 {
 	border: 0 !important;
 }
 
-/*
-.my_rating:hover > span:before {
-	color: #cfb700;
-}
-
-.my_rating > span:hover ~ span:before {
-	color: #e0e0e0;
-}
- */
-
 #random_loc_button {
 	padding: 10pt;
 	text-align: center;
