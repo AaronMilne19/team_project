@@ -8,8 +8,22 @@ Home
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="{% static 'scripts/rateAttraction.js' %}"></script>
+<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+
+<script>
+	var cityRatingName = [];
+	var cityRatingValue = [];
+	var cit = [];
+
+	{% for city in cities %}
+		 cit.push("{{ city.NameSlug }}");
+	{% endfor %}
+	{% for rating in city_ratings %}
+		cityRatingName.push("{{ rating.CityRated.NameSlug }}");
+		cityRatingValue.push({{ rating.Rating }})
+	{% endfor %}
+</script>
+
 {% endblock %}
 
 {% block content %}
@@ -34,42 +48,35 @@ Home
 							<div class="city_description">
 								<ul>
 									<li class="information">{{city.Description}}</li>
-									<li class="rating_section information">
+									<li class="rating_section">
 										<h6 class="attraction_label"><strong>Average User Rating:</strong></h6>
 
 										{% for i in '12345'|make_list %}
-										{% if forloop.counter == 1 %}
-										<span class="fa fa-star fa-lg checked ms-5"
-											value="{{ forloop.counter }}"></span>
+										{% if city.getAverageRating > forloop.counter0 %}
+										<span class="fa fa-star fa-lg checked me-1 checked"
+											  value="{{ forloop.counter }}"></span>
 										{% else %}
-										<span class="fa fa-star fa-lg checked ms-1"
-											value="{{ forloop.counter }}"></span>
+										<span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
 										{% endif %}
 										{% endfor %}
+
 									</li>
-									<li class="rating_section my_rating information">
+									<li class="rating_section my_rating">
 										<h6 class="attraction_label"><strong>My Rating:</strong></h6>
 
-										{% for i in '12345'|make_list %}
-										{% if forloop.counter == 1 %}
-										<span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
-											value="{{ forloop.counter }}" 
-											onclick="{% if user.is_authenticated %}
-														rateAttraction()
-													{% else %}
-														showNotLoggedInAlert()
-													{% endif %}">
-										</span>
-										{% else %}
-										<span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
-											onclick="{% if user.is_authenticated %}
-														rateAttraction()
-													{% else %}
-														showNotLoggedInAlert()
-													{% endif %}">
-										</span>
-										{% endif %}
-										{% endfor %}
+										<form class="rate_form" action="" method="POST" id="{{city.NameSlug}}">
+											{% csrf_token %}
+											{% for i in '12345'|make_list %}
+											<button type="button" class="fa fa-star fa-lg ms-1 my_btn"
+													name="{{ forloop.counter }}" value="{{ city.NameSlug }}"
+													onclick="{% if user.is_authenticated %}
+																rateAttraction()
+															{% else %}
+																showNotLoggedInAlert()
+															{% endif %}">
+											</button>
+											{% endfor %}
+										</form>
 									</li>
 								</ul>
 							</div>

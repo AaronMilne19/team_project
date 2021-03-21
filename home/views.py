@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
-from home.models import City, Attraction, AttractionReviews, MVUser, User
-from django.http import Http404
+from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
+from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
 
@@ -14,11 +14,49 @@ def contactus(request):
 
 def homepage(request):
     ctx = {}
-    ctx['cities'] = City.objects.order_by('-Views')
+    cities = City.objects.all()
+
+    ctx['cities'] = sorted(cities.all(), key=lambda a: -a.getAverageRating())
     ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        ctx['city_ratings'] = CityRatings.objects.filter(UserRating=user)
+
     return render(request, 'homepage.html', context=ctx)
 
+
+@login_required
+def rating(request):
+    if request.method == 'POST':
+        city_name = request.POST.get('name')
+        val = request.POST.get('score')
+
+        city = City.objects.get(NameSlug=city_name)
+        user = MVUser.objects.get(DjangoUser=request.user)
+
+        try:
+            obj = CityRatings.objects.get(UserRating=user, CityRated=city)
+
+            #If user clicks same star button again then delete the rating and refresh the page
+            if obj.Rating == int(val):
+                obj.delete()
+                return JsonResponse({'success':'true', 'score':0}, safe=False)
+
+            else:
+                obj.Rating = val
+                obj.save()
+
+        except CityRatings.DoesNotExist:
+            obj = CityRatings(UserRating=user, CityRated=city, Rating=val)
+            obj.save()
+
+        return JsonResponse({'success':'true', 'score':val}, safe=False)
+    return JsonResponse({'success':'false'})
+
+
 def send_somewhere_random(request):
+    #get array of all attractions and then choose a random one from that and redirect user to it.
     rand_attractions = Attraction.objects.all()
     count = rand_attractions.count()
 

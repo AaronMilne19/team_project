@@ -2,7 +2,7 @@ h1 {
 	color: white;
 	font-family: "Freestyle Script";
 	text-align: center;
-	font-size: 40pt;
+	font-size: 60pt;
 }
 
 h2 {
@@ -81,7 +81,6 @@ h2 {
 .information {
 	list-style-type: none;
 	padding: 5px 0;
-	color: black;
 }
 
 .rating_section {
@@ -89,16 +88,21 @@ h2 {
 	padding-top: 30pt;
 }
 
-.rating_section .checked {
+.checked {
 	color:#eed202;
 }
 
-.my_rating:hover > span:before {
-	color: #cfb700;
+.rated {
+	color: #bfa900;
 }
 
-.my_rating > span:hover ~ span:before {
-	color: #e0e0e0;
+.my_btn {
+	background-color: inherit !important;
+	border: 0 !important;
+}
+
+.attraction_label {
+	margin-right: 1.2rem;
 }
 
 #random_loc_button {
