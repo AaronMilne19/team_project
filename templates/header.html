@@ -46,12 +46,11 @@
                 <li class="dropdown nav-item">
                     <a class="fly-nav-avatar" href="javascript:;">
                         {% if userinfo is None %}
-                            <img src="/static/profile_pictures/default.png">
+                            <img src="/static/profile_pictures/default.png"  style="width:36px;height:36px;margin-left:10px;border-radius:100%;">
                         {% else %}
-                            <img src="{{ userinfo.Avatar }}">
+                            <img src="{{ userinfo.Avatar }}"  style="width:36px;height:36px;margin-left:10px;border-radius:100%;">
                         {% endif %}
-                        <cite class="layui-hide-xs"
-                              style="color: #000000">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
+                        <cite class="layui-hide-xs" style="color:#000000;font-style:normal;line-height:24px;font: 14px Helvetica Neue,Helvetica,PingFang SC,\5FAE\8F6F\96C5\9ED1,Tahoma,Arial,sans-serif;">Hi&nbsp;&nbsp;{{ request.user.username }}</cite>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'Account:account' %}">My Account</a></li>
