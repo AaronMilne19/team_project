@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
+<script src="../static/scripts/email.js"></script>{% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
-{% block title_block %}
+{% block title %}
 {{city.Name}}
 {% endblock %}
 
-{% block styles_block %}
+{% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/city.css' %}">
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<script src="{% static 'scripts/rateAttraction.js' %}"></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 <script language="javascript">
     function apiLoaded(){
@@ -24,7 +23,7 @@
 {% endblock %}
 
 
-{% block body_block %}
+{% block content %}
 <section class="city-section">
     <h1> {{city.Name}} City</h1>
     <div class="row">
@@ -42,7 +41,6 @@
                 <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false">
-
                         {{dropdown_msg}}
                     </a>
 
@@ -75,28 +73,14 @@
                                         <li class="views-count"><b class="attraction-label views">Views:</b>
                                             {{attraction.Views}}</li>
                                         <li class="rating-section">
-                                            <h6 class="attraction-label">Rating:</h6>
+                                            <h6 class="attraction-label me-5">Rating:</h6>
 
                                             {% for i in '12345'|make_list %}
-                                            {% if forloop.counter == 1 %}
-                                            <span class="fa fa-star fa-lg checked ms-5"
+                                            {% if attraction.getAverageRating > forloop.counter0 %}
+                                            <span class="fa fa-star fa-lg checked me-1 checked"
                                                 value="{{ forloop.counter }}"></span>
                                             {% else %}
-                                            <span class="fa fa-star fa-lg checked ms-1"
-                                                value="{{ forloop.counter }}"></span>
-                                            {% endif %}
-                                            {% endfor %}
-                                        </li>
-                                        <li class="rating-section my-rating">
-                                            <h6 class="attraction-label">My Rating:</h6>
-
-                                            {% for i in '12345'|make_list %}
-                                            {% if forloop.counter == 1 %}
-                                            <span class="fa fa-star fa-lg" style="margin-left: 1.2rem;"
-                                                value="{{ forloop.counter }}" onclick="rateAttraction()"></span>
-                                            {% else %}
-                                            <span class="fa fa-star fa-lg ms-1" value="{{ forloop.counter }}"
-                                                onclick="rateAttraction()"></span>
+                                            <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
                                             {% endif %}
                                             {% endfor %}
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class City(models.Model):
     Name = models.CharField(max_length=100, unique=True)
@@ -22,7 +23,8 @@ class City(models.Model):
     
     def __str__(self):
         return self.Name
-        
+ 
+ 
 class Attraction(models.Model):
     City = models.ForeignKey(City, on_delete=models.CASCADE)
     
@@ -44,7 +46,8 @@ class Attraction(models.Model):
     
     def __str__(self):
         return self.Name 
-        
+ 
+ 
 class MVUser(models.Model):
     DjangoUser = models.OneToOneField(User, on_delete=models.CASCADE)
     
@@ -55,7 +58,7 @@ class MVUser(models.Model):
     Name = models.CharField(max_length=50, null=True)
     Surname = models.CharField(max_length=50, null=True)
     DateOfBirth = models.DateField(null=True)
-    Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
+    Avatar = models.ImageField(upload_to='profile_pictures', null=True, blank=True,default="/static/profile_pictures/default.png")
     
     def save(self, *args, **kwargs):
         if (self.Avatar == '' or self.Avatar == None): 
@@ -67,19 +70,24 @@ class MVUser(models.Model):
     
     def __str__(self):
         return self.DjangoUser.username 
+
         
 class CityRatings(models.Model):
     CityRated = models.ForeignKey(City, on_delete=models.CASCADE)
     UserRating = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep ratings from deleted users, i.e. on_delete=models.SET_NULL
     
-    Rating = models.PositiveSmallIntegerField()
+    #User can rate between 1-5 if value 0 then city not been rated.
+    Rating = models.PositiveSmallIntegerField(default=0,
+        validators = [MaxValueValidator(5), MinValueValidator(0)]
+    )
     
     class Meta(): 
         verbose_name_plural = 'City Ratings' 
     
     def __str__(self):
         return '%s rates %s %i/5' % (str(self.UserRating), str(self.CityRated), self.Rating)
-    
+ 
+ 
 class AttractionReviews(models.Model):
     Likes = models.ManyToManyField(MVUser, through='ReviewLikes', related_name='likers')
     

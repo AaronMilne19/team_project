@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block title %}
+    setting
+{% endblock %}
+{% block css %}
+    <style>
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 315px;
+            margin-right: 10px;
+        }
+
+        .layui-form-pane .layui-form-label {
+            width: 153px;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        .avatar-add {
+            position: relative;
+            width: 373px;
+            height: 373px;
+            background-color: #F2F2F5;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="layui-container fly-marginTop fly-user-main">
+           <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+
+            {% if userinfo is None %}
+                <img src="/static/profile_pictures/default.png" class="logo">
+            {% else %}
+                <img src="{{ userinfo.Avatar }}" class="logo">
+            {% endif %}
+            <li class="layui-nav-item layui-this">
+                <a href="{% url 'Account:setting' %}">
+                    <i class="layui-icon ">&#xe681;</i>
+                    Upload Avatar
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">
+                    <i class="layui-icon">&#xe63a;</i>
+                    My Reviews
+                </a>
+            </li>
+            <li class="layui-nav-item ">
+                <a href="">
+                    <i class="layui-icon">&#xe660;</i>
+                    Saved Attractions
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="{% url 'Account:loginout' %}">
+                    <i class="layui-icon icon-daima"></i>
+                    Sign Out
+                </a>
+            </li>
+        </ul>
+
+        <div class="site-tree-mobile layui-hide">
+            <i class="layui-icon">&#xe602;</i>
+        </div>
+        <div class="site-mobile-shade"></div>
+
+        <div class="site-tree-mobile layui-hide">
+            <i class="layui-icon">&#xe602;</i>
+        </div>
+        <div class="site-mobile-shade"></div>
+
+
+        <div class="fly-panel fly-panel-user" pad20>
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <ul class="layui-tab-title" id="LAY_mine">
+                    <li class="layui-this" lay-id="info">Upload Avatar</li>
+                </ul>
+                <div class="layui-tab-content" style="padding: 20px 0;">
+                    <div class="layui-form layui-form-pane layui-tab-item" style="display: block">
+                        <div class="layui-form-item">
+                            <div class="avatar-add">
+{#                                <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>#}
+                                <button type="button" class="layui-btn upload-img">
+                                    <i class="layui-icon">&#xe67c;</i>Upload Img
+                                </button>
+                                {% if userinfo.Avatar is None %}
+                                    <img src="/static/profile_pictures/default.png" id="avatar">
+                                {% else %}
+                                    <img src="{{ userinfo.Avatar }}" id="avatar">
+                                {% endif %}
+                                <span class="loading"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+     <a class="layui-btn" style="float: right;" href="{% url 'home:contact' %}"><img src="/static/sign-up/22.png" alt="" style="width:30px;height: 30px;">Contact Us </a>
+    </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        layui.use(['laydate', 'form', 'jquery', 'element','upload'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var element = layui.element;
+            var upload=layui.upload;
+            var uploadInst=upload.render({
+                elem:'.upload-img',
+                url:'{% url 'Account:setting' %}',
+                done:function (res) {
+                    if(res["code"]==0){
+                        layer.confirm("upload Successful!", {
+                            title:'Information',
+                                btn: ['confirm'] //按钮
+                            }, function () {
+                                    window.location.reload()
+                            })
+                    }
+                    else{
+                        layer.msg("Upload Failed")
+                    }
+                }
+            })
+              $(".logo").click(function () {
+                window.location.href="{% url 'Account:setting' %}"
+            })
+            form.on('submit(*)', function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'Account:setting' %}",
+                    data: data.field,
+                    success: function (res) {
+                        if (res["status"] || res["status"] == undefined) {
+                            layer.confirm(res["msg"], {
+                                btn: ['confirm'] //按钮
+                            }, function () {
+                                if (res["msg"] == "Login Successful!") {
+                                    window.location.href = "{% url 'home:homepage' %}"
+                                }
+                                else {
+                                    window.location.reload()
+                                }
+                            })
+                        } else {
+                            res = JSON.parse(res["res"]);
+                            var msg_count = Object.keys(res)
+                            layer.msg(res[msg_count[0]][0].message, {
+                                icon: 5,
+                                shift: 6
+                            });
+                            $(".layui-input[name='" + msg_count[0] + "']").focus();
+                            $(".layui-input[name='" + msg_count[0] + "']").addClass("layui-form-danger");
+                        }
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
+{% endblock %}
