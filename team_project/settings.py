@@ -66,7 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Account.context_peocessors.userinfo'
+                'Account.context_peocessors.userinfo',
+                'django.template.context_processors.media',
             ],
         },
     },
