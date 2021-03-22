@@ -66,8 +66,10 @@ def send_somewhere_random(request):
     rand_num = randint(0, count-1)
     rand_attraction = rand_attractions[rand_num]
 
-    return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/' + rand_attraction.NameSlug + '/')
-
+    return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/attractions/' + rand_attraction.NameSlug + '/')
+    
+def citypage_unsorted(request, NameSlug):
+    return citypage(request, NameSlug, "")
 
 def citypage(request, NameSlug, sortBy):
     ctx = {}
@@ -94,6 +96,17 @@ def citypage(request, NameSlug, sortBy):
     
 
     return render(request, 'citypage.html', context=ctx)
+    
+def attractionpage(request, CityNameSlug, AttractionNameSlug):
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
+    
+    ctx = {}
+    ctx['city'] = city
+    ctx['attraction'] = attraction
+    ctx['reviews'] = AttractionReviews.objects.filter(AttractionReviewed=attraction)
+    
+    return render(request, 'attractionpage.html', context=ctx)
 
 @login_required
 def myattractions(request):

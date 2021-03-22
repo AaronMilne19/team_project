@@ -30,7 +30,7 @@ Home
 <section>
 	<div class="row">
 		<!-- city section -->
-		<div class="col-8">
+		<div class="col-md-8">
 			<div id="top_cities_container">
 				<h1><u>Top Rated Cities</u></h1>
 
@@ -38,10 +38,10 @@ Home
 				<div class="card">
 					<div class="row">
 						<div class="col-4" id="image">
-							<img src="{{ MEDIA_URL }}{{city.HeaderPicture}}" style="max-width:100%">
+							<img src="{{ MEDIA_URL }}{{ city.HeaderPicture }}" alt="{{ city.Name }}" title="{{ city.Name }}" style="max-width:100%">
 						</div>
 
-						<div class="col-8" id="info">
+						<div class="col-8 pb-2" id="info">
 							<a href="{% url 'home:citypage' city.NameSlug 'list' %}" , class="link" }>
 								<h3 class="name">{{ city }}</h3>
 							</a>
@@ -61,6 +61,7 @@ Home
 										{% endfor %}
 
 									</li>
+                                    {% if user.is_authenticated %}
 									<li class="rating_section my_rating">
 										<h6 class="attraction_label"><strong>My Rating:</strong></h6>
 
@@ -78,6 +79,7 @@ Home
 											{% endfor %}
 										</form>
 									</li>
+                                    {% endif %}
 								</ul>
 							</div>
 						</div>
@@ -88,9 +90,9 @@ Home
 		</div>
 
 		<!-- sidebar -->
-		<div class="col-4 position-fixed mr-5" id="sidebar">
+		<div class="col-md-4 position-fixed mr-5 p-3" id="sidebar">
 			<div id="random_loc_button">
-				<a href="/home/random/">
+				<a href="{% url 'home:random' %}">
 					<button type="button" class="btn btn-primary btn-lg">Send Me Somewhere Random!</button>
 				</a>
 			</div>
@@ -100,7 +102,7 @@ Home
 			<div id="top_attractions">
 				<ol id="top_attractions">
 					{% for attraction in attractions %}
-					<a href="cities/{{attraction.City.NameSlug}}/{{attraction.NameSlug}}" class="link">
+					<a href="{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}" class="link">
 						<li id="top_attractions">{{attraction.Name}} - {{attraction.City}}</li>
 					</a>
 					{% endfor %}

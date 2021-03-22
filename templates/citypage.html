@@ -51,7 +51,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-7">
-                                <a href="" class="attraction-name">
+                                <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}" class="attraction-name">
                                     <h3 class="attraction-name">{{attraction.Name}}</h3>
                                 </a>
 
