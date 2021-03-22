@@ -65,7 +65,7 @@
 
                                             {% for i in '12345'|make_list %}
                                             {% if attraction.getAverageRating > forloop.counter0 %}
-                                            <span class="fa fa-star fa-lg checked me-1 checked"
+                                            <span class="fa fa-star fa-lg checked me-1"
                                                 value="{{ forloop.counter }}"></span>
                                             {% else %}
                                             <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
@@ -81,12 +81,17 @@
 
                                 <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}"
                                     alt="{{attraction.Name}} picture">
-                                <button type="button" class="btn btn-primary btn-sm btn-xs" value="{{attraction.pk}}"
-                                    onclick="viewOnMap()">View on Map</button>
 
+                                <div class="row">
+                                    <div class="col-8">
+                                        <button type="button" class="btn btn-primary btn-sm btn-xs"
+                                            value="{{attraction.pk}}" onclick="viewOnMap()">View on Map</button>
+                                    </div>
+                                    <div class="col-4"><span id="heart-icon" class="fa fa-heart fa-2x me-1"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 {% endfor %}
