@@ -1,12 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@1,900&display=swap");
 
 h1 {
-  color: black;
+  color: white;
   margin-top: 20px;
   letter-spacing: 0.05em;
-  font-size: 3rem;
+  font-size: 5rem;
   text-align: center;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Freestyle Script";
+  text-decoration: underline;
 }
 
 #attractions-container {
@@ -88,6 +89,16 @@ h1 {
 
 .my-rating > span:hover ~ span:before {
   color: #e0e0e0;
+}
+
+#heart-icon {
+  /* margin-top: 5px; */
+  color: gray;
+  transition: ease-in 0.15s;
+}
+
+#heart-icon:hover {
+  color: red;
 }
 
 .attraction-img {
