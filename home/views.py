@@ -1,9 +1,9 @@
-
 from django.shortcuts import render, redirect
 from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
 from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 
 
 # Create your views here.
@@ -91,6 +91,8 @@ def citypage(request, NameSlug, sortBy):
     else:
         ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
+        
+    ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] }
     
 
     return render(request, 'citypage.html', context=ctx)
