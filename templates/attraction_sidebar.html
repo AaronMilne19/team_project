@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/attraction_sidebar.css' %}">
+<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!--sidepanel to be consistent with attraction page-->
+<div class="col-4 position-fixed mr-5" id="sidebar">
+    <h1>Hello world</h1>
+</div>
+{% endblock %}

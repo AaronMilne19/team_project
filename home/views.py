@@ -12,6 +12,7 @@ def contactus(request):
     ctx = {}
     return render(request, 'contact.html', context=ctx)
 
+
 def homepage(request):
     ctx = {}
     cities = City.objects.all()
@@ -95,6 +96,7 @@ def citypage(request, NameSlug, sortBy):
 
     return render(request, 'citypage.html', context=ctx)
 
+
 @login_required
 def myattractions(request):
     print(request.user)
@@ -111,6 +113,10 @@ def myattractions(request):
     
     ctx["cities"] = cities
 
-    
     return render(request, 'myattractions.html', context=ctx)
 
+
+def leave_a_review(request):
+    ctx = {}
+
+    return render(request, 'leave_a_review.html', context=ctx)
