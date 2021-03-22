@@ -17,6 +17,8 @@ def populate():
     superuser = User.objects.get_or_create(username='admin', is_active=True, is_superuser=True, is_staff=True)[0]
     superuser.set_password('1491625')
     superuser.save()
+    mvsuperuser = MVUser.objects.get_or_create(DjangoUser=superuser)[0]
+    mvsuperuser.save()
 
     cities = [
     {
