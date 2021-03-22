@@ -109,13 +109,19 @@ h1 {
 }
 
 .btn-xs {
-
   margin: 0 auto;
   display: block;
-
 }
 
-#citymap {
-    height: 400px;
+#map-container {
+  background-color: white;
+  margin: 15px 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#map {
+    height: 300px;
     width: 100%;
+    overflow: hidden;
 }

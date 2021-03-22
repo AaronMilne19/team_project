@@ -18,9 +18,6 @@
       {% for attraction in attractions %}
           markers.push(addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}', {{attraction.pk}}));
       {% endfor %}   
-      for (marker of markers){
-        console.log(marker.title + " " + marker.position);
-      }
     } 
 </script>
 
@@ -33,7 +30,10 @@
     <div class="row">
 
         <div class="col-lg-5 col-md-4 order-md-2">
-            <div id="citymap"></div>
+            <div id="map-container" class="sticky-md-top" style="top: 60px;">
+            {{ city.Description }}
+                <div id="map" class="mt-2"></div>
+            </div>
         </div>
 
         <div class="col-lg-7 col-md-8 order-md-1">
@@ -109,7 +109,7 @@
 
                                 <img class="attraction-img img-fluid" src=" {% static 'images/rankine.jpg' %}"
                                     alt="{{attraction.Name}} picture">
-                                <button type="button" class="btn btn-primary btn-sm btn-xs" value="{{attraction.pk}}"
+                                <button type="button" class="btn btn-primary btn-sm btn-xs"
                                     onclick="viewOnMap({{attraction.pk}})">View on Map</button>
 
                             </div>
@@ -123,8 +123,7 @@
 
     </div>
     
-    <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ-YDV7_elC2d72MYHlHn_IiIcwpzcKvg&callback=apiLoaded&language=en"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=apiLoaded&language=en"></script>
 
 </section>
 

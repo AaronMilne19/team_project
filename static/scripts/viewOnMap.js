@@ -1,9 +1,8 @@
 function initMap(center) {
-    const map = new google.maps.Map(document.getElementById("citymap"), {
+    return new google.maps.Map(document.getElementById("map"), {
       zoom: 12,
       center: center,
     });
-    return map;
 }
 
 function addMarker(map, lat, lng, name, id){
@@ -39,6 +38,8 @@ function viewOnMap(id)
         closeAllInfowindows();
         wantedMarker.infowindow.open(map, wantedMarker);
     }
+    
+    document.getElementById('map-container').scrollIntoView();
 }
 
 function closeAllInfowindows(){
