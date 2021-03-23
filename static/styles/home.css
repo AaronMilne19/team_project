@@ -97,6 +97,7 @@ h2 {
 .my_btn {
   background-color: inherit !important;
   border: 0 !important;
+  padding: 0.7pt;
 }
 
 .attraction_label {
