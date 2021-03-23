@@ -1,0 +1,46 @@
+.content-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.green-background {
+    background-color: rgb(0, 170, 0) !important;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+    overflow: hidden;   
+}
+
+h1 { 
+    color: white;
+    font-family: "Freestyle Script";
+    font-size: 40pt;
+    text-decoration: underline;
+    text-align: center;
+}
+
+h2 { 
+    color: #000000;
+    font-family: "Freestyle Script";
+    font-size: 25pt;
+    text-decoration: underline;
+    text-align: center;
+}
+
+/* Styles for ratings -- could be abstracted out to the main stylesheet */ 
+.checked {
+	color: #eed202;
+}
+
+.rated {
+	color: #bfa900;
+}
+
+.my_btn {
+	background-color: inherit !important;
+	border: 0 !important;
+}
+/* Styles for ratings end */
