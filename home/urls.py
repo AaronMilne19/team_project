@@ -12,6 +12,7 @@ urlpatterns = [
     path('cities/<slug:NameSlug>/', views.citypage_unsorted, name="citypage_unsorted"),
     path('random/', views.send_somewhere_random, name="random"),
     path('rating/', views.rating, name='rating'),
+    path('save/', views.saveAttraction, name='save'),
     path('myattractions/', views.myattractions, name="myattractions"),
     path('leave-a-review/', views.leave_a_review, name="leave_a_review"),
 ]

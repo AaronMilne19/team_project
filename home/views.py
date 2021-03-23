@@ -56,6 +56,27 @@ def rating(request):
     return JsonResponse({'success':'false'})
 
 
+@login_required
+def saveAttraction(request):
+    if request.method == 'POST':
+        attraction_name = request.POST.get('name')
+
+        attraction = Attraction.objects.get(NameSlug=attraction_name)
+        user = MVUser.objects.get(DjangoUser=request.user)
+
+        for a in user.SavedAttractions.all():
+            if a == attraction:
+                user.SavedAttractions.remove(attraction)
+                user.save()
+                return JsonResponse({'success':'true', 'value':0})
+
+        user.SavedAttractions.add(attraction)
+        user.save()
+
+        return JsonResponse({'success':'true', 'value':1})
+    return JsonResponse({'success':'false'})
+
+
 def send_somewhere_random(request):
     #get array of all attractions and then choose a random one from that and redirect user to it.
     rand_attractions = Attraction.objects.all()
@@ -94,7 +115,10 @@ def citypage(request, NameSlug, sortBy):
     else:
         ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
-    
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        ctx['saved_attractions'] = user.SavedAttractions.all()
 
     return render(request, 'citypage.html', context=ctx)
     
