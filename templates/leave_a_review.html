@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block title %}
+Leave a Review
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/leave_a_review.css' %}">
+<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="row">
+        <!--main section-->
+        <div class="col-8">
+            <h1>Hello World</h1>
+        </div>
+
+        {% include 'attraction_sidebar.html' %}
+    </div>
+</section>
+{% endblock %}

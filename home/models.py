@@ -43,6 +43,12 @@ class Attraction(models.Model):
         
     def getAverageRating(self):
         return AttractionReviews.objects.filter(AttractionReviewed=self).aggregate(models.Avg('Rating'))['Rating__avg']
+        
+    def getAverageTimeSpent(self):
+        avgTimeTaken = AttractionReviews.objects.filter(AttractionReviewed=self).aggregate(models.Avg('TimeTaken'))['TimeTaken__avg']
+        hours, remainder = divmod(avgTimeTaken.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return { 'hours': hours, 'minutes': minutes }
     
     def __str__(self):
         return self.Name 
@@ -82,7 +88,7 @@ class CityRatings(models.Model):
     )
     
     class Meta(): 
-        verbose_name_plural = 'City Ratings' 
+        verbose_name_plural = 'City Ratings'       
     
     def __str__(self):
         return '%s rates %s %i/5' % (str(self.UserRating), str(self.CityRated), self.Rating)

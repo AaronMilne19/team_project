@@ -12,6 +12,7 @@ def contactus(request):
     ctx = {}
     return render(request, 'contact.html', context=ctx)
 
+
 def homepage(request):
     ctx = {}
     cities = City.objects.all()
@@ -55,6 +56,27 @@ def rating(request):
     return JsonResponse({'success':'false'})
 
 
+@login_required
+def saveAttraction(request):
+    if request.method == 'POST':
+        attraction_name = request.POST.get('name')
+
+        attraction = Attraction.objects.get(NameSlug=attraction_name)
+        user = MVUser.objects.get(DjangoUser=request.user)
+
+        for a in user.SavedAttractions.all():
+            if a == attraction:
+                user.SavedAttractions.remove(attraction)
+                user.save()
+                return JsonResponse({'success':'true', 'value':0})
+
+        user.SavedAttractions.add(attraction)
+        user.save()
+
+        return JsonResponse({'success':'true', 'value':1})
+    return JsonResponse({'success':'false'})
+
+
 def send_somewhere_random(request):
     #get array of all attractions and then choose a random one from that and redirect user to it.
     rand_attractions = Attraction.objects.all()
@@ -66,8 +88,10 @@ def send_somewhere_random(request):
     rand_num = randint(0, count-1)
     rand_attraction = rand_attractions[rand_num]
 
-    return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/' + rand_attraction.NameSlug + '/')
-
+    return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/attractions/' + rand_attraction.NameSlug + '/')
+    
+def citypage_unsorted(request, NameSlug):
+    return citypage(request, NameSlug, "")
 
 def citypage(request, NameSlug, sortBy):
     ctx = {}
@@ -91,9 +115,24 @@ def citypage(request, NameSlug, sortBy):
     else:
         ctx['attractions'] = attractions.all()
         ctx['dropdown_msg'] = 'Sorted By:'
-    
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        ctx['saved_attractions'] = user.SavedAttractions.all()
 
     return render(request, 'citypage.html', context=ctx)
+    
+def attractionpage(request, CityNameSlug, AttractionNameSlug):
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
+    
+    ctx = {}
+    ctx['city'] = city
+    ctx['attraction'] = attraction
+    ctx['reviews'] = AttractionReviews.objects.filter(AttractionReviewed=attraction)
+    
+    return render(request, 'attractionpage.html', context=ctx)
+
 
 @login_required
 def myattractions(request):
@@ -111,6 +150,10 @@ def myattractions(request):
     
     ctx["cities"] = cities
 
-    
     return render(request, 'myattractions.html', context=ctx)
 
+
+def leave_a_review(request):
+    ctx = {}
+
+    return render(request, 'leave_a_review.html', context=ctx)

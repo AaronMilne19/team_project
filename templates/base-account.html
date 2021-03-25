@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
     <!--loop icon library-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/res/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/res/css/global.css">
     <style>
         .dropdown-item,
         .dropdown-menu {
@@ -70,6 +72,14 @@
 
 </html>
 
+<script src="/static/res/layui/layui.js"></script>
+<script>
+    layui.config({
+        version: "3.0.0"
+        , base: '/static/res/mods/' //???????,????????
+    })
+
+</script>
 <script>
     $('.dropdown').hover(function () {
         $(this).find('.dropdown-menu').show()

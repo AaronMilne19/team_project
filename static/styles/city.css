@@ -91,14 +91,20 @@ h1 {
   color: #e0e0e0;
 }
 
-#heart-icon {
-  /* margin-top: 5px; */
-  color: gray;
-  transition: ease-in 0.15s;
+.highlight {
+  color: red;
+  opacity: 50%;
 }
 
-#heart-icon:hover {
+.saved {
   color: red;
+}
+
+#heart-icon {
+  /* margin-top: 5px; */
+  /*color: gray;*/
+  background-color: inherit !important;
+  border: 0 !important;
 }
 
 .attraction-img {
