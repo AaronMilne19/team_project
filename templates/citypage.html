@@ -1,4 +1,4 @@
-<script src="../static/scripts/email.js"></script>{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
 {% block title %}
@@ -18,6 +18,14 @@
     {% for att in saved_attractions %}
     savedAttr.push("{{att.NameSlug}}");
     {% endfor %}
+    
+    function apiLoaded() {
+      map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
+      markers = [];
+      {% for attraction in attractions %}
+          markers.push(addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}', {{attraction.pk}}));
+      {% endfor %}   
+    } 
 </script>
 
 {% endblock %}
@@ -26,10 +34,13 @@
 {% block content %}
 <section class="city-section">
     <h1> {{city.Name}} City</h1>
-    <div class="row">
+    <div class="row m-md-0">
 
         <div class="col-lg-5 col-md-4 order-md-2">
-            <div id="citymap">Hello</div>
+            <div id="map-container" class="sticky-md-top" style="top: 70px;">
+                {{ city.Description }}
+                <div id="map" class="mt-2"></div>
+            </div>
         </div>
 
         <div class="col-lg-7 col-md-8 order-md-1">
@@ -94,7 +105,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <button type="button" class="btn btn-primary btn-sm btn-xs"
-                                            value="{{attraction.pk}}" onclick="viewOnMap()">View on Map</button>
+                                            onclick="viewOnMap({{attraction.pk}})">View on Map</button>
                                     </div>
                                     <div class="col-4">
                                         <form class="heart_form" action="" method="POST" id="{{attraction.NameSlug}}">
@@ -117,6 +128,8 @@
         </div>
 
     </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en"></script>
 
 </section>
 {% endblock %}

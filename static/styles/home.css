@@ -9,7 +9,7 @@ h2 {
   color: white;
   font-family: "Freestyle Script";
   text-align: center;
-  font-size: 30pt;
+  font-size: 2rem;
 }
 
 #top_cities_container {
@@ -20,9 +20,8 @@ h2 {
 
 #sidebar {
   background-color: rgb(0, 170, 0);
-  height: 100%;
-  left: 65.1%;
   opacity: 0.85;
+  height: 100%;
 }
 
 .card {
@@ -72,8 +71,8 @@ h2 {
 }
 
 .city_description {
-  font: 14px Helvetica;
-  letter-spacing: 0.05rem;
+  font: 0.9rem Helvetica;
+  letter-spacing: 0.02rem;
 }
 
 .information {
@@ -112,14 +111,21 @@ h2 {
   text-align: center;
 }
 
-#top_attractions {
-  font-size: 13pt;
+.top_attractions {
   font-family: Verdana;
-  padding-top: 4pt;
   font-weight: bold;
   color: black;
+  list-style-type: none;
+  font-size: 0.7rem;
+  margin: 0 0 0.2rem 0;
 }
 
-#top_attractions:hover {
+.top_attractions:hover {
   color: rgb(85, 137, 252);
+}
+
+#map {
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
 }
