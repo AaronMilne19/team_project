@@ -137,6 +137,7 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
     ctx['city'] = city
     ctx['attraction'] = attraction
     ctx['reviews'] = AttractionReviews.objects.filter(AttractionReviewed=attraction)
+    ctx['users_rating'] = attraction.getUsersRating(request.user)
     
     return render(request, 'attractionpage.html', context=ctx)
 

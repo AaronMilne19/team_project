@@ -44,6 +44,13 @@ class Attraction(models.Model):
     def getAverageRating(self):
         return AttractionReviews.objects.filter(AttractionReviewed=self).aggregate(models.Avg('Rating'))['Rating__avg']
         
+    def getUsersRating(self, user):
+        if (user.is_authenticated):
+          mvuser = MVUser.objects.get(DjangoUser=user)
+          if AttractionReviews.objects.filter(AttractionReviewed=self, UserReviewing=mvuser).exists():
+              return AttractionReviews.objects.get(AttractionReviewed=self, UserReviewing=mvuser).Rating
+        return 0
+        
     def getAverageTimeSpent(self):
         avgTimeTaken = AttractionReviews.objects.filter(AttractionReviewed=self).aggregate(models.Avg('TimeTaken'))['TimeTaken__avg']
         hours, remainder = divmod(avgTimeTaken.seconds, 3600)
