@@ -124,3 +124,16 @@ h1 {
   margin: 0 auto;
   display: block;
 }
+
+#map-container {
+  background-color: white;
+  margin: 15px 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
