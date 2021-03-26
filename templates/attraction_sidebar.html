@@ -1,15 +1,70 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load staticfiles %}
+<style>
+.green-content-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  list-style-type: none;
+  background-color: rgba(0, 170, 0, 0.85) !important;
+}
+.rating-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  list-style-type: none;
+}
+.checked {
+	color: #eed202;
+}
 
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/attraction_sidebar.css' %}">
-<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
-{% endblock %}
+.rated {
+	color: #bfa900;
+}
 
-{% block content %}
-<!--sidepanel to be consistent with attraction page-->
-<div class="col-4 position-fixed mr-5" id="sidebar">
-    <h1>Hello world</h1>
+.my_btn {
+	background-color: inherit !important;
+	border: 0 !important;
+}
+</style>
+<div class="col-md">
+<div class="green-content-container d-grid gap-2 sticky-md-top" style="top: 4rem">
+    <img src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}" alt="{{ attraction.Name }}" title="{{ attraction.Name }}" class="img-fluid" />
+    <div class="rating-container fw-bold">
+  		<li>
+	Average User Rating:
+	{% for i in '12345'|make_list %}
+			{% if attraction.getAverageRating > forloop.counter0 %}
+			   <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
+			{% else %}
+			   <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
+			{% endif %}
+	{% endfor %}
+</li>
+    </div>
+    {% if user.is_authenticated %}
+      <div class="rating-container fw-bold">
+		<li>
+			My rating:
+                {% for i in '12345'|make_list %}
+			{% if users_rating > forloop.counter0 %}
+			   <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
+			{% else %}
+			   <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
+			{% endif %}
+	{% endfor %}
+		</li>
+      </div>             
+      <button type="button" class="btn btn-primary btn-lg">
+          Save this attraction 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg">
+          Leave a review
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+              <path d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+          </svg>
+      </button>
+    {% endif %}
 </div>
-{% endblock %}
+</div>
