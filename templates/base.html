@@ -77,6 +77,14 @@
         $(this).find('.dropdown-menu').hide()
     })
 </script>
+
+<script>
+var perEntries = performance.getEntriesByType("navivigation");
+
+if (perEntries[0].type == "back_forward"){
+	location.reload(true);
+}
+</script>
 {% block js %}
 
 {% endblock %}
