@@ -9,6 +9,7 @@ Home
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
 <script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+<script src="{% static 'scripts/viewOnMap.js' %}"></script>
 
 <script>
 	var cityRatingName = [];
@@ -16,19 +17,28 @@ Home
 	var cit = [];
 
 	{% for city in cities %}
-	cit.push("{{ city.NameSlug }}");
+    	cit.push("{{ city.NameSlug }}");
 	{% endfor %}
 	{% for rating in city_ratings %}
-	cityRatingName.push("{{ rating.CityRated.NameSlug }}");
-	cityRatingValue.push({{ rating.Rating }})
+    	cityRatingName.push("{{ rating.CityRated.NameSlug }}");
+    	cityRatingValue.push({{ rating.Rating }})
 	{% endfor %}
+    
+    function apiLoaded() {
+      map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
+      map.setZoom(4);
+      markers = [];
+      {% for attraction in attractions %}
+          markers.push(addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}', {{attraction.pk}}));
+      {% endfor %}   
+    } 
 </script>
 
 {% endblock %}
 
 {% block content %}
 <section>
-	<div class="row">
+	<div class="row mt-5 m-md-0 p-md-1">
 		<!-- city section -->
 		<div class="col-md-8">
 			<div id="top_cities_container">
@@ -89,7 +99,7 @@ Home
 		</div>
 
 		<!-- sidebar -->
-		<div class="col-md-4 position-fixed mr-5 p-3" id="sidebar">
+		<div class="col-md-4 sticky-md-top p-2" id="sidebar" style="top: 4rem">
 			<div id="random_loc_button">
 				<a href="{% url 'home:random' %}">
 					<button type="button" class="btn btn-primary btn-lg">Send Me Somewhere Random!</button>
@@ -98,20 +108,37 @@ Home
 
 			<h2><u>Top Ten Attractions</u></h2>
 
-			<div id="top_attractions">
-				<ol id="top_attractions">
-					{% for attraction in attractions %}
-					<a href="{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}" class="link">
-						<li id="top_attractions">{{attraction.Name}} - {{attraction.City}}</li>
-					</a>
-					{% endfor %}
-				</ol>
+			<div class="row">
+                  <div class="col-md-6">
+                      <ul>
+      					{% for attraction in attractions|slice:"0:5" %}
+      					<a href="{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}" class="link">
+      						<li class="top_attractions">
+                                  {% if attraction == attractions.0 %}<span class="badge badge-pill" style="background-color: #ffc107">1</span>{% endif %}
+                                  {% if attraction == attractions.1 %}<span class="badge badge-pill" style="background-color: #d1cfcf">2</span>{% endif %}
+                                  {% if attraction == attractions.2 %}<span class="badge badge-pill" style="background-color: #e3a34f">3</span>{% endif %}
+                                  {{attraction.Name}}
+                              </li>
+      					</a>
+      					{% endfor %}
+                      </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <ul>
+      					{% for attraction in attractions|slice:"5:10" %}
+      					<a href="{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}" class="link">
+      						<li class="top_attractions">{{attraction.Name}}</li>
+      					</a>
+      					{% endfor %}
+                      </ul>
+                  </div>
 			</div>
 
-			<div id="maps">
-				<!--This is where the google maps API will go-->
-			</div>
+			<div id="map"></div>
 		</div>
 	</div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en"></script>
+    
 </section>
 {% endblock %}

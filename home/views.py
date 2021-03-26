@@ -17,13 +17,16 @@ def contactus(request):
 def homepage(request):
     ctx = {}
     cities = City.objects.all()
+    attractions = Attraction.objects.order_by('-Views')[:10]
 
     ctx['cities'] = sorted(cities.all(), key=lambda a: -a.getAverageRating())
-    ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
+    ctx['attractions'] = attractions
 
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
         ctx['city_ratings'] = CityRatings.objects.filter(UserRating=user)
+        
+    ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] } 
 
     return render(request, 'homepage.html', context=ctx)
 
