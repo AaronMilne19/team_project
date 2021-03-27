@@ -144,7 +144,6 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
 
 @login_required
 def myattractions(request):
-    print(request.user)
     user = MVUser.objects.get(DjangoUser=request.user)
     attractions = user.SavedAttractions.order_by("City")
     ctx={}

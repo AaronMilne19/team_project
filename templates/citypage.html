@@ -15,17 +15,17 @@
 <script>
     var savedAttr = []
 
-    {% for att in saved_attractions %}
+    {% for att in attractions %}
     savedAttr.push("{{att.NameSlug}}");
     {% endfor %}
-    
+
     function apiLoaded() {
-      map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
-      markers = [];
-      {% for attraction in attractions %}
-          markers.push(addMarker(map, {{attraction.CoordinateNorth}}, {{attraction.CoordinateEast}}, '{{attraction.Name}}', {{attraction.pk}}));
-      {% endfor %}   
-    } 
+        map = initMap({ lat: {{ center.lat }}, lng: { { center.lng } }});
+    markers = [];
+    {% for attraction in attractions %}
+    markers.push(addMarker(map, {{ attraction.CoordinateNorth }}, {{ attraction.CoordinateEast }}, '{{attraction.Name}}', {{ attraction.pk }}));
+    {% endfor %}   
+    }
 </script>
 
 {% endblock %}
@@ -71,7 +71,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-7">
-                                <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}" class="attraction-name">
+                                <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}"
+                                    class="attraction-name">
                                     <h3 class="attraction-name">{{attraction.Name}}</h3>
                                 </a>
 
@@ -99,7 +100,8 @@
                             </div>
                             <div class="col-5">
 
-                                <img class="attraction-img img-fluid" src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}"
+                                <img class="attraction-img img-fluid"
+                                    src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}"
                                     alt="{{attraction.Name}} picture">
 
                                 <div class="row">
@@ -110,8 +112,9 @@
                                     <div class="col-4">
                                         <form class="heart_form" action="" method="POST" id="{{attraction.NameSlug}}">
                                             {% csrf_token %}
-                                            <button type="button" id="heart-icon" name="heart" value="{{attraction.NameSlug}}"
-                                                    class="fa fa-heart fa-2x me-1 highlighted" onclick="{% if user.is_authenticated %}
+                                            <button type="button" id="heart-icon" name="heart"
+                                                value="{{attraction.NameSlug}}"
+                                                class="fa fa-heart fa-2x me-1 highlighted" onclick="{% if user.is_authenticated %}
                                                                                                saveAttraction()
                                                                                             {% else %}
                                                                                                 showNotLoggedInAlert()
@@ -128,8 +131,10 @@
         </div>
 
     </div>
-    
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en">
+        </script>
 
 </section>
 {% endblock %}
