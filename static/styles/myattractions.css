@@ -53,3 +53,19 @@ section {
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
 }
+
+.highlight {
+  color: red;
+  opacity: 50%;
+}
+
+.saved {
+  color: red;
+}
+
+#heart-icon {
+  margin-top: 12px;
+  /*color: gray;*/
+  background-color: inherit !important;
+  border: 0 !important;
+}
