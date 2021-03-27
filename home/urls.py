@@ -14,5 +14,6 @@ urlpatterns = [
     path('rating/', views.rating, name='rating'),
     path('save/', views.saveAttraction, name='save'),
     path('myattractions/', views.myattractions, name="myattractions"),
+    path('myreviews/', views.myreviews, name="myreviews"),
     path('leave-a-review/', views.leave_a_review, name="leave_a_review"),
 ]
