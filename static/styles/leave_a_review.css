@@ -1,0 +1,18 @@
+h1 {
+    padding-top: 20pt;
+    text-align: center;
+    font-family: "Freestyle Script";
+    font-size: 50pt;
+    text-decoration: underline;
+    color: white;
+}
+
+.main-section {
+    height: 100%;
+    left: 10px;
+}
+
+.leave_review {
+    left: 20px;
+    padding-left: 20px;
+}

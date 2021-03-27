@@ -4,6 +4,8 @@ from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from home.forms import ReviewForm
+from django.urls import reverse
 
 
 
@@ -128,7 +130,8 @@ def citypage(request, NameSlug, sortBy):
 
 
     return render(request, 'citypage.html', context=ctx)
-    
+
+
 def attractionpage(request, CityNameSlug, AttractionNameSlug):
     city = City.objects.get(NameSlug=CityNameSlug)
     attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
@@ -161,7 +164,31 @@ def myattractions(request):
     return render(request, 'myattractions.html', context=ctx)
 
 
-def leave_a_review(request):
+@login_required
+def leave_a_review(request, CityNameSlug, AttractionNameSlug):
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
+    user = MVUser.objects.get(DjangoUser=request.user)
+
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.AttractionReviewed = attraction
+            review.UserReviewing = user
+            review.save()
+
+            return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
+        else:
+            print(form.errors)
+
+
     ctx = {}
+    ctx['city'] = city
+    ctx['attraction'] = attraction
+    ctx['form'] = form
 
     return render(request, 'leave_a_review.html', context=ctx)

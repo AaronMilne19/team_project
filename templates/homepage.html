@@ -23,7 +23,8 @@ Home
     	cityRatingName.push("{{ rating.CityRated.NameSlug }}");
     	cityRatingValue.push({{ rating.Rating }})
 	{% endfor %}
-    
+</script>
+<script>
     function apiLoaded() {
       map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
       map.setZoom(4);

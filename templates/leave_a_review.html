@@ -15,8 +15,22 @@ Leave a Review
 <section>
     <div class="row">
         <!--main section-->
-        <div class="col-8">
-            <h1>Hello World</h1>
+        <div class="col-8 main1">
+            <h1>Leave a Review of the {{ attraction.Name }}</h1>
+
+            <div class="card main-section">
+                <form class="leave_review" method="POST" action="{% url 'home:leave_a_review' city.NameSlug attraction.NameSlug %}" id="review-{{attraction.NameSlug}}">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        <br></br>
+                        {{ field.help_text }}
+                        {{ field }}
+                        {{ field.errors }}
+                    {% endfor %}
+                    <br></br><br></br>
+                    <input type="submit" name="submit" value="Submit Review" />
+                </form>
+            </div>
         </div>
 
         {% include 'attraction_sidebar.html' %}
