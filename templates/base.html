@@ -79,11 +79,11 @@
 </script>
 
 <script>
-var perEntries = performance.getEntriesByType("navivigation");
+    const perfEntries = performance.getEntriesByType("navigation");
 
-if (perEntries[0].type == "back_forward"){
-	location.reload(true);
-}
+    if (perfEntries[0].type === "back_forward") {
+        location.reload();
+    }
 </script>
 {% block js %}
 
