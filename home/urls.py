@@ -16,3 +16,4 @@ urlpatterns = [
     path('myattractions/', views.myattractions, name="myattractions"),
     path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/leave-a-review/', views.leave_a_review, name="leave_a_review"),
     path('myreviews/', views.myreviews, name="myreviews"),
+]
