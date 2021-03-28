@@ -147,7 +147,6 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
 
 @login_required
 def myattractions(request):
-    print(request.user)
     user = MVUser.objects.get(DjangoUser=request.user)
     attractions = user.SavedAttractions.order_by("City")
     ctx={}
@@ -162,6 +161,14 @@ def myattractions(request):
     ctx["cities"] = cities
 
     return render(request, 'myattractions.html', context=ctx)
+
+@login_required
+def myreviews(request):
+    user = MVUser.objects.get(DjangoUser=request.user)
+    ctx={}
+    ctx["reviews"] = AttractionReviews.objects.filter(UserReviewing=user).order_by('-DateAdded').all()
+
+    return render(request, 'myreviews.html', context=ctx)
 
 
 @login_required
