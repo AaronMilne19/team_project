@@ -8,7 +8,15 @@ My Attractions
 {% block css %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'styles/myattractions.css' %}">
+<script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
 
+<script>
+    var savedAttr = []
+
+    {% for att in attractions %}
+    savedAttr.push("{{att.NameSlug}}");
+    {% endfor %}
+</script>
 {% endblock %}
 
 
@@ -40,7 +48,7 @@ My Attractions
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-11 col-sx-10 col-9">
+                                <div class="col-md-10 col-sx-8 col-7">
                                     <div class="card-title">
                                         <span class="attraction-name">{{attraction}}</span>
                                         {% for i in '12345'|make_list %}
@@ -61,6 +69,18 @@ My Attractions
                                             style="text-decoration: none;">View</a></button>
                                 </div>
 
+                                <div class="col-md-1 col-sx-2 col-2">
+                                    <form class="heart_form" action="" method="POST" id="{{attraction.NameSlug}}">
+                                        {% csrf_token %}
+                                        <button type="button" id="heart-icon" name="heart"
+                                            value="{{attraction.NameSlug}}" class="fa fa-heart fa-2x me-1 highlighted"
+                                            onclick="{% if user.is_authenticated %}
+                                                       saveAttraction()
+                                                    {% else %}
+                                                        showNotLoggedInAlert()
+                                                    {% endif %}"></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
