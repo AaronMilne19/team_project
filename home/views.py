@@ -176,6 +176,8 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
         form = ReviewForm(request.POST)
 
         if form.is_valid():
+            AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction).delete()
+
             review = form.save(commit=False)
             review.AttractionReviewed = attraction
             review.UserReviewing = user
