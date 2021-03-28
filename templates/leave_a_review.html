@@ -9,6 +9,12 @@ Leave a Review
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/leave_a_review.css' %}">
 <script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+<script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
+
+<script>
+    var savedAttr = []
+    savedAttr.push("{{saved_attraction.NameSlug}}");
+</script>
 
 <script>
     var cityRatingValue = [];
@@ -19,6 +25,7 @@ Leave a Review
     cityRatingName.push("{{ attraction.NameSlug }}")
     cityRatingValue.push({{ users_rating }})
 </script>
+
 {% endblock %}
 
 {% block content %}
@@ -52,7 +59,7 @@ Leave a Review
                         {{form.Picture|as_crispy_field}}
                     </div>
                     <br />
-                    <p class="warning">Warning: Leaving a review will override any previous reviews left for this attraction.</p>
+                    <p class="warning">Warning: Leaving a review will override any previous review you have left for this attraction.</p>
                     <input type="submit" name="submit" value="Submit Review" class="btn btn-primary" />
                 </form>
             </div>

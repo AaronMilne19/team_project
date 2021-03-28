@@ -115,7 +115,7 @@
                                             {% csrf_token %}
                                             <button type="button" id="heart-icon" name="heart"
                                                 value="{{attraction.NameSlug}}"
-                                                class="fa fa-heart fa-2x me-1 highlighted" onclick="{% if user.is_authenticated %}
+                                                class="fa fa-heart fa-2x me-1" onclick="{% if user.is_authenticated %}
                                                                                                saveAttraction()
                                                                                             {% else %}
                                                                                                 showNotLoggedInAlert()

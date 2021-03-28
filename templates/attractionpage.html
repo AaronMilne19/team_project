@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'styles/attraction.css' %}">
 <script src="{% static 'scripts/rateCity.js' %}" defer></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
+<script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
 <script language="javascript">
     function apiLoaded() {
       map = initMap({lat:{{attraction.CoordinateNorth}},lng:{{attraction.CoordinateEast}}});
@@ -29,6 +30,10 @@
   	cityRatingName.push("{{ rating.CityRated.NameSlug }}");
   	cityRatingValue.push({{ rating.Rating }})
   {% endfor %}
+</script>
+<script>
+    var savedAttr = []
+    savedAttr.push("{{saved_attraction.NameSlug}}");
 </script>
 
 {% endblock %}

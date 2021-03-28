@@ -24,8 +24,23 @@
 	background-color: inherit !important;
 	border: 0 !important;
 }
-</style>
 
+#heart-icon {
+    background-color: inherit !important;
+    border: 0 !important;
+
+}
+
+.highlight {
+    color: red;
+    opacity: 50%;
+}
+
+.saved {
+    color: red;
+    opacity: 100%;
+}
+</style>
 
 <div class="col-md">
 <div class="green-content-container d-grid gap-2 sticky-md-top" style="top: 4rem">
@@ -54,13 +69,23 @@
 			{% endif %}
 	{% endfor %}
 		</li>
-      </div>             
-      <button href="" type="button" class="btn btn-primary btn-lg">
-          Save this attraction 
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-          </svg>
-      </button>
+      </div>
+    <div class="rating-container fw-bold">
+        <li>
+            <form class="heart_form" action="" method="POST" id="{{attraction.NameSlug}}">
+                {% csrf_token %}
+                Save This Attraction:
+                <button type="button" id="heart-icon" name="heart"
+                        value="{{attraction.NameSlug}}"
+                        class="fa fa-heart fa-2x me-1" onclick="{% if user.is_authenticated %}
+                                                                    saveAttraction()
+                                                                {% else %}
+                                                                    showNotLoggedInAlert()
+                                                                {% endif %}">
+                </button>
+            </form>
+        </li>
+    </div>
       <button type="button" class="btn btn-primary btn-lg">
           Leave a review
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">

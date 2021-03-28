@@ -141,6 +141,12 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
     ctx['attraction'] = attraction
     ctx['reviews'] = AttractionReviews.objects.filter(AttractionReviewed=attraction)
     ctx['users_rating'] = attraction.getUsersRating(request.user)
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        for attr in user.SavedAttractions.all():
+            if attr == attraction:
+                ctx['saved_attraction'] = attraction
     
     return render(request, 'attractionpage.html', context=ctx)
 
@@ -201,5 +207,6 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     ctx['attraction'] = attraction
     ctx['form'] = form
     ctx['users_rating'] = attraction.getUsersRating(request.user)
+
 
     return render(request, 'leave_a_review.html', context=ctx)
