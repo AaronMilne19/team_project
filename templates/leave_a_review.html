@@ -12,6 +12,7 @@ Leave a Review
 {% endblock %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <section>
     <div class="row">
         <!--main section-->
@@ -21,14 +22,26 @@ Leave a Review
             <div class="card main-section">
                 <form class="leave_review" method="POST" action="{% url 'home:leave_a_review' city.NameSlug attraction.NameSlug %}" id="review-{{attraction.NameSlug}}">
                     {% csrf_token %}
-                    {% for field in form.visible_fields %}
-                        <br></br>
-                        {{ field.help_text }}
-                        {{ field }}
-                        {{ field.errors }}
-                    {% endfor %}
-                    <br></br><br></br>
-                    <input type="submit" name="submit" value="Submit Review" />
+                    <div class="field">
+                        {{form.Title|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.DateVisited|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.TimeTaken|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Comment|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Rating|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Picture|as_crispy_field}}
+                    </div>
+                    <br></br>
+                    <input type="submit" name="submit" value="Submit Review" class="btn btn-primary" />
                 </form>
             </div>
         </div>

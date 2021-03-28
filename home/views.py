@@ -190,5 +190,6 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     ctx['city'] = city
     ctx['attraction'] = attraction
     ctx['form'] = form
+    ctx['users_rating'] = attraction.getUsersRating(request.user)
 
     return render(request, 'leave_a_review.html', context=ctx)
