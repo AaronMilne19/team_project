@@ -56,6 +56,10 @@ section {
   margin-top: 12px;
 }
 
+.card-subtitle .commment-header {
+  padding-bottom: 5px;
+}
+
 .empty-msg {
   color: black;
   margin: 20px 0 15px 0;
