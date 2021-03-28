@@ -8,7 +8,7 @@ h1 {
 }
 
 .main-section {
-    height: 90%;
+    height: auto;
     left: 10px;
 }
 
@@ -19,4 +19,12 @@ h1 {
 
 .field {
     padding-bottom: 15px;
+}
+
+.warning {
+    color:red;
+}
+
+.rate_form {
+    border: 5px solid gray;
 }

@@ -183,14 +183,15 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
         form = ReviewForm(request.POST)
 
         if form.is_valid():
-            AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction).delete()
+            try:
+                AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction).delete()
+            finally:
+                review = form.save(commit=False)
+                review.AttractionReviewed = attraction
+                review.UserReviewing = user
+                review.save()
 
-            review = form.save(commit=False)
-            review.AttractionReviewed = attraction
-            review.UserReviewing = user
-            review.save()
-
-            return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
+                return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
         else:
             print(form.errors)
 
