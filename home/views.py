@@ -180,7 +180,7 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     form = ReviewForm()
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST or None, request.FILES or None)
 
         if form.is_valid():
             try:

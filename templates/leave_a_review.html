@@ -30,7 +30,8 @@ Leave a Review
             <h1>Leave a Review of the {{ attraction.Name }}</h1>
 
             <div class="card main-section">
-                <form class="leave_review" method="POST" action="{% url 'home:leave_a_review' city.NameSlug attraction.NameSlug %}" id="review-{{attraction.NameSlug}}">
+                <form class="leave_review" method="POST" action="{% url 'home:leave_a_review' city.NameSlug attraction.NameSlug %}"
+                      id="review-{{attraction.NameSlug}}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="field">
                         {{form.Title|as_crispy_field}}
