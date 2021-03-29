@@ -208,5 +208,15 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     ctx['form'] = form
     ctx['users_rating'] = attraction.getUsersRating(request.user)
 
-
     return render(request, 'leave_a_review.html', context=ctx)
+
+
+@login_required
+def remove_review(request, CityNameSlug, AttractionNameSlug):
+    user = MVUser.objects.get(DjangoUser=request.user)
+    attraction = Attraction.objects.get(NameSlug=AttractionNameSlug)
+
+    review = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+    review.delete()
+
+    return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))

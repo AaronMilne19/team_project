@@ -7,10 +7,10 @@
   background-color: rgba(0, 170, 0, 0.85) !important;
 }
 .rating-container {
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-  list-style-type: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    list-style-type: none;
 }
 .checked {
 	color: #eed202;
@@ -43,6 +43,17 @@
 .save_attraction {
     text-align: center;
 }
+
+#review {
+    display: inline-block;
+}
+
+#delete {
+    display: inline-block;
+    float: right;
+    padding-right: 10px;
+}
+
 </style>
 
 <div class="col-md">
@@ -64,14 +75,19 @@
     {% if users_rating > 0 %}
         <div class="rating-container fw-bold">
             <li>
-            My rating:
-            {% for i in '12345'|make_list %}
-                {% if users_rating > forloop.counter0 %}
-                   <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
-                {% else %}
-                   <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
-                {% endif %}
-            {% endfor %}
+                <div id="review">
+                    My rating:
+                    {% for i in '12345'|make_list %}
+                        {% if users_rating > forloop.counter0 %}
+                           <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
+                        {% else %}
+                           <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <form action="{% url 'home:remove_review' city.NameSlug attraction.NameSlug %}" id="delete">
+                    <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                </form>
             </li>
         </div>
     {% endif %}
