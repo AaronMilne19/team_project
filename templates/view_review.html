@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block title %}
+Review
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/view_review.css' %}">
+<script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
+
+<script>
+    var savedAttr = []
+    savedAttr.push("{{saved_attraction.NameSlug}}");
+</script>
+{% endblock %}
+
+
+{% block content %}
+{% load crispy_forms_tags %}
+<section class="container">
+    <div class="row">
+        <!-- main section-->
+        <div class="col-md-8 main1">
+            <h1>{{reviewer.Name}}'s review of the {{attraction.Name}}</h1>
+
+            <div class="card main-section">
+                <div class="field">
+                    Review title:
+                    <span class="card border border-secondary field-content title-field">
+                        {{review.Title}}
+                    </span>
+                </div>
+                <div class="field">
+                    Rating:<br />
+                    <span class="card border border-secondary field-content rating-field">
+                        {% for i in '12345'|make_list %}
+                        {% if reviewer_rating > forloop.counter0 %}
+                           <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
+                        {% else %}
+                           <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
+                        {% endif %}
+                        {% endfor %}
+                    </span>
+                </div>
+                <div class="field">
+                    Date visited:
+                    <span class="card border border-secondary field-content">
+                        {{review.DateVisited}}
+                    </span>
+                </div>
+                <div class="field">
+                    Time taken to explore:
+                    <span class="card border border-secondary field-content time-taken-field">
+                        {{time.0}} hour(s) {{time.1}} minute(s)
+                    </span>
+                </div>
+                <div class="field">
+                    More details:
+                    <span class="card border border-secondary field-content comment-field">
+                        {{review.Comment}}
+                    </span>
+                </div>
+                {% if review.Picture %}
+                    <div class="field">
+                        Image
+                        <span class="card border border-secondary field-content image-field">
+                            <img src="{{review.Picture.url}}" />
+                        </span>
+                    </div>
+                {% endif %}
+
+                <p class="foot">Review left by {{reviewer.DjangoUser}} on {{review.DateAdded}}</p>
+            </div>
+        </div>
+
+        {% include 'attraction_sidebar.html' %}
+    </div>
+</section>
+{% endblock %}

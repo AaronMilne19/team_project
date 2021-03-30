@@ -15,19 +15,23 @@ h1 {
     max-width: 90%;
 }
 
-.leave_review {
-    left: 20px;
-    padding: 20px;
-}
-
 .field {
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 }
 
-.warning {
-    color:red;
+.field-content {
+    padding: 7px;
 }
 
-.rate_form {
-    border: 5px solid gray;
+.comment-field {
+    min-height: 150pt;
+}
+
+.rating-field {
+    display: inline-block;
+}
+
+.foot {
+    color: #9b9b9b;
+    padding-top: 10px;
 }
