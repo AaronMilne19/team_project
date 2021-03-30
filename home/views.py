@@ -146,9 +146,14 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
 
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
-        for attr in user.SavedAttractions.all():
-            if attr == attraction:
-                ctx['saved_attraction'] = attraction
+        try:
+            ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+        except Exception:
+            ctx['my_review'] = None
+        finally:
+            for attr in user.SavedAttractions.all():
+                if attr == attraction:
+                    ctx['saved_attraction'] = attraction
     
     return render(request, 'attractionpage.html', context=ctx)
 
@@ -171,9 +176,14 @@ def view_review(request, CityNameSlug, AttractionNameSlug, ReviewIdSlug):
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
         ctx['users_rating'] = attraction.getUsersRating(request.user)
-        for attr in user.SavedAttractions.all():
-            if attr == attraction:
-                ctx['saved_attraction'] = attraction
+        try:
+            ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+        except Exception:
+            ctx['my_review'] = None
+        finally:
+            for attr in user.SavedAttractions.all():
+                if attr == attraction:
+                    ctx['saved_attraction'] = attraction
 
     return render(request, 'view_review.html', context=ctx)
 
@@ -235,11 +245,16 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     ctx['form'] = form
     ctx['users_rating'] = attraction.getUsersRating(request.user)
 
-    for attr in user.SavedAttractions.all():
-        if attr == attraction:
-            ctx['saved_attraction'] = attraction
+    try:
+        ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+    except Exception:
+        ctx['my_review'] = None
+    finally:
+        for attr in user.SavedAttractions.all():
+            if attr == attraction:
+                ctx['saved_attraction'] = attraction
 
-    return render(request, 'leave_a_review.html', context=ctx)
+        return render(request, 'leave_a_review.html', context=ctx)
 
 
 @login_required

@@ -48,6 +48,12 @@
     display: inline-block;
 }
 
+#view {
+    display: inline-block;
+    float: right;
+    padding-right: 10px;
+}
+
 #delete {
     display: inline-block;
     float: right;
@@ -87,6 +93,9 @@
                 </div>
                 <form action="{% url 'home:remove_review' city.NameSlug attraction.NameSlug %}" id="delete">
                     <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                </form>
+                <form action="{% url 'home:view_review' city.NameSlug attraction.NameSlug my_review.id %}" id="view">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">View</button>
                 </form>
             </li>
         </div>

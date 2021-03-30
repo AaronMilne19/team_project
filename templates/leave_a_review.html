@@ -58,8 +58,10 @@ Leave a Review
                         {{form.Picture|as_crispy_field}}
                     </div>
                     <br />
-                    <p class="warning">Warning: Leaving a review will override any previous review you have left for this attraction.</p>
+                    {% if my_review %}
+                    <p class="warning">Warning: Leaving a review will override your previous review for this attraction.</p>
                     <input type="submit" name="submit" value="Submit Review" class="btn btn-primary" />
+                    {% endif %}
                 </form>
             </div>
         </div>
