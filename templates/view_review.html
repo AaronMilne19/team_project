@@ -70,8 +70,10 @@ Review
                         </span>
                     </div>
                 {% endif %}
-
-                <p class="foot">Review left by {{reviewer.DjangoUser}} on {{review.DateAdded}}</p>
+                <div>
+                    <p class="foot">Review left by {{reviewer.DjangoUser}} on {{review.DateAdded}}</p>
+                    <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}" class="foot back">Back</a>
+                </div>
             </div>
         </div>
 

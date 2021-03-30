@@ -34,4 +34,10 @@ h1 {
 .foot {
     color: #9b9b9b;
     padding-top: 10px;
+    display: inline-block;
+}
+
+.back {
+    float: right;
+    padding-right: 15px;
 }
