@@ -8,7 +8,7 @@ Home
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+<script src="{% static 'scripts/rateCity.js' %}" defer></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 
 <script>
@@ -23,7 +23,8 @@ Home
     	cityRatingName.push("{{ rating.CityRated.NameSlug }}");
     	cityRatingValue.push({{ rating.Rating }})
 	{% endfor %}
-    
+</script>
+<script>
     function apiLoaded() {
       map = initMap({lat:{{center.lat}},lng:{{center.lng}}});
       map.setZoom(4);

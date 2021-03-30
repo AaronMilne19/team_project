@@ -61,6 +61,7 @@ section {
 
 .saved {
   color: red;
+  opacity: 100%;
 }
 
 #heart-icon {

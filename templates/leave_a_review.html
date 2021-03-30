@@ -9,14 +9,60 @@ Leave a Review
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/leave_a_review.css' %}">
 <script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
+<script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
+
+<script>
+    var savedAttr = []
+    savedAttr.push("{{saved_attraction.NameSlug}}");
+</script>
+
+<script>
+    var cityRatingValue = [];
+    var cit = [];
+    var cityRatingName = [];
+
+    cit.push("{{ attraction.NameSlug }}");
+    cityRatingName.push("{{ attraction.NameSlug }}")
+    cityRatingValue.push({{ users_rating }})
+</script>
+
 {% endblock %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <section>
     <div class="row">
         <!--main section-->
-        <div class="col-8">
-            <h1>Hello World</h1>
+        <div class="col-8 main1">
+            <h1>Leave a Review of the {{ attraction.Name }}</h1>
+
+            <div class="card main-section">
+                <form class="leave_review" method="POST" action="{% url 'home:leave_a_review' city.NameSlug attraction.NameSlug %}"
+                      id="review-{{attraction.NameSlug}}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="field">
+                        {{form.Title|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.DateVisited|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.TimeTaken|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Comment|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Rating|as_crispy_field}}
+                    </div>
+                    <div class="field">
+                        {{form.Picture|as_crispy_field}}
+                    </div>
+                    <br />
+                    <p class="warning">Warning: Leaving a review will override any previous review you have left for this attraction.</p>
+                    <input type="submit" name="submit" value="Submit Review" class="btn btn-primary" />
+                </form>
+            </div>
         </div>
 
         {% include 'attraction_sidebar.html' %}
