@@ -70,11 +70,16 @@ My Reviews
 
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-sx-3 col-4">
-                                    <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
-                                            href="{% url 'home:attractionpage' review.AttractionReviewed.City.NameSlug review.AttractionReviewed.NameSlug  %}"
-                                            style="text-decoration: none; font-size: 85%;">View attraction's
-                                            page</a></button>
+                                <div class="col-md-2 col-sx-3 col-4 ">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
+                                                href="{% url 'home:attractionpage' review.AttractionReviewed.City.NameSlug review.AttractionReviewed.NameSlug  %}"
+                                                style="text-decoration: none; font-size: 85%;">View attraction's
+                                                page</a></button>
+                                        <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
+                                                href="#" style="text-decoration: none; font-size: 85%;">View full
+                                                review</a></button>
+                                    </div>
                                 </div>
 
                             </div>

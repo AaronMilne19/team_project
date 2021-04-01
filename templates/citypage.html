@@ -22,10 +22,10 @@
 <script>
     function apiLoaded() {
         map = initMap({ lat: {{ center.lat }}, lng: { { center.lng } }});
-        markers = [];
-        {% for attraction in attractions %}
-        markers.push(addMarker(map, {{ attraction.CoordinateNorth }}, {{ attraction.CoordinateEast }}, '{{attraction.Name}}', {{ attraction.pk }}));
-        {% endfor %}
+    markers = [];
+    {% for attraction in attractions %}
+    markers.push(addMarker(map, {{ attraction.CoordinateNorth }}, {{ attraction.CoordinateEast }}, '{{attraction.Name}}', {{ attraction.pk }}));
+    {% endfor %}
     }
 </script>
 
@@ -47,94 +47,104 @@
         <div class="col-lg-7 col-md-8 order-md-1">
 
             <div id="attractions-container">
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{dropdown_msg}}
-                    </a>
+                <div class="row">
+                    <div class="col-9">
+                        <h3 class="attractions-label">Attractions:</h3>
+                    </div>
+                    <div class="col-3">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{dropdown_msg}}
+                            </a>
 
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="{% url 'home:citypage' city.NameSlug 'views' %}">Most
-                                Popular</a>
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'home:citypage' city.NameSlug 'date' %}">Newest
-                                First</a></li>
-                        <li><a class=" dropdown-item" href="{% url 'home:citypage' city.NameSlug 'popular' %}">Top
-                                Rated</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'home:citypage' city.NameSlug 'views' %}">Most
+                                        Popular</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                        href="{% url 'home:citypage' city.NameSlug 'date' %}">Newest
+                                        First</a></li>
+                                <li><a class=" dropdown-item"
+                                        href="{% url 'home:citypage' city.NameSlug 'popular' %}">Top
+                                        Rated</a></li>
 
-                    </ul>
-                </div>
+                            </ul>
+                        </div>
+                    </div>
 
-                {% for attraction in attractions %}
+                    {% for attraction in attractions %}
 
-                <div class="card">
+                    <div class="card">
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-7">
-                                <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}"
-                                    class="attraction-name">
-                                    <h3 class="attraction-name">{{attraction.Name}}</h3>
-                                </a>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-7">
+                                    <a href="{% url 'home:attractionpage' city.NameSlug attraction.NameSlug %}"
+                                        class="attraction-name">
+                                        <h3 class="attraction-name">{{attraction.Name}}</h3>
+                                    </a>
 
-                                <div class="attraction-description">
-                                    <ul>
-                                        <li>{{attraction.Description}}</li>
-                                        <li class="views-count"><b class="attraction-label views">Views:</b>
-                                            {{attraction.Views}}</li>
-                                        <li class="rating-section">
-                                            <h6 class="attraction-label me-5">Rating:</h6>
+                                    <div class="attraction-description">
+                                        <ul>
+                                            <li>{{attraction.Description}}</li>
+                                            <li class="views-count"><b class="attraction-label views">Views:</b>
+                                                {{attraction.Views}}</li>
+                                            <li class="rating-section">
+                                                <h6 class="attraction-label me-5">Rating:</h6>
 
-                                            {% for i in '12345'|make_list %}
-                                            {% if attraction.getAverageRating > forloop.counter0 %}
-                                            <span class="fa fa-star fa-lg checked me-1"
-                                                value="{{ forloop.counter }}"></span>
-                                            {% else %}
-                                            <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
-                                            {% endif %}
-                                            {% endfor %}
+                                                {% for i in '12345'|make_list %}
+                                                {% if attraction.getAverageRating > forloop.counter0 %}
+                                                <span class="fa fa-star fa-lg checked me-1"
+                                                    value="{{ forloop.counter }}"></span>
+                                                {% else %}
+                                                <span class="fa fa-star fa-lg me-1"
+                                                    value="{{ forloop.counter }}"></span>
+                                                {% endif %}
+                                                {% endfor %}
 
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                            <div class="col-5">
-
-                                <img class="attraction-img img-fluid"
-                                    src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}"
-                                    alt="{{attraction.Name}} picture">
-
-                                <div class="row">
-                                    <div class="col-8">
-                                        <button type="button" class="btn btn-primary btn-sm btn-xs"
-                                            onclick="viewOnMap({{attraction.pk}})">View on Map</button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-4">
-                                        <form class="heart_form" action="" method="POST" id="{{attraction.NameSlug}}">
-                                            {% csrf_token %}
-                                            <button type="button" id="heart-icon" name="heart"
-                                                value="{{attraction.NameSlug}}"
-                                                class="fa fa-heart fa-2x me-1" onclick="{% if user.is_authenticated %}
+
+                                </div>
+                                <div class="col-5">
+
+                                    <img class="attraction-img img-fluid"
+                                        src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}"
+                                        alt="{{attraction.Name}} picture">
+
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <button type="button" class="btn btn-primary btn-sm btn-xs"
+                                                onclick="viewOnMap({{attraction.pk}})">View on Map</button>
+                                        </div>
+                                        <div class="col-4">
+                                            <form class="heart_form" action="" method="POST"
+                                                id="{{attraction.NameSlug}}">
+                                                {% csrf_token %}
+                                                <button type="button" id="heart-icon" name="heart"
+                                                    value="{{attraction.NameSlug}}" class="fa fa-heart fa-2x me-1"
+                                                    onclick="{% if user.is_authenticated %}
                                                                                                saveAttraction()
                                                                                             {% else %}
                                                                                                 showNotLoggedInAlert()
                                                                                             {% endif %}"></button>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
+
         </div>
 
-    </div>
-
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_e1GTo3SgpsDHlgVEBRbSCr8BwhAFyQ&callback=apiLoaded&language=en"></script>
 
 </section>
 {% endblock %}
