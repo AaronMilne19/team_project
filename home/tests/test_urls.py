@@ -1,8 +1,9 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-from home.views import homepage, contactus, rating, saveAttraction, citypage, citypage_unsorted, attractionpage, myattractions, leave_a_review, send_somewhere_random, saveAttraction
+from home.views import homepage, contactus, rating, saveAttraction, citypage, citypage_unsorted, attractionpage, myattractions,myreviews, leave_a_review, send_somewhere_random, saveAttraction
 
 class TestUrls(SimpleTestCase):
+
 
     def test_homepage_url_is_resolved(self):
         url = reverse('home:homepage')
@@ -39,7 +40,8 @@ class TestUrls(SimpleTestCase):
     def test_my_attractions_url_is_resolved(self):
         url = reverse('home:myattractions')
         self.assertEqual(resolve(url).func, myattractions)
+
+    def test_my_reviews_url_is_resolved(self):
+        url = reverse('home:myreviews')
+        self.assertEqual(resolve(url).func, myreviews)
     
-    # def test_leave_a_review_url_is_resolved(self):
-    #     url = reverse('home:random')
-    #     self.assertEqual(resolve(url).func, leave_a_review)
