@@ -6,6 +6,7 @@ function initMap(center) {
 }
 
 function addMarker(map, lat, lng, name, id){
+    // 26/3/2021 TODO for Ben: readjust zoom of the map component based on the contained markers
     var body_format = "<strong>" + name + "</strong>";
 
     var infowindow = new google.maps.InfoWindow({

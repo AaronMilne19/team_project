@@ -16,10 +16,17 @@ h1 {
   padding: 10px;
   border-radius: 10px;
 }
+#attractions-container .attractions-label {
+  font-family: "Nunito Sans", sans-serif;
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 0;
+  letter-spacing: 0.05rem;
+}
 
 #attractions-container .dropdown {
   float: right;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 #attractions-container .dropdown .dropdown-menu,
@@ -98,6 +105,7 @@ h1 {
 
 .saved {
   color: red;
+  opacity: 100%;
 }
 
 #heart-icon {
@@ -123,4 +131,17 @@ h1 {
 .btn-xs {
   margin: 0 auto;
   display: block;
+}
+
+#map-container {
+  background-color: white;
+  margin: 15px 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
 }

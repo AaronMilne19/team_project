@@ -2,7 +2,7 @@ section {
   background-color: rgb(15, 152, 255);
 }
 
-#saved-attractions-page h1 {
+#saved-reviews-page h1 {
   color: black;
   margin: 25px 0 20px 0;
   letter-spacing: 0.05em;
@@ -23,6 +23,10 @@ section {
   font-family: "Nunito Sans", sans-serif;
   letter-spacing: 0.02em;
 }
+.accordion-item .accordion-header .accordion-button .star-ratings {
+  position: absolute;
+  right: 80px;
+}
 
 .card {
   margin-bottom: 8px;
@@ -34,15 +38,26 @@ section {
 }
 
 .checked {
-  color: #eed202;
+  color: #d3ba00;
 }
 
-.attraction-name {
+.review-name {
   margin-right: 20px;
 }
 
-.attraction-button {
-  margin-top: 12px;
+.review-date {
+  margin-right: 20px;
+  font-style: italic;
+  font-size: 90%;
+  color: #6c757d;
+}
+
+.review-button {
+  margin-top: 6px;
+}
+
+.card-subtitle .commment-header {
+  padding-bottom: 5px;
 }
 
 .empty-msg {
@@ -52,21 +67,4 @@ section {
   font-size: 1.2rem;
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
-}
-
-.highlight {
-  color: red;
-  opacity: 50%;
-}
-
-.saved {
-  color: red;
-  opacity: 100%;
-}
-
-#heart-icon {
-  margin-top: 12px;
-  /*color: gray;*/
-  background-color: inherit !important;
-  border: 0 !important;
 }

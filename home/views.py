@@ -1,9 +1,12 @@
-
 from django.shortcuts import render, redirect
 from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
 from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
+from home.forms import ReviewForm
+from django.urls import reverse
+
 
 
 # Create your views here.
@@ -16,13 +19,16 @@ def contactus(request):
 def homepage(request):
     ctx = {}
     cities = City.objects.all()
+    attractions = Attraction.objects.order_by('-Views')[:10]
 
     ctx['cities'] = sorted(cities.all(), key=lambda a: -a.getAverageRating())
-    ctx['attractions'] = Attraction.objects.order_by('-Views')[:10]
+    ctx['attractions'] = attractions
 
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
         ctx['city_ratings'] = CityRatings.objects.filter(UserRating=user)
+        
+    ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] } 
 
     return render(request, 'homepage.html', context=ctx)
 
@@ -119,9 +125,13 @@ def citypage(request, NameSlug, sortBy):
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
         ctx['saved_attractions'] = user.SavedAttractions.all()
+        
+    ctx['center'] = { 'lat': attractions.aggregate(Avg('CoordinateNorth'))['CoordinateNorth__avg'], 'lng': attractions.aggregate(Avg('CoordinateEast'))['CoordinateEast__avg'] }
+
 
     return render(request, 'citypage.html', context=ctx)
-    
+
+
 def attractionpage(request, CityNameSlug, AttractionNameSlug):
     city = City.objects.get(NameSlug=CityNameSlug)
     attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
@@ -130,13 +140,19 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
     ctx['city'] = city
     ctx['attraction'] = attraction
     ctx['reviews'] = AttractionReviews.objects.filter(AttractionReviewed=attraction)
+    ctx['users_rating'] = attraction.getUsersRating(request.user)
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        for attr in user.SavedAttractions.all():
+            if attr == attraction:
+                ctx['saved_attraction'] = attraction
     
     return render(request, 'attractionpage.html', context=ctx)
 
 
 @login_required
 def myattractions(request):
-    print(request.user)
     user = MVUser.objects.get(DjangoUser=request.user)
     attractions = user.SavedAttractions.order_by("City")
     ctx={}
@@ -152,8 +168,55 @@ def myattractions(request):
 
     return render(request, 'myattractions.html', context=ctx)
 
+@login_required
+def myreviews(request):
+    user = MVUser.objects.get(DjangoUser=request.user)
+    ctx={}
+    ctx["reviews"] = AttractionReviews.objects.filter(UserReviewing=user).order_by('-DateAdded').all()
 
-def leave_a_review(request):
+    return render(request, 'myreviews.html', context=ctx)
+
+
+@login_required
+def leave_a_review(request, CityNameSlug, AttractionNameSlug):
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
+    user = MVUser.objects.get(DjangoUser=request.user)
+
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            try:
+                AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction).delete()
+            finally:
+                review = form.save(commit=False)
+                review.AttractionReviewed = attraction
+                review.UserReviewing = user
+                review.save()
+
+                return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
+        else:
+            print(form.errors)
+
+
     ctx = {}
+    ctx['city'] = city
+    ctx['attraction'] = attraction
+    ctx['form'] = form
+    ctx['users_rating'] = attraction.getUsersRating(request.user)
 
     return render(request, 'leave_a_review.html', context=ctx)
+
+
+@login_required
+def remove_review(request, CityNameSlug, AttractionNameSlug):
+    user = MVUser.objects.get(DjangoUser=request.user)
+    attraction = Attraction.objects.get(NameSlug=AttractionNameSlug)
+
+    review = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+    review.delete()
+
+    return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))

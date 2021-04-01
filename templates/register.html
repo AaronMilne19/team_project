@@ -1,6 +1,6 @@
 {% extends 'base-account.html' %}
 {% load static %}
-{% load staticfiles %}
+{#{% load staticfiles %}#}
 {% block title %}
     register
 {% endblock %}
@@ -104,7 +104,8 @@
                     success: function (res) {
                         if (res["status"] || res["status"] == undefined) {
                             layer.confirm(res["msg"], {
-                                btn: ['confirm'] //按钮
+                                btn: ['confirm'], //按钮
+                                title: ['Information', 'font-size:15px;']
                             }, function () {
                                 window.location.href = "{% url 'home:homepage' %}"
                             })

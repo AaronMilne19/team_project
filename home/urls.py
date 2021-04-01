@@ -14,5 +14,7 @@ urlpatterns = [
     path('rating/', views.rating, name='rating'),
     path('save/', views.saveAttraction, name='save'),
     path('myattractions/', views.myattractions, name="myattractions"),
-    path('leave-a-review/', views.leave_a_review, name="leave_a_review"),
+    path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/leave-a-review/', views.leave_a_review, name="leave_a_review"),
+    path('myreviews/', views.myreviews, name="myreviews"),
+    path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/remove-review/', views.remove_review, name="remove_review"),
 ]
