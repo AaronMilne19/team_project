@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'Account'
+    'Account',
+    'crispy_forms',
+    'durationwidget',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,5 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
+#Crispy form package
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

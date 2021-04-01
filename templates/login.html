@@ -1,6 +1,6 @@
 {% extends 'base-account.html' %}
 {% load static %}
-{% load staticfiles %}
+{#{% load staticfiles %}#}
 {% block title %}
     login
 {% endblock %}
@@ -82,7 +82,7 @@
                                 btn: ['confirm'] //按钮
                             }, function () {
                                 if(res["msg"]=="Login Successful!"){
-                                    window.location.href = "{% url 'Account:account' %}"
+                                    window.location.href = "{% url 'home:homepage' %}"
                                 }
                                 else{
                                     window.location.reload()

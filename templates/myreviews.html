@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+My Reviews
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/myreviews.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+<section id="saved-reviews-page">
+
+    <h1>My Reviews: </h1>
+
+    <div class="accordion" id="accordion">
+
+
+        {% for review in reviews %}
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{forloop.counter}}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false"
+                    aria-controls="collapse{{forloop.counter}}">
+                    Review of {{review.AttractionReviewed.Name}}
+                    <div class="star-ratings">
+                        {% for i in '12345'|make_list %}
+                        {% if review.Rating > forloop.counter0 %}
+                        <span class="fa fa-star checked checked" value="{{ forloop.counter }}"></span>
+                        {% else %}
+                        <span class="fa fa-star" value="{{ forloop.counter }}"></span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </button>
+            </h2>
+            <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse"
+                aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordion
+        ">
+
+                <div class="accordion-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-10 col-sx-9 col-8">
+                                    <div class="card-title">
+                                        <span class="review-name">{{review.Title}}</span>
+                                        <span class="review-date">{{review.DateAdded|date:"d M Y"}}</span>
+                                        <span class="review-date">My rating: {{review.Rating}}</span>
+                                        <span class="review-date">Avg. rating:
+                                            {{review.AttractionReviewed.getAverageRating|floatformat}}</span>
+                                    </div>
+
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <div class="commment-header">Description:</div>
+
+                                        {{review.Comment}}
+                                    </h6>
+                                    {% if review.Picture %}
+                                    <!-- Add picture later -->
+                                    <div>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sx-3 col-4 ">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
+                                                href="{% url 'home:attractionpage' review.AttractionReviewed.City.NameSlug review.AttractionReviewed.NameSlug  %}"
+                                                style="text-decoration: none; font-size: 85%;">View attraction's
+                                                page</a></button>
+                                        <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
+                                                href="#" style="text-decoration: none; font-size: 85%;">View full
+                                                review</a></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h2 class="empty-msg">You haven't posted any reviews.</h2>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}

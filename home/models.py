@@ -113,7 +113,7 @@ class AttractionReviews(models.Model):
     TimeTaken = models.DurationField(null=True)
     Comment = models.TextField()
     Rating = models.PositiveSmallIntegerField()
-    Picture = models.ImageField(null=True)
+    Picture = models.ImageField(upload_to="attraction_review_pictures", null=True)
     DateAdded = models.DateTimeField(auto_now_add=True)
     
     class Meta(): 

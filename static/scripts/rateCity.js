@@ -58,28 +58,6 @@ function handleStarSelect(size, city) {
 }
 
 
-if (one) {
-	const a = [one, two, three, four, five];
-
-	//This makes sure the existing rating reapears when page is refreshed.
-	for (const city of cit) {
-		for (let i=0; i<cityRatingName.length; i++) {
-			if (city === cityRatingName[i]) {
-				rated(cityRatingValue[i], city);
-			}
-		}
-	}
-
-	for (let j=1; j<=cit.length; j++) {
-		for (const star of a) {
-			star[j-1].addEventListener('mouseover', function(){handleStarSelect(event.target.name, event.target.value)});
-			star[j-1].addEventListener('mouseleave', function(){handleStarSelect(0, event.target.value)});
-		}
-	}
-
-}
-
-
 function showNotLoggedInAlert() {
 	alert('You must be signed in to use this feature.');
 }
@@ -109,4 +87,25 @@ function leaveRating(rating, name) {
 			alert("oops, something went wrong")
 		}
 	})
+}
+
+if (one) {
+	const a = [one, two, three, four, five];
+
+	//This makes sure the existing rating reapears when page is refreshed.
+	for (const city of cit) {
+		for (let i=0; i<cityRatingName.length; i++) {
+			if (city === cityRatingName[i]) {
+				rated(cityRatingValue[i], city);
+			}
+		}
+	}
+
+	for (let j=1; j<=cit.length; j++) {
+		for (const star of a) {
+			star[j-1].addEventListener('mouseover', function(){handleStarSelect(event.target.name, event.target.value)});
+			star[j-1].addEventListener('mouseleave', function(){handleStarSelect(0, event.target.value)});
+		}
+	}
+
 }

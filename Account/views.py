@@ -94,13 +94,24 @@ def upload_avatar(request):
       return render(request,'upload_avatar.html')
     else:
         try:
+            # image = request.FILES['file']
+            # new_image = Image(image=image, imagename=image.name)
+            # imageName = str(new_image.image.name)
+            # new_image.save()
+            # print(imageName)
+            # src = '/media/thumimg/' + imageName
+            # response = {"code": 0, "msg": "", "data": {"src": src}}
+            # print(response)
+            # return HttpResponse(json.dumps(response))
             s = request.FILES.get('file')
             ext = os.path.splitext(s.name)[1]
             timestrap = time.strftime('%Y%m%d',time.gmtime())
             md5_pwd = get_md5()
             NewFileName ="%s$$%s%s"%(s.name,md5_pwd,ext)
             file_save_path  = os.path.join(settings.BASE_DIR, "static", "uploads",timestrap)
+            print(file_save_path)
             if not os.path.exists(file_save_path):
+                print(1111)
                 os.mkdir(file_save_path)
             with open(os.path.join(file_save_path , NewFileName), 'wb') as f:
                 for i in s.chunks():
