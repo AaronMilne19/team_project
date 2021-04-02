@@ -95,9 +95,11 @@ def send_somewhere_random(request):
     rand_attraction = rand_attractions[rand_num]
 
     return redirect('/home/cities/' + rand_attraction.City.NameSlug + '/attractions/' + rand_attraction.NameSlug + '/')
-    
+
+
 def citypage_unsorted(request, NameSlug):
     return citypage(request, NameSlug, "")
+
 
 def citypage(request, NameSlug, sortBy):
     ctx = {}
@@ -144,11 +146,46 @@ def attractionpage(request, CityNameSlug, AttractionNameSlug):
 
     if request.user.is_authenticated:
         user = MVUser.objects.get(DjangoUser=request.user)
-        for attr in user.SavedAttractions.all():
-            if attr == attraction:
-                ctx['saved_attraction'] = attraction
+        try:
+            ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+        except Exception:
+            ctx['my_review'] = None
+        finally:
+            for attr in user.SavedAttractions.all():
+                if attr == attraction:
+                    ctx['saved_attraction'] = attraction
     
     return render(request, 'attractionpage.html', context=ctx)
+
+
+def view_review(request, CityNameSlug, AttractionNameSlug, ReviewIdSlug):
+    review = AttractionReviews.objects.get(id=ReviewIdSlug)
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(City=city, NameSlug=AttractionNameSlug)
+
+    ctx = {}
+    ctx['city'] = city
+    ctx['attraction'] = attraction
+    ctx['review'] = review
+    ctx['reviewer'] = review.UserReviewing
+    ctx['reviewer_rating'] = review.Rating
+
+    duration = str(review.TimeTaken).split(':')
+    ctx['time'] = duration
+
+    if request.user.is_authenticated:
+        user = MVUser.objects.get(DjangoUser=request.user)
+        ctx['users_rating'] = attraction.getUsersRating(request.user)
+        try:
+            ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+        except Exception:
+            ctx['my_review'] = None
+        finally:
+            for attr in user.SavedAttractions.all():
+                if attr == attraction:
+                    ctx['saved_attraction'] = attraction
+
+    return render(request, 'view_review.html', context=ctx)
 
 
 @login_required
@@ -208,7 +245,16 @@ def leave_a_review(request, CityNameSlug, AttractionNameSlug):
     ctx['form'] = form
     ctx['users_rating'] = attraction.getUsersRating(request.user)
 
-    return render(request, 'leave_a_review.html', context=ctx)
+    try:
+        ctx['my_review'] = AttractionReviews.objects.get(UserReviewing=user, AttractionReviewed=attraction)
+    except Exception:
+        ctx['my_review'] = None
+    finally:
+        for attr in user.SavedAttractions.all():
+            if attr == attraction:
+                ctx['saved_attraction'] = attraction
+
+        return render(request, 'leave_a_review.html', context=ctx)
 
 
 @login_required

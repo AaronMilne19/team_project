@@ -84,7 +84,8 @@
         					{% endfor %}   
                         </div>
                         <div class="col-md-5 p-3">
-                            {{ review.Title }} <br /><a href="#" class="fw-bold">Read the full review.</a>
+                            {{ review.Title }} <br /><a href="{% url 'home:view_review' city.NameSlug attraction.NameSlug review.id %}"
+                                                        class="fw-bold">Read the full review.</a>
                         </div>
                         <div class="col-md-2">
                             <div class="align-top">like</div>
