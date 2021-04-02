@@ -11,6 +11,7 @@
 <script src="{% static 'scripts/rateCity.js' %}" defer></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 <script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
+<script src="{% static 'scripts/likeReview.js' %}"></script>
 <script language="javascript">
     function apiLoaded() {
       map = initMap({lat:{{attraction.CoordinateNorth}},lng:{{attraction.CoordinateEast}}});
@@ -34,6 +35,9 @@
 <script>
     var savedAttr = []
     savedAttr.push("{{saved_attraction.NameSlug}}");
+</script>
+<script>
+    updateLikes("{% url 'home:attraction_review_likes' attraction.City.NameSlug attraction.NameSlug %}");
 </script>
 
 {% endblock %}
@@ -75,10 +79,10 @@
                       
                       {% for review in reviews %}
                       <div class="row ms-2 me-2 border">
-                        <div class="col-md-2 p-3 border">
+                        <div class="col-md-2 p-3">
                             {{ review.UserReviewing.Name }} {{ review.UserReviewing.Surname|first }}.<br />({{ review.UserReviewing.DjangoUser.username }})
                         </div>
-                        <div class="col-md-3 p-3 border d-flex align-items-center text-center">
+                        <div class="col-md-3 p-3 d-flex align-items-center text-center">
                             {% for i in '12345'|make_list %}
             					{% if review.Rating > forloop.counter0 %}
             					   <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
@@ -87,12 +91,26 @@
             					{% endif %}
         					{% endfor %}   
                         </div>
-                        <div class="col-md-5 p-3 border align-middle">
-                            <p>{{ review.Title }} <br /><a href="#" class="fw-bold">Read the full review.</a></p>
+                        <div class="col-md-5 p-3  d-flex align-items-center">
+                            <p>{{ review.Title }}<br /><a href="#" class="fw-bold">Read the full review.</a></p>
                         </div>
-                        <div class="col-md-2">
-                            <div class="row">yes</div>
-                            <div class="row">no</div>
+                        <div class="col-md-2 votes" data-id="{{ review.id }}">
+                            <div class="row h-50 align-items-center">
+                                <div class="col text-end">
+                                    <span class="upvote"></span>
+                                </div>
+                                <div class="col text-start">
+                                    <span class="upvotes"></span>
+                                </div>
+                            </div>
+                            <div class="row h-50 align-items-center">
+                                <div class="col text-end">
+                                    <span class="downvote"></span>
+                                </div>
+                                <div class="col text-start">
+                                    <span class="downvotes"></span>
+                                </div>
+                            </div>
                         </div>
                       </div>
                       {% endfor %}
