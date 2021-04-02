@@ -1,15 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .AccountForm import RegisterForm, LoginForm,UserInfomationForm
+from .AccountForm import RegisterForm, LoginForm, UserInfomationForm
 from django.contrib.auth.models import User
 from home.models import MVUser
-from django.contrib.auth import authenticate, login as auth_login,logout as auth_loginout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_loginout
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-import hashlib,os,time
-
+import hashlib, os, time
 
 
 def register(request):
@@ -26,13 +25,15 @@ def register(request):
                 password=registerForm.cleaned_data["password"],
                 email=registerForm.cleaned_data["email"],
             )
-            Nvuser = MVUser(DjangoUser=user, DateOfBirth=registerForm.cleaned_data["brith"],Surname=registerForm.cleaned_data["surname"])
+            Nvuser = MVUser(DjangoUser=user, DateOfBirth=registerForm.cleaned_data["brith"],
+                            Surname=registerForm.cleaned_data["surname"])
             Nvuser.save()
             status = True
             auth_login(request, user)
             return JsonResponse({"status": status, "msg": "register sucess!"})
         else:
             return JsonResponse({"status": status, "res": registerForm.errors.as_json()})
+
 
 def login(request):
     if request.method == "GET":
@@ -50,18 +51,18 @@ def login(request):
             if user is not None:
                 auth_login(request, user)
 
-
                 return JsonResponse({"status": status, "msg": "Login Successful!"})
             else:
                 return JsonResponse({"status": status, "msg": "login failed!"})
         else:
             return JsonResponse({"status": status, "res": loginForm.errors.as_json()})
 
+
 @login_required(login_url="/login")
 def account(request):
-    if request.method=="GET":
-        user=request.user
-        userprofile=MVUser.objects.get(DjangoUser=user)
+    if request.method == "GET":
+        user = request.user
+        userprofile = MVUser.objects.get(DjangoUser=user)
         # userInfomationForm=UserInfomationForm({
         #     "username":user.username,
         #     "email":user.email,
@@ -69,29 +70,30 @@ def account(request):
         #     "fristname":user.first_name,
         #     "brith":userprofile.DateOfBirth
         # })
-        return render(request,'Account_Settings.html',{"userprofile":userprofile,"user":user})
+        return render(request, 'Account_Settings.html', {"userprofile": userprofile, "user": user})
     else:
         userInfomationForm = UserInfomationForm(request.POST)
-        status=False
+        status = False
         if userInfomationForm.is_valid():
             user = request.user
             userprofile = MVUser.objects.get(DjangoUser=user)
-            user.username=userInfomationForm.cleaned_data["username"]
-            user.first_name=userInfomationForm.cleaned_data["fristname"]
-            user.email=userInfomationForm.cleaned_data["email"]
-            userprofile.Surname=userInfomationForm.cleaned_data["surname"]
-            userprofile.DateOfBirth=userInfomationForm.cleaned_data["brith"]
+            user.username = userInfomationForm.cleaned_data["username"]
+            user.first_name = userInfomationForm.cleaned_data["fristname"]
+            user.email = userInfomationForm.cleaned_data["email"]
+            userprofile.Surname = userInfomationForm.cleaned_data["surname"]
+            userprofile.DateOfBirth = userInfomationForm.cleaned_data["brith"]
             user.save()
             userprofile.save()
-            status=True
-            return JsonResponse({"status":status,"msg":"Sucessful!"})
+            status = True
+            return JsonResponse({"status": status, "msg": "Sucessful!"})
         else:
-            return JsonResponse({"status":status,"res":userInfomationForm.errors.as_json()})
+            return JsonResponse({"status": status, "res": userInfomationForm.errors.as_json()})
+
 
 @login_required(login_url="/login")
 def upload_avatar(request):
-    if request.method=="GET":
-      return render(request,'upload_avatar.html')
+    if request.method == "GET":
+        return render(request, 'upload_avatar.html')
     else:
         try:
             # image = request.FILES['file']
@@ -105,15 +107,16 @@ def upload_avatar(request):
             # return HttpResponse(json.dumps(response))
             s = request.FILES.get('file')
             ext = os.path.splitext(s.name)[1]
-            timestrap = time.strftime('%Y%m%d',time.gmtime())
+            timestrap = time.strftime('%Y%m%d', time.gmtime())
             md5_pwd = get_md5()
-            NewFileName ="%s$$%s%s"%(s.name,md5_pwd,ext)
-            file_save_path  = os.path.join(settings.BASE_DIR, "static", "uploads",timestrap)
+            NewFileName = "%s$$%s%s" % (s.name, md5_pwd, ext)
+            file_save_path = os.path.join(settings.BASE_DIR, "static", "uploads", timestrap)
             print(file_save_path)
             if not os.path.exists(file_save_path):
                 print(1111)
-                os.mkdir(file_save_path)
-            with open(os.path.join(file_save_path , NewFileName), 'wb') as f:
+                # os.mkdir(file_save_path)
+                os.makedirs(file_save_path)
+            with open(os.path.join(file_save_path, NewFileName), 'wb') as f:
                 for i in s.chunks():
                     f.write(i)
             res = {
@@ -123,8 +126,8 @@ def upload_avatar(request):
                     "src": "/" + os.path.join("static", "uploads", timestrap, NewFileName).replace("\\", "/"),
                 }
             }
-            userprofile=MVUser.objects.get(DjangoUser=request.user)
-            userprofile.Avatar="/" + os.path.join("static", "uploads", timestrap, NewFileName).replace("\\", "/")
+            userprofile = MVUser.objects.get(DjangoUser=request.user)
+            userprofile.Avatar = "/" + os.path.join("static", "uploads", timestrap, NewFileName).replace("\\", "/")
             userprofile.save()
         except:
             res = {
@@ -133,6 +136,7 @@ def upload_avatar(request):
             }
         return JsonResponse(res)
 
+
 @login_required(login_url="/login")
 def loginout(request):
     '''
@@ -140,8 +144,10 @@ def loginout(request):
     '''
     auth_loginout(request)
     return redirect('/account/login/')
+
+
 def get_md5():
-    time_now=timezone.now()
-    m=hashlib.md5()
+    time_now = timezone.now()
+    m = hashlib.md5()
     m.update(str(time_now).encode())
-    return  m.hexdigest()
+    return m.hexdigest()

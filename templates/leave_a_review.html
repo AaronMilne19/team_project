@@ -8,7 +8,6 @@ Leave a Review
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/leave_a_review.css' %}">
-<script src="{% static 'scripts/rateAttraction.js' %}" defer></script>
 <script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
 
 <script>
@@ -30,7 +29,7 @@ Leave a Review
 
 {% block content %}
 {% load crispy_forms_tags %}
-<section>
+<section class="container">
     <div class="row">
         <!--main section-->
         <div class="col-8 main1">
@@ -59,7 +58,9 @@ Leave a Review
                         {{form.Picture|as_crispy_field}}
                     </div>
                     <br />
-                    <p class="warning">Warning: Leaving a review will override any previous review you have left for this attraction.</p>
+                    {% if my_review %}
+                    <p class="warning">Warning: Leaving a review will override your previous review for this attraction.</p>
+                    {% endif %}
                     <input type="submit" name="submit" value="Submit Review" class="btn btn-primary" />
                 </form>
             </div>
