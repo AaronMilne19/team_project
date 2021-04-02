@@ -64,7 +64,9 @@
 
 <div class="col-md">
 <div class="green-content-container d-grid gap-2 sticky-md-top" style="top: 4rem">
+
     <img src="{{ MEDIA_URL }}{{ attraction.HeaderPicture }}" alt="{{ attraction.Name }}" title="{{ attraction.Name }}" class="img-fluid" />
+    
     <div class="rating-container fw-bold">
   		<li>
 	Average User Rating:
@@ -75,8 +77,9 @@
 			   <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
 			{% endif %}
 	{% endfor %}
-</li>
+        </li>
     </div>
+    
     {% if user.is_authenticated %}
     {% if users_rating > 0 %}
         <div class="rating-container fw-bold">
@@ -123,5 +126,6 @@
         </svg>
     </button>
     {% endif %}
+    
 </div>
 </div>

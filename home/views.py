@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
+from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User, ReviewLikes
 from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
@@ -266,3 +266,28 @@ def remove_review(request, CityNameSlug, AttractionNameSlug):
     review.delete()
 
     return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
+
+def attraction_review_likes(request, CityNameSlug, AttractionNameSlug):
+    if request.user.is_authenticated: 
+        user = MVUser.objects.get(DjangoUser=request.user)
+    
+    city = City.objects.get(NameSlug=CityNameSlug)
+    attraction = Attraction.objects.get(NameSlug=AttractionNameSlug, City=city)
+    reviews = AttractionReviews.objects.filter(AttractionReviewed=attraction).all()
+    
+    likes = {}
+    
+    for review in reviews:
+        if request.user.is_authenticated:
+          try: 
+              if ReviewLikes.objects.get(UserLiking=user, ReviewLiked=review).Like:
+                  like = 1;
+              else: 
+                  like = -1;
+          except ReviewLikes.DoesNotExist:
+              like = 0
+        else: 
+            like = 0
+        likes[review.id] = {'like': like, 'likes': review.getLikes(), 'dislikes': review.getDislikes()}
+
+    return JsonResponse(likes)

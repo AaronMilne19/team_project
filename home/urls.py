@@ -17,5 +17,6 @@ urlpatterns = [
     path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/leave-a-review/', views.leave_a_review, name="leave_a_review"),
     path('myreviews/', views.myreviews, name="myreviews"),
     path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/remove-review/', views.remove_review, name="remove_review"),
-    path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/reviews/<slug:ReviewIdSlug>', views.view_review, name="view_review")
+    path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/reviews/<slug:ReviewIdSlug>', views.view_review, name="view_review"),
+    path('cities/<slug:CityNameSlug>/attractions/<slug:AttractionNameSlug>/review_likes/', views.attraction_review_likes, name="attraction_review_likes")
 ]
