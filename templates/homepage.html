@@ -26,7 +26,7 @@ Home
 </script>
 <script>
 	function apiLoaded() {
-		map = initMap({ lat: {{ center.lat }}, lng: { { center.lng } }});
+		map = initMap({ lat: {{ center.lat }}, lng: {{ center.lng }} });
 	map.setZoom(4);
 	markers = [];
 	{% for attraction in attractions %}

@@ -134,7 +134,7 @@ class ReviewLikes(models.Model):
     ReviewLiked = models.ForeignKey(AttractionReviews, on_delete=models.CASCADE)
     UserLiking = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep likes from deleted users as above
     
-    Like = models.BooleanField()
+    Like = models.BooleanField(null=True)
     
     class Meta(): 
         verbose_name_plural = 'Review Likes'
