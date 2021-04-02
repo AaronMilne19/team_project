@@ -246,4 +246,3 @@ def attraction_review_likes(request, CityNameSlug, AttractionNameSlug):
         likes[review.id] = {'like': like, 'likes': review.getLikes(), 'dislikes': review.getDislikes()}
 
     return JsonResponse(likes)
-    
