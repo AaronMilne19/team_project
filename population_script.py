@@ -10,9 +10,7 @@ from django.db import transaction
 from django.conf import settings
 from django.template.defaultfilters import slugify
 
-from datetime import datetime, date, timedelta,time
-# from datetime import datetime
-# from datetime import time
+from datetime import datetime, date, timedelta
 
 @transaction.atomic
 def populate():
@@ -124,9 +122,6 @@ def populate():
   
 # Thx to https://www.kite.com/python/answers/how-to-generate-a-random-date-between-two-dates-in-python for making my life a bit easier        
 def random_date(start, end):
-
-    start_date = time.fromisoformat(start)
-    print(start_date)
     start_date = date.fromisoformat(start)
     time_between_dates = date.fromisoformat(end) - start_date
     days_between_dates = time_between_dates.days
