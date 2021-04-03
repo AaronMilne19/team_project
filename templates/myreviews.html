@@ -77,7 +77,8 @@ My Reviews
                                                 style="text-decoration: none; font-size: 85%;">View attraction's
                                                 page</a></button>
                                         <button type="button" class="btn btn-outline-primary review-button btn-sm"><a
-                                                href="#" style="text-decoration: none; font-size: 85%;">View full
+                                                href="{% url 'home:view_review' review.AttractionReviewed.City.NameSlug review.AttractionReviewed.NameSlug review.id %}"
+                                                style="text-decoration: none; font-size: 85%;">View full
                                                 review</a></button>
                                     </div>
                                 </div>
