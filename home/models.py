@@ -116,6 +116,12 @@ class AttractionReviews(models.Model):
     Picture = models.ImageField(upload_to="attraction_review_pictures", null=True)
     DateAdded = models.DateTimeField(auto_now_add=True)
     
+    def getLikes(self):
+        return ReviewLikes.objects.filter(ReviewLiked=self, Like=True).count()
+
+    def getDislikes(self):
+        return ReviewLikes.objects.filter(ReviewLiked=self, Like=False).count()
+    
     class Meta(): 
         verbose_name_plural = 'Attraction Reviews'
     
@@ -128,7 +134,7 @@ class ReviewLikes(models.Model):
     ReviewLiked = models.ForeignKey(AttractionReviews, on_delete=models.CASCADE)
     UserLiking = models.ForeignKey(MVUser, on_delete=models.CASCADE) # SUGGESTION: we might want to keep likes from deleted users as above
     
-    Like = models.BooleanField()
+    Like = models.BooleanField(null=True)
     
     class Meta(): 
         verbose_name_plural = 'Review Likes'

@@ -21,7 +21,7 @@
 </script>
 <script>
     function apiLoaded() {
-        map = initMap({ lat: {{ center.lat }}, lng: { { center.lng } }});
+        map = initMap({ lat: {{ center.lat }}, lng: {{ center.lng }} });
     markers = [];
     {% for attraction in attractions %}
     markers.push(addMarker(map, {{ attraction.CoordinateNorth }}, {{ attraction.CoordinateEast }}, '{{attraction.Name}}', {{ attraction.pk }}));
