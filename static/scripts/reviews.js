@@ -34,26 +34,29 @@ function setUpLiking(reviewsDiv, urlRoot, sortBy){
 
 function handleLike(id, like, dislike, urlRoot, sortBy){
     if (like.classList.contains("upvoted")){
-        modifyLike(urlRoot, id, "remove");
+        modifyLike(urlRoot, id, "remove", sortBy);
     }
     else {
-        modifyLike(urlRoot, id, "like");
+        modifyLike(urlRoot, id, "like", sortBy);
     }
-    updateReviews(urlRoot, sortBy);
 }
 function handleDislike(id, like, dislike, urlRoot, sortBy){
     if (dislike.classList.contains("downvoted")){
-        modifyLike(urlRoot, id, "remove");
+        modifyLike(urlRoot, id, "remove", sortBy);
     }
     else {
-        modifyLike(urlRoot, id, "dislike");
+        modifyLike(urlRoot, id, "dislike", sortBy);
     }
-    updateReviews(urlRoot, sortBy);
 }
 
-function modifyLike(urlRoot, id, action){
+function modifyLike(urlRoot, id, action, sortBy){
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", urlRoot + "modify_review_like/" + id + "/" + action, true);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           updateReviews(urlRoot, sortBy); 
+        }
+    }; 
     xhttp.send();
 }
 
