@@ -11,7 +11,6 @@
 <script src="{% static 'scripts/rateCity.js' %}" defer></script>
 <script src="{% static 'scripts/viewOnMap.js' %}"></script>
 <script src="{% static 'scripts/saveAttraction.js' %}" defer></script>
-<script src="{% static 'scripts/reviews.js' %}"></script>
 <script language="javascript">
     function apiLoaded() {
       map = initMap({lat:{{attraction.CoordinateNorth}},lng:{{attraction.CoordinateEast}}});
@@ -36,9 +35,6 @@
     var savedAttr = []
     savedAttr.push("{{saved_attraction.NameSlug}}");
 </script>
-<script>
-    updateReviews("{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}", "list");
-</script>
 
 {% endblock %}
 
@@ -48,25 +44,21 @@
         <div class="col-md-8">
             <h1>{{ attraction.Name }}</h1>
             <div class="row mt-2">
-                <div class="col-md d-grid gap-2 mb-2">
-                    <div class="content-container d-flex flex-column align-items-center text-center pb-0">
+                <div class="col-md d-grid gap-2">
+                    <div class="content-container d-flex flex-column align-items-center text-center">
                         <span class="fs-6">Description</span>
-                        <p style="font-size: 0.8rem; margin: 0">{{ attraction.Description }}</p>
+                        {{ attraction.Description }}
                     </div>
-                    <div class="content-container d-flex flex-column align-items-center text-center pb-0">
+                    <div class="content-container d-flex flex-column align-items-center text-center">
                         <span class="fs-6">Average time taken to see this attraction</span>
                         <span class="fs-5">{{ attraction.getAverageTimeSpent.hours }} hours {{ attraction.getAverageTimeSpent.minutes }} minutes</span>
                     </div>
-                    <div class="content-container d-flex flex-column align-items-center text-center pb-0">
+                    <div class="content-container d-flex flex-column align-items-center text-center">
                         <span class="fs-6">Views by users</span>
                         <span class="fs-5">{{ attraction.Views }}</span>
                     </div>
-                    <div class="content-container d-flex flex-column align-items-center text-center pb-0">
-                        <span class="fs-6">Part of City</span>
-                        <span class="fs-5"><a href="{% url 'home:citypage' attraction.City.NameSlug 'list' %}">{{ attraction.City.Name }}</a></span>
-                    </div>
                 </div>
-                <div class="col-md mb-2">
+                <div class="col-md">
                     <div class="content-container">
                         <div id="map"></div>
                     </div>      
@@ -75,35 +67,32 @@
             <div class="row mt-2">
                 <div class="col-md">
                   <div class="content-container">
-                    <div class="row">
-                        <div class="col-9">
-                            <h2 class="ms-auto me-auto">User Reviews</h2>
+                      <h2>User Reviews</h2>
+                      
+                      {% for review in reviews %}
+                      <div class="row ms-2 me-2 border">
+                        <div class="col-md-2 p-3">
+                            {{ review.UserReviewing.Name }} {{ review.UserReviewing.Surname|first }}.<br />({{ review.UserReviewing.DjangoUser.username }})
                         </div>
-                        <div class="col">
-                      <div class="dropdown">
-                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort By:
-                            </a>
-
-                            <ul class="dropdown-menu" style="z-index:1500" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item" href="#/" onclick="document.getElementById('dropdownMenuLink').innerHTML='Most Popular';updateReviews('{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}', 'popular');">Most Popular</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#/" onclick="document.getElementById('dropdownMenuLink').innerHTML='Newest First';updateReviews('{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}', 'new');">Newest First</a>
-                                </li>
-                                <li>
-                                    <a class=" dropdown-item" href="#/" onclick="document.getElementById('dropdownMenuLink').innerHTML='Top Rated';updateReviews('{% url 'home:attractionpage' attraction.City.NameSlug attraction.NameSlug %}', 'rating');">Top Rated</a>
-                                </li>
-                            </ul>
+                        <div class="col-md-3 p-3">
+                            {% for i in '12345'|make_list %}
+            					{% if review.Rating > forloop.counter0 %}
+            					   <span class="fa fa-star fa-lg checked me-1 checked" value="{{ forloop.counter }}"></span>
+            					{% else %}
+            					   <span class="fa fa-star fa-lg me-1" value="{{ forloop.counter }}"></span>
+            					{% endif %}
+        					{% endfor %}   
                         </div>
+                        <div class="col-md-5 p-3">
+                            {{ review.Title }} <br /><a href="{% url 'home:view_review' city.NameSlug attraction.NameSlug review.id %}"
+                                                        class="fw-bold">Read the full review.</a>
                         </div>
-                    </div>
-                        
-                      <div id="reviews_feed">
-                        Loading reviews...
+                        <div class="col-md-2">
+                            <div class="align-top">like</div>
+                            <div class="align-bottom">dislike </div>
+                        </div>
                       </div>
+                      {% endfor %}
                       
                   </div>
                 </div>
