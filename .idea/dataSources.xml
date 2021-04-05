@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db" uuid="3b1b0f4a-a1f2-43f7-8601-0996312b763d">
+    <data-source source="LOCAL" name="db" uuid="d49c9051-4f0f-405d-bf8f-d0071f021a19">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\lhh\wachat\WeChat Files\wxid_ehu76qaeca2i21\FileStorage\File\2021-04\team_project-main (19)\team_project-main\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\lhh\python\projects\team_project\db.sqlite3</jdbc-url>
       <libraries>
         <library>
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/license.txt</url>

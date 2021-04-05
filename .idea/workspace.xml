@@ -1,65 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5cf3f5d8-b181-4ba2-94ff-37bba41c6e51" name="Default" comment="" />
+    <list default="true" id="e0508e4b-0e24-4f40-9174-12c1f51fecb3" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/team_project$headers.coverage" NAME="headers转换 Coverage Results" MODIFIED="1617587361857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$" />
+    <SUITE FILE_PATH="coverage/team_project$Test__Account_tests_TestAccountViews_test_login.coverage" NAME="Test: Account.tests.TestAccountViews.test_login Coverage Results" MODIFIED="1617589676288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Account/tests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="96" column="52" lean-forward="true" selection-start-line="96" selection-start-column="52" selection-end-line="96" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/env/Lib/site-packages/django/test/client.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="539" column="44" selection-start-line="539" selection-start-column="44" selection-end-line="539" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/team_project/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="129" selection-start-line="129" selection-end-line="129" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Account/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="144" column="26" selection-start-line="144" selection-start-column="26" selection-end-line="144" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Account/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>upload_avatar</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="HTML File" />
+        <option value="$PROJECT_DIR$/Account/views.py" />
+        <option value="$PROJECT_DIR$/Account/tests.py" />
       </list>
     </option>
   </component>
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="32" />
+    <option name="y" value="64" />
+    <option name="width" value="1434" />
+    <option name="height" value="1100" />
   </component>
-  <component name="ProjectId" id="1qJtOOun6sxfbCTDH5OBC0TTHyE" />
+  <component name="ProjectId" id="1qeCPg0OJa3E5Y1e1Kcl0D150hJ" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="team_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="team_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+              <item name="Account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="team_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="team_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="team_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+              <item name="team_project" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="sqlite" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Account" />
-      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="C:\Users\PC\Desktop\team_project\static\images" />
+      <recent name="D:\lhh\python\projects\team_project\Account" />
+      <recent name="D:\lhh\python\projects\team_project\home" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.team_project-main">
-    <configuration name="populate_mustvisit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="team_project-main" />
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Django tests.Test: Account.tests.TestAccountViews.test_login">
+    <configuration name="Test: Account.tests.TestAccountViews.test_login" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="team_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/populate_mustvisit.py" />
+      <option name="TARGET" value="Account.tests.TestAccountViews.test_login" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="新建文本文档" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="team_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/demo/咸鱼项目" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/demo/咸鱼项目/新建文本文档.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -68,8 +206,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="team_project-main" type="Python.DjangoServer" factoryName="Django server">
-      <module name="team_project-main" />
+    <configuration name="headers转换" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="team_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/headers转换.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="team_project" type="Python.DjangoServer" factoryName="Django server">
+      <module name="team_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -77,12 +237,12 @@
         <env name="DJANGO_SETTINGS_MODULE" value="team_project.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8001" />
+      <option name="port" value="8000" />
       <option name="host" value="" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
@@ -92,13 +252,11 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Django Server.team_project-main" />
-      <item itemvalue="Python.populate_mustvisit" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.populate_mustvisit" />
+        <item itemvalue="Django tests.Test: Account.tests.TestAccountViews.test_login" />
+        <item itemvalue="Python.headers转换" />
+        <item itemvalue="Python.新建文本文档" />
       </list>
     </recent_temporary>
   </component>
@@ -107,76 +265,166 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5cf3f5d8-b181-4ba2-94ff-37bba41c6e51" name="Default" comment="" />
-      <created>1615506280206</created>
+      <changelist id="e0508e4b-0e24-4f40-9174-12c1f51fecb3" name="Default Changelist" comment="" />
+      <created>1617430646007</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1615506280206</updated>
-      <workItem from="1616809502797" duration="1999000" />
-      <workItem from="1617271566111" duration="1877000" />
+      <updated>1617430646007</updated>
+      <workItem from="1617430649818" duration="3427000" />
+      <workItem from="1617515749703" duration="7329000" />
+      <workItem from="1617587283295" duration="4599000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Test__Account_tests_TestAccountViews_test_login - 2021.04.05 at 10h 27m 59s.xml">
+      <configuration name="Test: Account.tests.TestAccountViews.test_login" configurationId="DjangoTestsConfigurationType" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="4599000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.3954496" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3347779" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="SciView" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="490" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617272223608">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1617522651014">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="104" y="62" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.800@0.0.1280.800" timestamp="1616809643573" />
-    <state x="490" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617272223608" />
-    <state x="695" y="320" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617271989888">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617522651014" />
+    <state width="1877" height="568" key="GridCell.Tab.0.bottom" timestamp="1617522952047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="695" y="320" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617271989888" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617272536856">
+    <state width="1877" height="568" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617522952047" />
+    <state width="1877" height="568" key="GridCell.Tab.0.center" timestamp="1617522952047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617272536856" />
-    <state x="482" y="181" key="FileChooserDialogImpl" timestamp="1617271673002">
+    <state width="1877" height="568" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617522952047" />
+    <state width="1877" height="568" key="GridCell.Tab.0.left" timestamp="1617522952047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="482" y="181" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617271673002" />
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1617273449574">
+    <state width="1877" height="568" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617522952047" />
+    <state width="1877" height="568" key="GridCell.Tab.0.right" timestamp="1617522952047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1238" height="211" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1616809719462" />
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617273449574" />
-    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1617273449574">
+    <state width="1877" height="568" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617522952047" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1617516204640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1238" height="211" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1616809719457" />
-    <state width="1877" height="285" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617273449574" />
-    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1617273449574">
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1617516204640" />
+    <state x="1006" y="266" width="596" height="532" key="find.popup" timestamp="1617433422824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1238" height="211" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1616809719455" />
-    <state width="1877" height="285" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617273449574" />
-    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1617273449574">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1238" height="211" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1616809719461" />
-    <state width="1877" height="285" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617273449574" />
-    <state width="220" height="477" key="HiddenNamespacesPopup" timestamp="1617272463074">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="220" height="477" key="HiddenNamespacesPopup/0.0.1920.1040@0.0.1920.1040" timestamp="1617272463074" />
-    <state x="399" y="199" width="998" height="709" key="SettingsEditor" timestamp="1617272968765">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="399" y="199" width="998" height="709" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1617272968765" />
-    <state x="540" y="175" key="com.intellij.database.dbimport.ImportDialog" timestamp="1617272141240">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="540" y="175" key="com.intellij.database.dbimport.ImportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617272141240" />
-
-    <state x="340" y="157" width="600" height="486" key="find.popup" timestamp="1616809609432">
-      <screen x="0" y="0" width="1280" height="800" />
-    </state>
-    <state x="340" y="157" width="600" height="486" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1616809609432" />
+    <state x="1006" y="266" width="596" height="532" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617433422824" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/team_project_main$populate_mustvisit.coverage" NAME="populate_mustvisit Coverage Results" MODIFIED="1617272899697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/team_project$.coverage" NAME="新建文本文档 Coverage Results" MODIFIED="1617516194104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/demo/咸鱼项目" />
+    <SUITE FILE_PATH="coverage/team_project$headers.coverage" NAME="headers转换 Coverage Results" MODIFIED="1617522732363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Account/context_peocessors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Account/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team_project/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="129" selection-start-line="129" selection-end-line="129" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/Lib/site-packages/django/test/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="539" column="44" selection-start-line="539" selection-start-column="44" selection-end-line="539" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210403/641.jpg$$210845a6a4f7402cbd49dadaa16d40b3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210404/屏幕截图(1).png$$f20feba99288ec0b74d3a17cf254b369.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210404/屏幕截图(1).png$$1fa210da39f2700b728cbcb8dec38b31.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210405/test.jpg$$e32c1695c7531645d12eea7b4eee98ee.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210405/d9e636939a75196be7a23d905d90ba4e_1366_768.jpg$$5f61c82cefd126b3b0c9c3f9cc021a8e.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210405/test.jpg$$b0a55eee0e057a9eb4fb4456475d55b4.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210405/test.jpg$$2c0bb2ddf3c8740eb5b69b747ec5b8b3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/uploads/20210405/test.jpg$$b6e9bcafe63dfd8e3da2b3278837c3ba.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Account/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="144" column="26" selection-start-line="144" selection-start-column="26" selection-end-line="144" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Account/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="96" column="52" lean-forward="true" selection-start-line="96" selection-start-column="52" selection-end-line="96" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

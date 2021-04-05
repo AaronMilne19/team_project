@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User, ReviewLikes
+from home.models import City, Attraction, AttractionReviews, CityRatings, MVUser, User
 from django.http import Http404, JsonResponse
 from random import randint
 from django.contrib.auth.decorators import login_required
@@ -266,80 +266,3 @@ def remove_review(request, CityNameSlug, AttractionNameSlug):
     review.delete()
 
     return redirect(reverse('home:attractionpage', kwargs={'CityNameSlug': CityNameSlug, 'AttractionNameSlug': AttractionNameSlug}))
-
-def attraction_reviews_feed(request, CityNameSlug, AttractionNameSlug, sortBy):
-    ctx = {}
-    if request.user.is_authenticated: 
-        ctx['user'] = MVUser.objects.get(DjangoUser=request.user)
-    
-    ctx['city'] = City.objects.get(NameSlug=CityNameSlug)
-    ctx['attraction'] = Attraction.objects.get(NameSlug=AttractionNameSlug, City=ctx['city'])
-    if sortBy == "popular":
-        reviews = sorted(AttractionReviews.objects.filter(AttractionReviewed=ctx['attraction']).all(), key=lambda a: -(a.getLikes()+a.getDislikes())) 
-    elif sortBy == "new":
-        reviews = AttractionReviews.objects.filter(AttractionReviewed=ctx['attraction']).order_by('-DateAdded');
-    elif sortBy == "rating":
-        reviews = sorted(AttractionReviews.objects.filter(AttractionReviewed=ctx['attraction']).all(), key=lambda a: -a.getLikes())  
-    else:
-        reviews = AttractionReviews.objects.filter(AttractionReviewed=ctx['attraction']).all()
-    
-    ctx['reviews'] = [] 
-    
-    for review in reviews:
-        if request.user.is_authenticated:
-          try: 
-              if ReviewLikes.objects.get(UserLiking=ctx['user'], ReviewLiked=review).Like:
-                  like = 1;
-              else: 
-                  like = -1;
-          except ReviewLikes.DoesNotExist:
-              like = 0
-        else: 
-            like = 0
-        
-        ctx['reviews'] += [{
-            'id': review.id, 
-            'Title': review.Title,
-            'user_name': review.UserReviewing.Name,
-            'user_surname': review.UserReviewing.Surname, 
-            'user_username': review.UserReviewing.DjangoUser.username,
-            'Rating': review.Rating,
-            'likes': review.getLikes(),
-            'dislikes': review.getDislikes(),
-            'user_liked': like
-        }]
-
-    return render(request, 'reviews_feed.html', context=ctx)
-    
-def modify_review_like(request, CityNameSlug, AttractionNameSlug, id, action):
-    city = City.objects.get(NameSlug=CityNameSlug)
-    attraction = Attraction.objects.get(NameSlug=AttractionNameSlug, City=city)
-    
-    if request.user.is_authenticated: 
-        user = MVUser.objects.get(DjangoUser=request.user)
-    else:
-        return JsonResponse({'success': False})
-        
-    try:
-        review = AttractionReviews.objects.get(AttractionReviewed=attraction, id=id)
-    except AttractionReviews.DoesNotExist:
-        return JsonResponse({'success': False})
-    
-    if (action == "like"):
-        likeObj = ReviewLikes.objects.get_or_create(ReviewLiked=review, UserLiking=user)[0]
-        likeObj.Like = True;
-        likeObj.save();
-        return JsonResponse({'success': True})
-    elif (action == "dislike"):
-        likeObj = ReviewLikes.objects.get_or_create(ReviewLiked=review, UserLiking=user)[0]
-        likeObj.Like = False;
-        likeObj.save();
-        return JsonResponse({'success': True})
-    elif (action == "remove"):
-        try:
-            ReviewLikes.objects.get(ReviewLiked=review, UserLiking=user).delete()
-            return JsonResponse({'success': True})
-        except ReviewLikes.DoesNotExist:
-            return JsonResponse({'success': False}) 
-    else:
-        return JsonResponse({'success': False}) 
